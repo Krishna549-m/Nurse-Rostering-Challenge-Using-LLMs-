@@ -1,0 +1,10 @@
+{
+  "thought": "Hard constraints are currently satisfied. The dominant soft penalties are consecutive_cost and non_working_days_cost, with significant weekend overages (max_working_weekend_cost) concentrated on Andrea/Sara/Nguyen/Patrick. Prior block_swap attempts frequently introduced illegal_succession hard violations, while a single-day swap produced a small improvement without breaking feasibility. Next, focus on weekend overages using multi-day restructuring but avoid illegal successions by preferring block moves that swap whole weekend patterns rather than isolated shift-type changes.",
+  "strategy": {
+    "neighborhood": "block_reassign",
+    "target_penalty": "max_working_weekend_cost + complete_weekends_cost (with secondary consecutive_cost/non_working_days_cost)",
+    "reason": "Weekend penalties are large and concentrated; block_reassign can move weekend assignments off over-limit nurses onto nurses with weekend capacity while potentially also repairing consecutive work/off patterns. Compared to block_swap, it can be guided to move coherent weekend blocks and reduce over-max totals for heavily loaded nurses (e.g., Stefaan/Nguyen) without needing complex cross-nurse shift-type exchanges.",
+    "avoid": "Avoid block_swap patterns that previously triggered illegal_succession; also avoid coverage_fill since adding shifts risks increasing total_assignment_cost and worsening weekend overages for already heavily scheduled nurses.",
+    "max_candidates": 100
+  }
+}

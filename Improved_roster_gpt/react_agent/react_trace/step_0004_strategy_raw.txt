@@ -1,0 +1,10 @@
+{
+  "thought": "Hard constraints are clean, but soft cost is dominated by consecutive_cost and non_working_days_cost, with notable weekend overages and some optimal coverage shortages. Prior block_swap attempts frequently created illegal_succession hard violations, while a single-day swap produced a small improvement. Block_reassign failed to generate moves, so we should continue with safer single-day structure changes that can break work/off streaks and reduce weekend pressure without chaining successions.",
+  "strategy": {
+    "neighborhood": "swap",
+    "target_penalty": "consecutive_cost + non_working_days_cost (secondary: max_working_weekend_cost/complete_weekends_cost)",
+    "reason": "Single-day swaps preserve coverage and are less likely than block moves to introduce illegal_succession, while directly addressing the largest penalties (consecutive work/off patterns) and can also shift weekend work away from over-limit nurses.",
+    "avoid": "Avoid block_swap due to repeated illegal_succession hard violations; avoid coverage_fill because several nurses are at/over max_total and adding shifts can worsen total_assignment_cost and weekend overages.",
+    "max_candidates": 100
+  }
+}

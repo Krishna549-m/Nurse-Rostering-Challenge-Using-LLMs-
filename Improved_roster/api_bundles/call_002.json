@@ -1,0 +1,150 @@
+[
+  {
+    "bundle_id": "sara_reduce_total_w4_late",
+    "reason": "Total assignment constraints: Sara has cost 220 (heavily over max_total 22). Removing her lone W3 weekend via weekend_repair week 2 (she works both Sat/Sun so not applicable), instead reassign her isolated W4_Fri L to Stefaan who is off and under his max. This cuts Sara's total overload and Stefaan is at his max already so avoid; reassign to Patrick who is OFF W4_Fri. Reduces Sara total.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Fri",
+        "from_nurse": "Sara",
+        "to_nurse": "Patrick",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "sara_reduce_total_w1_late",
+    "reason": "Total assignment constraints: Sara over max_total (cost 220). Reassign her W1_Fri L Nurse to Nguyen who is OFF W1_Fri and under min_total. Nguyen prior W1_Wed L then off, L on Fri fine; qualified. Reduces Sara overload and helps Nguyen total.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W1_Fri",
+        "from_nurse": "Sara",
+        "to_nurse": "Nguyen",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "sara_reduce_total_w3_late",
+    "reason": "Total assignment constraints: Sara over max_total (cost 220). Reassign W3_Fri L Nurse to Nguyen who is OFF W3_Fri, qualified, and Nguyen has a shift-off pref satisfied elsewhere. Nguyen prior W3_Thu N, N->L forbidden - avoid. Instead reassign to Patrick who is OFF W3_Fri, prior W3_Thu E, E->L allowed. Reduces Sara overload.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Fri",
+        "from_nurse": "Sara",
+        "to_nurse": "Patrick",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "stefaan_reduce_total_w3fri",
+    "reason": "Total assignment constraints: Stefaan over max_total (cost 100). Reassign W3_Fri E HeadNurse to Patrick who is OFF W3_Fri, qualified for HeadNurse, prior W3_Thu E so E->E fine. Reduces Stefaan overload.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Fri",
+        "from_nurse": "Stefaan",
+        "to_nurse": "Patrick",
+        "shift": "E",
+        "skill": "HeadNurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "sara_weekend_repair_w1",
+    "reason": "Max working weekend / Total assignments: Sara exceeds max weekends (cost 60) and is over-assigned. She works W1_Sat and W1_Sun (complete weekend). weekend_repair only removes one of a lone weekend; she works both so not applicable to week 0. Use week where she works only one - none. Instead reassign W1_Sat L to Nguyen off W1_Sat? Nguyen works E W1_Sat now. Reassign Sara W3_Sat N to Nguyen who is OFF W3_Sat, prior W3_Thu N so N->N fine, satisfies Nguyen W3_Sat pref, reduces Sara total and weekend load.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Sat",
+        "from_nurse": "Sara",
+        "to_nurse": "Nguyen",
+        "shift": "N",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "sara_w3sun_to_nguyen",
+    "reason": "Total/weekend constraints: Following Sara's W3_Sat move, reassign W3_Sun N to Nguyen who is OFF W3_Sun, satisfying complete weekend and Nguyen pref. Standalone: Nguyen prior W3_Thu N, but W3_Fri/Sat off in current, so needs the Sat move too. Combine Sat+Sun to give Nguyen a full weekend and cut Sara's weekend overload.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Sat",
+        "from_nurse": "Sara",
+        "to_nurse": "Nguyen",
+        "shift": "N",
+        "skill": "Nurse"
+      },
+      {
+        "type": "reassign",
+        "day": "W3_Sun",
+        "from_nurse": "Sara",
+        "to_nurse": "Nguyen",
+        "shift": "N",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "andrea_night_w1_extend",
+    "reason": "Consecutive constraints: Andrea has min-consecutive Night violations (cost 30 x3). Her W1 night block starts W1_Wed after 2 off days. History shows lastAssignedShiftType N with 2 consec. Reassign Patrick's W2_Fri L to reduce elsewhere is separate; here target Andrea W3 nights: her W3_Wed/Thu N is only 2 long (min 4). Extend by reassigning Sara's W3_Fri L off and giving Andrea a night is not a simple move. Instead reduce Andrea's isolated W2_Sun L which breaks weekend; reassign to Patrick OFF W2_Sun, prior W2_Sat off, next W3_Mon E, L->E forbidden - avoid. Use Nguyen OFF W2_Sun prior W2_Sat E, E->L allowed, qualified.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Sun",
+        "from_nurse": "Andrea",
+        "to_nurse": "Nguyen",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "sara_pref_w4thu_and_total",
+    "reason": "Preferences + Total: Sara has W4_Thu shift-off request (cost 10) and is over-assigned; she is currently OFF W4_Thu so pref already fine. Instead target Sara's W4_Mon N to reduce her overload: reassign to Nguyen OFF? Nguyen works E W4_Mon. Reassign Sara W4_Mon N to Patrick OFF? Patrick works E W4_Mon. No off qualified. Use weekend_repair not applicable. Reassign Sara W2_Fri N to Nguyen OFF W2_Fri, prior W2_Wed L then off, N ok start, qualified; cuts Sara total.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Fri",
+        "from_nurse": "Sara",
+        "to_nurse": "Nguyen",
+        "shift": "N",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "sara_w2thu_reduce",
+    "reason": "Total assignment constraints: Sara over-assigned. Reassign W2_Thu N Nurse to Nguyen who is OFF W2_Thu, prior W2_Wed L, L->N allowed, qualified. Reduces Sara total and Nguyen is under min_total. Covers optimal W2_Thu Night need remains.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Thu",
+        "from_nurse": "Sara",
+        "to_nurse": "Nguyen",
+        "shift": "N",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "patrick_late_consec_w2",
+    "reason": "Consecutive constraints: Patrick has Late min/max consec violations (day 6 and 11). His W2 Late block W2_Tue-Fri is 4 long (max 3 for L, cost 15). Reassign W2_Fri L Nurse to Nguyen OFF W2_Fri, prior W2_Wed L, L->L then off gap; Nguyen qualified. Shortens Patrick's late run below max.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Fri",
+        "from_nurse": "Patrick",
+        "to_nurse": "Nguyen",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  }
+]

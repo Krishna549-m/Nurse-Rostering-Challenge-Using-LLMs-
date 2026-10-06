@@ -1,0 +1,35 @@
+{
+  "thought": "Reduce Sara\u2019s max-total and weekend overage by moving one full weekend (Sat+Sun) from Sara to Stefaan (who is already at max weekends but not over), and compensate by moving two weekday shifts from Stefaan to Sara to keep coverage and totals balanced while avoiding HeadNurse-only issues.",
+  "action": {
+    "type": "propose_bundle",
+    "bundle_id": 7,
+    "target_penalty": "total_assignments",
+    "reason": "Shift one weekend off Sara to cut weekend and total-assignment pressure; compensate with weekday swaps to avoid creating new understaffing and keep both nurses within feasible patterns.",
+    "moves": [
+      {
+        "type": "swap",
+        "day": "W1_Sat",
+        "nurse_a": "Sara",
+        "nurse_b": "Stefaan"
+      },
+      {
+        "type": "swap",
+        "day": "W1_Sun",
+        "nurse_a": "Sara",
+        "nurse_b": "Stefaan"
+      },
+      {
+        "type": "swap",
+        "day": "W1_Mon",
+        "nurse_a": "Sara",
+        "nurse_b": "Stefaan"
+      },
+      {
+        "type": "swap",
+        "day": "W1_Fri",
+        "nurse_a": "Sara",
+        "nurse_b": "Stefaan"
+      }
+    ]
+  }
+}

@@ -1,0 +1,128 @@
+[
+  {
+    "bundle_id": "sara_w2wed_swap_stefaan_night",
+    "reason": "Total assignment constraints: Sara is heavily over-assigned (cost 220). Swapping Sara's W2_Wed N with Stefaan (OFF W2_Wed) reduces Sara's total by one and extends Stefaan's W2_Mon/Tue night block (currently only 2, min 4) toward its minimum. Stefaan prior W2_Tue N so N->N is clean succession. Sara's W2_Tue N -> off W2_Wed -> W2_Thu N breaks her long night run reducing her max-consec pressure.",
+    "moves": [
+      {
+        "type": "swap",
+        "day": "W2_Wed",
+        "nurse_a": "Sara",
+        "nurse_b": "Stefaan"
+      }
+    ]
+  },
+  {
+    "bundle_id": "sara_w2thu_reassign_stefaan_night",
+    "reason": "Consecutive constraints: Stefaan's W2_Mon/Tue night block is only 2 (min 4 Night, cost 15) and Sara is over-assigned. Reassign Sara W2_Thu N to Stefaan who is OFF W2_Thu; if his W2_Wed becomes N (via prior swap logic not assumed here) this extends his night run. Standalone: Stefaan prior W2_Tue N, next W2_Fri off; N start clean. Reduces Sara total.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Thu",
+        "from_nurse": "Sara",
+        "to_nurse": "Stefaan",
+        "shift": "N",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "sara_w4sat_swap_stefaan",
+    "reason": "Total assignment + preferences: Sara over-assigned; she works W4_Sat L but prefers N there (pref cost). Stefaan works E W4_Sat HeadNurse and prefers L there. Swap exchanges Sara's L and Stefaan's E on W4_Sat. Check succession: Sara prior W4_Fri L, gets E - L->E forbidden. Reject risk noted; instead only test if validator allows. Target improving preferences for Stefaan's W4_Sat L pref.",
+    "moves": [
+      {
+        "type": "swap",
+        "day": "W4_Sat",
+        "nurse_a": "Sara",
+        "nurse_b": "Stefaan"
+      }
+    ]
+  },
+  {
+    "bundle_id": "andrea_w3fri_extend_night_swap",
+    "reason": "Consecutive constraints: Andrea's W3_Wed/Thu N block is only 2 (min 4 Night, cost 30). Extending with W3_Fri night reduces this. Nguyen is OFF W3_Fri; swap Andrea (OFF W3_Fri) with nothing works. Instead reassign is prior-tried and failed on succession because Andrea W3_Sat L follows N->L forbidden. Use coverage_fill on W3_Fri N for Andrea only avoiding the Sat conflict by targeting a different repair: extend backward is not possible. Try minimal night extension test.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Sat",
+        "from_nurse": "Andrea",
+        "to_nurse": "Nguyen",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "cover_w4mon_E_swap",
+    "reason": "Optimal coverage constraints: W4_Mon Early Nurse short (opt 2). Nguyen works E W4_Mon already covering one; the shortage is a second Nurse. No clean off-nurse qualifies without succession issues, so target a different coverage short. Instead fill W4_Tue Late HeadNurse (short cost 30) via Stefaan OFF W4_Tue prior W4_Mon L, L->L clean, next W4_Wed off. Covers HeadNurse optimal shortage cleanly.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W4_Tue",
+        "shift": "L",
+        "skill": "HeadNurse",
+        "to_nurse": "Stefaan"
+      }
+    ]
+  },
+  {
+    "bundle_id": "sara_w3wed_swap_stefaan_pref",
+    "reason": "Total assignment + preferences: Sara over-assigned; Stefaan has W3_Wed 'Any' preference. Sara works L W3_Wed, Stefaan OFF W3_Wed. Swap gives Stefaan the L (prior W3_Mon N then off, L start clean) satisfying his pref and reduces Sara total by one. Sara's W3_Wed off also helps break her workload.",
+    "moves": [
+      {
+        "type": "swap",
+        "day": "W3_Wed",
+        "nurse_a": "Sara",
+        "nurse_b": "Stefaan"
+      }
+    ]
+  },
+  {
+    "bundle_id": "andrea_w2sun_swap_nguyen",
+    "reason": "Complete weekends + weekend constraints: Andrea works lone W2_Sun L (incomplete weekend cost 30, weekend overload). Nguyen is OFF W2_Sun and works E W2_Sat. Swap Andrea's W2_Sun L with Nguyen (OFF): Nguyen prior W2_Sat E, E->L clean, gains W2_Sun completing his weekend; Andrea sheds the lone weekend day removing complete-weekend penalty.",
+    "moves": [
+      {
+        "type": "swap",
+        "day": "W2_Sun",
+        "nurse_a": "Andrea",
+        "nurse_b": "Nguyen"
+      }
+    ]
+  },
+  {
+    "bundle_id": "sara_w4tue_swap_nguyen",
+    "reason": "Total assignment + consecutive: Sara over-assigned and her W4_Mon/Tue N is only 2 (min 4). Nguyen works E W4_Tue. Swap Sara's W4_Tue N with Nguyen's E: Sara gets E W4_Tue (prior W4_Mon N, N->E forbidden) - risky. Instead reassign is blocked. Target reducing Sara total by swapping W4_Wed which is off. Use W4_Tue swap test since Nguyen prior W4_Mon E, E->N forbidden too. Reject-prone but distinct opportunity.",
+    "moves": [
+      {
+        "type": "swap",
+        "day": "W4_Wed",
+        "nurse_a": "Sara",
+        "nurse_b": "Stefaan"
+      }
+    ]
+  },
+  {
+    "bundle_id": "cover_w1tue_E_swap_nguyen",
+    "reason": "Optimal coverage constraints: W1_Tue Early Nurse short (cost 30). Nguyen works L W1_Tue; swapping Nguyen to E is not a coverage_fill. Instead fill via a clean off nurse. Only Andrea off W1_Tue (prior off, next W1_Wed N, E->N clean). coverage_fill Andrea W1_Tue E covers the short and also helps Andrea start toward min consec. Test alternative to prior Andrea coverage that added elsewhere.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W1_Tue",
+        "shift": "E",
+        "skill": "Nurse",
+        "to_nurse": "Andrea"
+      }
+    ]
+  },
+  {
+    "bundle_id": "sara_w2thu_swap_nguyen_night",
+    "reason": "Total assignment constraints: Sara over-assigned. Nguyen is OFF W2_Thu. Swap Sara's W2_Thu N with Nguyen (OFF): Nguyen prior W2_Wed L, L->N clean, gains a night; Sara sheds one assignment reducing her total. Breaks Sara's W2 long night run reducing max-consec pressure too.",
+    "moves": [
+      {
+        "type": "swap",
+        "day": "W2_Thu",
+        "nurse_a": "Sara",
+        "nurse_b": "Nguyen"
+      }
+    ]
+  }
+]

@@ -1,0 +1,35 @@
+{
+  "thought": "Reduce the largest soft penalty (Sara over max total assignments) by moving a few of her weekday Nurse shifts onto Stefaan/Nguyen on days they are OFF, avoiding weekend changes and HeadNurse skill issues.",
+  "action": {
+    "type": "propose_bundle",
+    "bundle_id": 9,
+    "target_penalty": "total_assignments",
+    "reason": "Reassign 3 weekday Nurse shifts from Sara to underutilized/off-day nurses (Stefaan/Nguyen) to cut Sara's max-total penalty while keeping skills valid and not increasing weekend counts.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W1_Mon",
+        "from_nurse": "Sara",
+        "to_nurse": "Nguyen",
+        "shift": "L",
+        "skill": "Nurse"
+      },
+      {
+        "type": "reassign",
+        "day": "W1_Tue",
+        "from_nurse": "Sara",
+        "to_nurse": "Stefaan",
+        "shift": "L",
+        "skill": "Nurse"
+      },
+      {
+        "type": "reassign",
+        "day": "W1_Wed",
+        "from_nurse": "Sara",
+        "to_nurse": "Stefaan",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  }
+}

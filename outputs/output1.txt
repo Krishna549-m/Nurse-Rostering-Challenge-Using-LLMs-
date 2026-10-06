@@ -1,0 +1,131 @@
+{
+  "schema": {
+    "sets": {
+      "nurses": ["Patrick", "Andrea", "Stefaan", "Sara", "Nguyen"],
+      "days": ["Mon1","Tue1","Wed1","Thu1","Fri1","Sat1","Sun1",
+               "Mon2","Tue2","Wed2","Thu2","Fri2","Sat2","Sun2",
+               "Mon3","Tue3","Wed3","Thu3","Fri3","Sat3","Sun3",
+               "Mon4","Tue4","Wed4","Thu4","Fri4","Sat4","Sun4"],
+      "shifts": ["E","L","N"],
+      "skills": ["Nurse","HeadNurse"],
+      "weeks": [1,2,3,4]
+    },
+    "variables": [
+      {
+        "name": "x",
+        "type": "binary",
+        "domain": [0,1],
+        "indices": ["nurses","days","shifts"],
+        "description": "1 if nurse n works shift s on day d"
+      },
+      {
+        "name": "pen_under_opt",
+        "type": "integer",
+        "domain": [0,100],
+        "indices": ["days","shifts","skills"],
+        "description": "understaffing vs optimal"
+      },
+      {
+        "name": "work_weekend",
+        "type": "binary",
+        "domain": [0,1],
+        "indices": ["nurses","weeks"],
+        "description": "1 if nurse works any weekend day"
+      },
+      {
+        "name": "pen_total_assign",
+        "type": "integer",
+        "domain": [0,100],
+        "indices": ["nurses"],
+        "description": "penalty for total assignments"
+      }
+    ],
+    "hard_constraints": [
+      {
+        "id": "H1",
+        "type": "one_shift_per_day",
+        "expression": "sum_s x[n,d,s] <= 1 ∀ n,d",
+        "description": "At most one shift per day"
+      },
+      {
+        "id": "H2",
+        "type": "coverage_min",
+        "expression": "sum_{n∈qualified(k)} x[n,d,s] >= min[d,s,k]",
+        "description": "Minimum staffing coverage"
+      },
+      {
+        "id": "H3",
+        "type": "legal_successions",
+        "expression": "x[n,d,s] + x[n,d+1,s'] <= 1 for illegal (s,s')",
+        "description": "Illegal shift successions forbidden"
+      },
+      {
+        "id": "H4",
+        "type": "skill_qualification",
+        "expression": "x[n,d,s] = 0 if nurse n lacks required skill",
+        "description": "Skill compatibility"
+      },
+      {
+        "id": "H5",
+        "type": "leave",
+        "expression": "x[n,d,s] = 0 if (n,d,s) unavailable",
+        "description": "Leave constraints"
+      }
+    ],
+    "soft_constraints": [
+      {
+        "id": "S1",
+        "penalty_weight": 30,
+        "expression": "pen_under_opt[d,s,k] >= optimal[d,s,k] - sum_n x[n,d,s]",
+        "description": "Under optimal staffing"
+      },
+      {
+        "id": "S5",
+        "penalty_weight": 30,
+        "expression": "penalty if Sat xor Sun worked",
+        "description": "Complete weekend"
+      },
+      {
+        "id": "S6",
+        "penalty_weight": 20,
+        "expression": "pen_total_assign[n] >= |sum_{d,s} x[n,d,s] - bounds[n]|",
+        "description": "Total assignments"
+      }
+    ],
+    "objective": {
+      "type": "minimize",
+      "expression": "30*sum pen_under_opt + 20*sum pen_total_assign",
+      "description": "Minimize penalties"
+    },
+    "metadata": {
+      "assumptions": [
+        "All nurses have Nurse skill",
+        "Only Patrick, Andrea, Stefaan are HeadNurse",
+        "Illegal successions assumed N->E, N->L forbidden"
+      ]
+    }
+  },
+  "pyomo_code": "from pyomo.environ import *\n\nmodel = ConcreteModel()\n\n# Sets\nmodel.N = Set(initialize=['Patrick','Andrea','Stefaan','Sara','Nguyen'])\nmodel.D = Set(initialize=list(range(28)))\nmodel.S = Set(initialize=['E','L','N'])\n\n# Variables\nmodel.x = Var(model.N, model.D, model.S, domain=Binary)\n\n# H1 one shift per day\ndef one_shift_rule(m,n,d):\n    return sum(m.x[n,d,s] for s in m.S) <= 1\nmodel.H1 = Constraint(model.N, model.D, rule=one_shift_rule)\n\n# Objective placeholder\nmodel.obj = Objective(expr=0, sense=minimize)\n\n# Solver note: use glpk or gurobi",
+  "ortools_code": "from ortools.sat.python import cp_model\n\nmodel = cp_model.CpModel()\n\nN = ['Patrick','Andrea','Stefaan','Sara','Nguyen']\nD = range(28)\nS = ['E','L','N']\n\nx = {}\nfor n in N:\n    for d in D:\n        for s in S:\n            x[(n,d,s)] = model.NewBoolVar(f'x_{n}_{d}_{s}')\n\n# H1 one shift per day\nfor n in N:\n    for d in D:\n        model.Add(sum(x[(n,d,s)] for s in S) <= 1)\n\n# Objective\nmodel.Minimize(0)",
+  "validation_report": {
+    "missing_variables": [],
+    "inconsistent_ranges": [],
+    "contradictory_constraints": [],
+    "solver_incompatibilities": [
+      "Absolute value in S6 requires linearization"
+    ],
+    "suggested_fixes": [
+      "Introduce auxiliary variables for absolute deviation",
+      "Explicitly define illegal shift transitions"
+    ],
+    "feasibility_check": [
+      "All minimum demands ≤ available nurses → feasible"
+    ],
+    "metadata": {
+      "assumptions": [
+        "Default skill mapping used",
+        "Shift succession rules partially inferred"
+      ]
+    }
+  }
+}

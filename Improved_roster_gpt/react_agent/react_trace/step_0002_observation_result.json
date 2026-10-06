@@ -1,0 +1,47 @@
+{
+  "step": 2,
+  "status": "accepted",
+  "accepted": true,
+  "strategy": {
+    "neighborhood": "swap",
+    "target_penalty": "consecutive_cost + non_working_days_cost (and incidental weekend constraints)",
+    "reason": "Single-day swaps are less likely than block swaps to create illegal_succession chains, while still allowing us to break long work streaks / fix too-short off blocks and potentially reduce weekend and preference penalties without changing total coverage.",
+    "avoid": "Avoid block_swap for now due to repeated illegal_succession hard violations; also avoid coverage_fill because several nurses are already at/over max_total and adding shifts risks increasing total_assignment_cost and weekend overages.",
+    "max_candidates": 100
+  },
+  "selected_move": {
+    "type": "swap",
+    "day": "W3_Wed",
+    "nurse_a": "Sara",
+    "nurse_b": "Nguyen"
+  },
+  "old_cost": 1905,
+  "new_cost": 1900,
+  "delta": -5,
+  "hard_ok": true,
+  "hard_violations": {
+    "minimal_coverage": 0,
+    "required_skill": 0,
+    "illegal_succession": 0,
+    "single_assignment": 0
+  },
+  "cost_delta_by_category": {
+    "total_cost": -5,
+    "total_assignment_cost": -20,
+    "consecutive_cost": 45,
+    "non_working_days_cost": -30,
+    "preferences_cost": 0,
+    "max_working_weekend_cost": 0,
+    "complete_weekends_cost": 0,
+    "optimal_coverage_cost": 0,
+    "minimal_coverage": 0,
+    "required_skill": 0,
+    "illegal_succession": 0,
+    "single_assignment": 0
+  },
+  "candidate_count": 100,
+  "changes": [
+    "W3_Wed: Nguyen OFF -> E/Nurse",
+    "W3_Wed: Sara E/Nurse -> OFF"
+  ]
+}

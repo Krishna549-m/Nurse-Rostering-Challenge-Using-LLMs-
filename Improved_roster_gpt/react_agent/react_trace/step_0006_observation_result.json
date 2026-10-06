@@ -1,0 +1,15 @@
+{
+  "step": 6,
+  "status": "no_moves_generated",
+  "accepted": false,
+  "strategy": {
+    "neighborhood": "block_reassign",
+    "target_penalty": "max_working_weekend_cost + consecutive_cost + non_working_days_cost (secondary: total_assignment_cost)",
+    "reason": "Weekend overages are concentrated (Andrea/Sara/Nguyen/Patrick) and interact with long work/off streak violations; block_reassign can relocate coherent weekend/work segments from over-limit nurses to those with weekend capacity while potentially breaking consecutive patterns and reducing over-max totals, without the cross-nurse shift-type swapping that previously triggered illegal_succession.",
+    "avoid": "Avoid block_swap due to repeated illegal_succession hard violations; avoid coverage_fill because adding shifts risks increasing total_assignment_cost and weekend overages when several nurses are already heavily loaded.",
+    "max_candidates": 100
+  },
+  "old_cost": 1900,
+  "new_cost": 1900,
+  "delta": 0
+}

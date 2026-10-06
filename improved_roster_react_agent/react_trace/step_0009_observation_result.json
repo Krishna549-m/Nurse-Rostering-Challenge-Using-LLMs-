@@ -1,0 +1,15 @@
+{
+  "step": 9,
+  "status": "no_moves_generated",
+  "accepted": false,
+  "strategy": {
+    "neighborhood": "block_reassign",
+    "target_penalty": "non_working_days_cost",
+    "reason": "Block_reassign can move a short run of duties off a nurse to create/extend required consecutive OFF blocks (especially for min_consec_off=3 nurses) and can also help reduce weekend overages by relocating weekend duties, while being less prone than block_swap to create illegal_succession through cross-nurse shift-type exchanges.",
+    "avoid": "Avoid block_swap (recently caused illegal_succession spikes) and avoid coverage_fill since it risks worsening max_total/weekend pressure and previously produced mostly non-improving candidates.",
+    "max_candidates": 100
+  },
+  "old_cost": 1885,
+  "new_cost": 1885,
+  "delta": 0
+}

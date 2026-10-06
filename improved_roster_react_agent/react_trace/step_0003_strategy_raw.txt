@@ -1,0 +1,10 @@
+{
+  "thought": "Hard constraints are currently satisfied, but the roster has large soft penalties dominated by non_working_days_cost and optimal_coverage_cost, with significant consecutive_cost. Recent block_swap attempts mostly created illegal_succession violations and increased consecutive_cost, so we should use a safer, single-day neighborhood that can improve consecutive/off patterns without introducing forbidden successions across multiple days.",
+  "strategy": {
+    "neighborhood": "swap",
+    "target_penalty": "non_working_days_cost",
+    "reason": "Single-day swaps preserve coverage while allowing creation/extension of OFF blocks to satisfy min_consec_off (notably for Stefaan/Nguyen) and can also reduce consecutive_work violations with lower risk than multi-day block moves that previously triggered illegal_succession.",
+    "avoid": "Avoid block_swap patterns that previously introduced illegal_succession and large consecutive_cost increases; also avoid adding assignments (coverage_fill) since several nurses are at/over max_total and weekend overages exist.",
+    "max_candidates": 100
+  }
+}

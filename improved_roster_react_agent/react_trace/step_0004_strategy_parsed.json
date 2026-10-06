@@ -1,0 +1,10 @@
+{
+  "thought": "Hard constraints are currently satisfied, but the roster is dominated by pattern-based soft penalties: non_working_days_cost and consecutive_cost are high, with significant weekend overages and some max_total issues (notably Stefaan/Nguyen over max_total and several nurses over max_weekends). Prior block_swap and swap attempts often introduced illegal_succession or increased consecutive_cost, suggesting we need a broader search that can find feasible pattern fixes without breaking succession rules.",
+  "strategy": {
+    "neighborhood": "mixed",
+    "target_penalty": "non_working_days_cost",
+    "reason": "Use a mixed neighborhood to explore both single-day and multi-day pattern changes (swap/reassign/block_swap/block_reassign) to create required consecutive OFF blocks and reduce consecutive-work violations while also allowing workload/weekend redistribution; this is appropriate after repeated non-improving attempts with swap/block_swap alone.",
+    "avoid": "Avoid block_swap constructions that tend to trigger illegal_succession and avoid coverage_fill since optimal coverage is not the only driver and adding work risks worsening max_total and weekend overages.",
+    "max_candidates": 100
+  }
+}

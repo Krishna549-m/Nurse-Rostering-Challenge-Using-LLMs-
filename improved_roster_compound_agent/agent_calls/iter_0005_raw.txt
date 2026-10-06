@@ -1,0 +1,7 @@
+{
+  "operator": "mixed_compound",
+  "target_nurses": ["Sara", "Stefaan", "Nguyen", "Patrick", "Andrea"],
+  "target_days": ["W1_Mon", "W1_Tue", "W1_Wed", "W2_Tue", "W2_Wed", "W3_Thu", "W3_Sun", "W4_Mon"],
+  "reason": "All specialised operators tried so far either produced no candidates or no improvement. Multiple penalty components are simultaneously high (non_working_days_cost, consecutive_cost, optimal_coverage_cost, and max_working_weekend_cost), with major atoms on total_assignments (Sara/Stefaan) and weekend overages (Patrick/Sara/Nguyen/Andrea). mixed_compound can explore combined bundles (e.g., partial overload relief + local window rebuild + weekend adjustments) to escape the current plateau while still respecting hard constraints.",
+  "avoid": ["Avoid increasing max_working_weekend_cost further (Patrick/Sara/Nguyen/Andrea already exceed max weekends).", "Avoid adding assignments to Nguyen and Stefaan where it worsens their max_total violations.", "Prefer weekday-focused changes unless a weekend move directly reduces weekend overage penalties."]
+}

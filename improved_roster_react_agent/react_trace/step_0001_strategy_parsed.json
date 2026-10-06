@@ -1,0 +1,10 @@
+{
+  "thought": "Hard constraints are all satisfied. The biggest structural issue is workload imbalance: Stefaan and Nguyen are far over max_total (and several nurses exceed max_weekends), while optimal_coverage_cost is also high. Adding shifts via coverage_fill would likely worsen total_assignment_cost and weekend/consecutive penalties. Best next is to redistribute existing assignments from overworked nurses to others while preserving coverage and skills.",
+  "strategy": {
+    "neighborhood": "block_reassign",
+    "target_penalty": "total_assignment_cost",
+    "reason": "Block reassign can move multiple duties off the most over-assigned nurses (notably Stefaan and Nguyen) to reduce large max_total violations and may simultaneously relieve some consecutive/weekend pressure without reducing coverage.",
+    "avoid": "Avoid coverage_fill or any move that increases total assignments for already over-max nurses or increases working weekends for Patrick/Sara/Nguyen.",
+    "max_candidates": 100
+  }
+}

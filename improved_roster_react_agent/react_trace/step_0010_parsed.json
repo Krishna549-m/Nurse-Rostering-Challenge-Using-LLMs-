@@ -1,0 +1,35 @@
+{
+  "thought": "Target biggest atom: reduce Sara's max-total assignments by moving one of her weekend shifts to an OFF nurse, and compensate by moving a weekday shift from an over-assigned nurse (Nguyen) back to Sara on a day she is OFF to avoid worsening totals and keep patterns feasible.",
+  "action": {
+    "type": "propose_bundle",
+    "bundle_id": 10,
+    "target_penalty": "total_assignments",
+    "reason": "Lower Sara's assignment count by reassigning one weekend Nurse shift away; compensate by shifting one weekday Nurse shift from over-assigned Nguyen to Sara on her OFF day to reduce Nguyen's over-max and keep coverage stable.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Sun",
+        "from_nurse": "Sara",
+        "to_nurse": "Stefaan",
+        "shift": "L",
+        "skill": "Nurse"
+      },
+      {
+        "type": "reassign",
+        "day": "W4_Mon",
+        "from_nurse": "Nguyen",
+        "to_nurse": "Sara",
+        "shift": "L",
+        "skill": "Nurse"
+      },
+      {
+        "type": "reassign",
+        "day": "W1_Fri",
+        "from_nurse": "Nguyen",
+        "to_nurse": "Sara",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  }
+}

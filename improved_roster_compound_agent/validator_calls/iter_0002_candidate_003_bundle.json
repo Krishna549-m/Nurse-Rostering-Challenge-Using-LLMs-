@@ -1,0 +1,36 @@
+{
+  "operator": "weekend_transfer_bundle",
+  "reason": "Transfer weekend 2 from Patrick to Andrea with weekday compensation.",
+  "moves": [
+    {
+      "type": "reassign",
+      "day": "W2_Sat",
+      "from_nurse": "Patrick",
+      "to_nurse": "Andrea",
+      "shift": "E",
+      "skill": "Nurse"
+    },
+    {
+      "type": "reassign",
+      "day": "W2_Sun",
+      "from_nurse": "Patrick",
+      "to_nurse": "Andrea",
+      "shift": "E",
+      "skill": "Nurse"
+    },
+    {
+      "type": "reassign",
+      "day": "W2_Fri",
+      "from_nurse": "Andrea",
+      "to_nurse": "Patrick",
+      "shift": "L",
+      "skill": "Nurse"
+    }
+  ],
+  "meta": {
+    "source": "Patrick",
+    "target": "Andrea",
+    "week": 2,
+    "compensated": true
+  }
+}

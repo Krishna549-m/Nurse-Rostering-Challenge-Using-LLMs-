@@ -1,0 +1,19 @@
+{
+  "operator": "repair_optimal_coverage",
+  "reason": "Fill optimal coverage shortage on W4_Sat N/Nurse with Stefaan.",
+  "moves": [
+    {
+      "type": "coverage_fill",
+      "day": "W4_Sat",
+      "shift": "N",
+      "skill": "Nurse",
+      "to_nurse": "Stefaan"
+    }
+  ],
+  "meta": {
+    "target_day": "W4_Sat",
+    "shift": "N",
+    "skill": "Nurse",
+    "nurse": "Stefaan"
+  }
+}

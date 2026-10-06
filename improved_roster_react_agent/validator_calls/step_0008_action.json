@@ -1,0 +1,32 @@
+{
+  "type": "propose_bundle",
+  "bundle_id": 8,
+  "target_penalty": "max_working_weekend",
+  "reason": "Shift one complete weekend from Patrick to Stefaan to reduce Patrick's over-max weekends, then swap two weekdays back from Stefaan to Patrick to balance workload and preserve coverage/skills.",
+  "moves": [
+    {
+      "type": "swap",
+      "day": "W4_Sat",
+      "nurse_a": "Patrick",
+      "nurse_b": "Stefaan"
+    },
+    {
+      "type": "swap",
+      "day": "W4_Sun",
+      "nurse_a": "Patrick",
+      "nurse_b": "Stefaan"
+    },
+    {
+      "type": "swap",
+      "day": "W1_Fri",
+      "nurse_a": "Patrick",
+      "nurse_b": "Stefaan"
+    },
+    {
+      "type": "swap",
+      "day": "W3_Thu",
+      "nurse_a": "Patrick",
+      "nurse_b": "Stefaan"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "neighborhood": "block_reassign",
+  "target_penalty": "consecutive_cost + non_working_days_cost (secondary: max_working_weekend_cost, total_assignment_cost)",
+  "reason": "Block reassign can move coherent multi-day work blocks off the most problematic nurses (e.g., those with weekend overages and streak violations) to nurses with capacity, directly addressing consecutive work/off patterns and weekend counts while avoiding the shift-sequence entanglement that made block_swap prone to illegal_succession.",
+  "avoid": "Avoid block_swap due to repeated illegal_succession hard violations; avoid coverage_fill because optimal_coverage_cost is not dominant and adding shifts risks worsening total_assignment_cost and weekend overages for already heavily loaded nurses.",
+  "max_candidates": 100
+}

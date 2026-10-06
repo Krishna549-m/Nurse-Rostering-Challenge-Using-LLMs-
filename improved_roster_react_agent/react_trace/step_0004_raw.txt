@@ -1,0 +1,35 @@
+{
+  "thought": "Biggest soft penalties are weekend overages and some consecutive/off-pattern issues. Try reducing Patrick’s weekend count by moving one full weekend (Sat+Sun) to Stefaan, while swapping two weekdays back to keep totals and avoid creating illegal successions (avoid moving nights onto someone with adjacent early).",
+  "action": {
+    "type": "propose_bundle",
+    "bundle_id": 4,
+    "target_penalty": "max_working_weekend",
+    "reason": "Move one complete weekend off Patrick (over max weekends) onto Stefaan, and compensate by swapping two weekday shifts from Stefaan to Patrick where Patrick is already working adjacent days, aiming to reduce weekend penalty without breaking coverage.",
+    "moves": [
+      {
+        "type": "swap",
+        "day": "W4_Sat",
+        "nurse_a": "Patrick",
+        "nurse_b": "Stefaan"
+      },
+      {
+        "type": "swap",
+        "day": "W4_Sun",
+        "nurse_a": "Patrick",
+        "nurse_b": "Stefaan"
+      },
+      {
+        "type": "swap",
+        "day": "W1_Fri",
+        "nurse_a": "Patrick",
+        "nurse_b": "Stefaan"
+      },
+      {
+        "type": "swap",
+        "day": "W3_Thu",
+        "nurse_a": "Patrick",
+        "nurse_b": "Stefaan"
+      }
+    ]
+  }
+}

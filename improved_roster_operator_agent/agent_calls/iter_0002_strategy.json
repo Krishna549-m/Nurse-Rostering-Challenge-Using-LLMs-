@@ -1,0 +1,20 @@
+{
+  "operator": "repair_optimal_coverage",
+  "target_nurses": [],
+  "target_days": [
+    "W1_Tue",
+    "W1_Thu",
+    "W1_Fri",
+    "W2_Mon",
+    "W3_Mon",
+    "W3_Wed",
+    "W3_Fri",
+    "W4_Mon",
+    "W4_Tue"
+  ],
+  "reason": "Optimal coverage cost (420) is one of the largest remaining components and is represented by multiple 1-missing atoms across several days/shifts. Unlike reduce_overload (which already produced no improvement), filling optional shortages can often be done by assigning currently-off qualified nurses without breaking hard constraints, yielding a direct cost decrease.",
+  "avoid": [
+    "Do not add weekend assignments to nurses already over max_weekends (Patrick, Sara, Nguyen, Andrea).",
+    "Avoid creating forbidden shift successions and do not break required minimum coverage when reassigning staff to fill optimal shortages."
+  ]
+}

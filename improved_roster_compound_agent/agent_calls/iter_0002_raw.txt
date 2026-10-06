@@ -1,0 +1,7 @@
+{
+  "operator": "weekend_transfer_bundle",
+  "target_nurses": ["Patrick", "Sara", "Nguyen", "Andrea"],
+  "target_days": ["W1_Sat", "W1_Sun", "W2_Sat", "W2_Sun", "W3_Sat", "W3_Sun", "W4_Sat", "W4_Sun"],
+  "reason": "max_working_weekend_cost is substantial (210) and multiple nurses exceed max_weekends (Patrick +2, Sara +2, Nguyen +2, Andrea +1). A weekend-focused transfer bundle can directly reduce these penalties and may also relieve consecutive/non-working-day issues by reshaping blocks around weekends. Previous ruin_recreate_overload produced no candidates, so switch to a more targeted operator.",
+  "avoid": ["Avoid increasing total_assignments overload for Stefaan/Nguyen (already far over max_total).", "Prefer transferring whole weekends (Sat+Sun) to keep complete_weekends_cost at 0.", "Try not to worsen optimal_coverage gaps on weekdays when compensating with weekday work."]
+}

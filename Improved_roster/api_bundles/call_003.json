@@ -1,0 +1,68 @@
+[
+  {
+    "bundle_id": "sara_w4_weekend_repair",
+    "reason": "Total assignment + Max working weekend: Sara is heavily over-assigned (cost 220) and exceeds max weekends (cost 60). weekend_repair on a week where she works both days is not applicable, but attempting week 3 previously precheck-failed because she works both. Instead reassign her W4_Sat L to remove a weekend day and cut total. Move to Stefaan who is off W4_Sat? Stefaan works E W4_Sat. Use weekend_repair is only single-day. Target Sara W4 late block: reassign W4_Sun L to Nguyen who is OFF W4_Sun, prior W4_Fri N then Sat off - Nguyen W4_Sat off so N->off->L fine, qualified. Reduces Sara total and weekend.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Sun",
+        "from_nurse": "Sara",
+        "to_nurse": "Nguyen",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "sara_w1_night_reduce",
+    "reason": "Total assignment constraints: Sara over max_total (cost 220). Her W1_Mon-Wed night block is 3 long (min 4 for N, causing consec penalty day 2). Reassign W1_Wed N Nurse to Stefaan who is OFF W1_Wed, prior W1_Tue off, next W1_Thu off - clean isolated night is bad. Instead target Sara W1_Mon N: reassign to Nguyen OFF? Nguyen works L W1_Mon. Use Patrick OFF? Patrick works E. No clean off nurse for W1_Mon. Reassign Sara W1_Fri L to Nguyen OFF W1_Fri prior W1_Wed L then off, L start ok, qualified; cuts Sara total and covers nothing extra.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W1_Fri",
+        "from_nurse": "Sara",
+        "to_nurse": "Nguyen",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "cover_w3_thu_and_stefaan",
+    "reason": "Optimal coverage: W3_Thu Early Nurse 1 short. Stefaan is OFF W3_Thu, prior W3_Mon N then off W3_Tue/Wed, E start clean succession, qualified for Nurse. But Stefaan over max_total. Instead fill with an under-loaded off nurse. Patrick OFF W3_Fri not Thu (works E W3_Thu). Sara off W3_Mon/Tue. On W3_Thu Sara works L. No clean under-loaded off nurse; use Stefaan anyway raises his total. Skip Stefaan; try coverage_fill W3_Thu Late instead with Patrick? Patrick works E W3_Thu. Use Nguyen OFF W3_Fri... W3_Thu Nguyen works N. Only option Stefaan - accept his total tradeoff for two coverage shorts on Thu.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W3_Thu",
+        "shift": "L",
+        "skill": "Nurse",
+        "to_nurse": "Stefaan"
+      }
+    ]
+  },
+  {
+    "bundle_id": "andrea_w2sun_complete_weekend",
+    "reason": "Complete weekends: Andrea works W2_Sun L but W2_Sat off (complete weekend penalty day 13, cost 30). Removing the lone W2_Sun via weekend_repair week 1 eliminates the incomplete weekend and reduces her weekend overload (she exceeds max weekends, cost 60). She works only Sun in week 1, so weekend_repair applies.",
+    "moves": [
+      {
+        "type": "weekend_repair",
+        "nurse": "Andrea",
+        "week": 1
+      }
+    ]
+  },
+  {
+    "bundle_id": "patrick_w4_weekend_repair",
+    "reason": "Max working weekend: Patrick exceeds max weekends (cost 30). He works W4_Sat and W4_Sun (complete). Not lone. But in week 0 he works W1_Sat E and W1_Sun L (both). weekend_repair needs a lone weekend day. Check week 2: W3_Sat and W3_Sun both worked. No lone weekend for Patrick. Instead reduce his total weekends by reassigning W3_Sun E to Nguyen OFF W3_Sun prior W3_Thu N then Fri/Sat off, E start ok, qualified; but leaves Patrick W3_Sat lone weekend. Skip complex; target Andrea instead handled. Use reassign Patrick W1_Sun L HeadNurse to reduce his late consec (day 6). Andrea OFF W1_Sun? Andrea works N. No. Keep minimal: reassign W3_Sun.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Sun",
+        "from_nurse": "Patrick",
+        "to_nurse": "Nguyen",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  }
+]

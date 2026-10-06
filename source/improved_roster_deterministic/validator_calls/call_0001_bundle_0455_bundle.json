@@ -1,0 +1,11 @@
+{
+  "bundle_id": 455,
+  "reason": "deterministic single remove-assignment candidate",
+  "moves": [
+    {
+      "type": "remove_assignment",
+      "day": "W2_Wed",
+      "nurse": "Nguyen"
+    }
+  ]
+}

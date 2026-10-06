@@ -1,0 +1,43 @@
+{
+  "operator": "block_rotation",
+  "reason": "Rotate assignments among Nguyen, Andrea, and Patrick around W2_Sun.",
+  "moves": [
+    {
+      "type": "reassign",
+      "day": "W2_Fri",
+      "from_nurse": "Andrea",
+      "to_nurse": "Patrick",
+      "shift": "L",
+      "skill": "Nurse"
+    },
+    {
+      "type": "reassign",
+      "day": "W2_Sat",
+      "from_nurse": "Nguyen",
+      "to_nurse": "Andrea",
+      "shift": "L",
+      "skill": "Nurse"
+    },
+    {
+      "type": "reassign",
+      "day": "W2_Sun",
+      "from_nurse": "Nguyen",
+      "to_nurse": "Andrea",
+      "shift": "L",
+      "skill": "Nurse"
+    }
+  ],
+  "meta": {
+    "nurses": [
+      "Nguyen",
+      "Andrea",
+      "Patrick"
+    ],
+    "center_day": "W2_Sun",
+    "block_days": [
+      "W2_Fri",
+      "W2_Sat",
+      "W2_Sun"
+    ]
+  }
+}

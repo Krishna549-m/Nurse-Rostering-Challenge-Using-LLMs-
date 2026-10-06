@@ -1,0 +1,330 @@
+Status: OPTIMAL
+Objective: 800.0
+
+Penalty Breakdown:
+S1 shortage: 2
+S4 preferences: 1
+S6 assignments: 26
+S5 weekend: 0
+S7 weekend excess: 7
+
+Coverage Stats:
+W1_Mon E HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W1_Mon E Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W1_Mon L HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W1_Mon L Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W1_Mon N HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W1_Mon N Nurse min: 0 opt: 1 actual: 1 shortage: 0
+W1_Tue E HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W1_Tue E Nurse min: 0 opt: 1 actual: 1 shortage: 0
+W1_Tue L HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W1_Tue L Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W1_Tue N HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W1_Tue N Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W1_Wed E HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W1_Wed E Nurse min: 0 opt: 1 actual: 1 shortage: 0
+W1_Wed L HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W1_Wed L Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W1_Wed N HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W1_Wed N Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W1_Thu E HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W1_Thu E Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W1_Thu L HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W1_Thu L Nurse min: 0 opt: 1 actual: 1 shortage: 0
+W1_Thu N HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W1_Thu N Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W1_Fri E HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W1_Fri E Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W1_Fri L HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W1_Fri L Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W1_Fri N HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W1_Fri N Nurse min: 0 opt: 1 actual: 1 shortage: 0
+W1_Sat E HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W1_Sat E Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W1_Sat L HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W1_Sat L Nurse min: 1 opt: 1 actual: 2 shortage: 0
+W1_Sat N HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W1_Sat N Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W1_Sun E HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W1_Sun E Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W1_Sun L HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W1_Sun L Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W1_Sun N HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W1_Sun N Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W2_Mon E HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W2_Mon E Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W2_Mon L HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W2_Mon L Nurse min: 0 opt: 1 actual: 1 shortage: 0
+W2_Mon N HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W2_Mon N Nurse min: 0 opt: 1 actual: 1 shortage: 0
+W2_Tue E HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W2_Tue E Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W2_Tue L HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W2_Tue L Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W2_Tue N HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W2_Tue N Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W2_Wed E HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W2_Wed E Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W2_Wed L HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W2_Wed L Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W2_Wed N HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W2_Wed N Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W2_Thu E HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W2_Thu E Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W2_Thu L HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W2_Thu L Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W2_Thu N HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W2_Thu N Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W2_Fri E HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W2_Fri E Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W2_Fri L HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W2_Fri L Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W2_Fri N HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W2_Fri N Nurse min: 0 opt: 1 actual: 1 shortage: 0
+W2_Sat E HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W2_Sat E Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W2_Sat L HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W2_Sat L Nurse min: 0 opt: 1 actual: 1 shortage: 0
+W2_Sat N HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W2_Sat N Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W2_Sun E HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W2_Sun E Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W2_Sun L HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W2_Sun L Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W2_Sun N HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W2_Sun N Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Mon E HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W3_Mon E Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Mon L HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Mon L Nurse min: 0 opt: 1 actual: 1 shortage: 0
+W3_Mon N HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Mon N Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Tue E HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W3_Tue E Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Tue L HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W3_Tue L Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Tue N HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W3_Tue N Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Wed E HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Wed E Nurse min: 0 opt: 1 actual: 1 shortage: 0
+W3_Wed L HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W3_Wed L Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Wed N HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Wed N Nurse min: 0 opt: 1 actual: 1 shortage: 0
+W3_Thu E HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W3_Thu E Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Thu L HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W3_Thu L Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Thu N HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Thu N Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Fri E HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Fri E Nurse min: 0 opt: 1 actual: 1 shortage: 0
+W3_Fri L HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W3_Fri L Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Fri N HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W3_Fri N Nurse min: 0 opt: 1 actual: 1 shortage: 0
+W3_Sat E HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W3_Sat E Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Sat L HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Sat L Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Sat N HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W3_Sat N Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Sun E HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W3_Sun E Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Sun L HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Sun L Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W3_Sun N HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W3_Sun N Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W4_Mon E HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W4_Mon E Nurse min: 1 opt: 2 actual: 1 shortage: 1
+W4_Mon L HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W4_Mon L Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W4_Mon N HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W4_Mon N Nurse min: 0 opt: 1 actual: 1 shortage: 0
+W4_Tue E HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W4_Tue E Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W4_Tue L HeadNurse min: 0 opt: 1 actual: 1 shortage: 0
+W4_Tue L Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W4_Tue N HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W4_Tue N Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W4_Wed E HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W4_Wed E Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W4_Wed L HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W4_Wed L Nurse min: 0 opt: 1 actual: 1 shortage: 0
+W4_Wed N HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W4_Wed N Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W4_Thu E HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W4_Thu E Nurse min: 0 opt: 1 actual: 1 shortage: 0
+W4_Thu L HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W4_Thu L Nurse min: 0 opt: 1 actual: 1 shortage: 0
+W4_Thu N HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W4_Thu N Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W4_Fri E HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W4_Fri E Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W4_Fri L HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W4_Fri L Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W4_Fri N HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W4_Fri N Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W4_Sat E HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W4_Sat E Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W4_Sat L HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W4_Sat L Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W4_Sat N HeadNurse min: 1 opt: 1 actual: 1 shortage: 0
+W4_Sat N Nurse min: 0 opt: 1 actual: 0 shortage: 1
+W4_Sun E HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W4_Sun E Nurse min: 0 opt: 1 actual: 2 shortage: 0
+W4_Sun L HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W4_Sun L Nurse min: 1 opt: 1 actual: 1 shortage: 0
+W4_Sun N HeadNurse min: 0 opt: 0 actual: 0 shortage: 0
+W4_Sun N Nurse min: 1 opt: 1 actual: 1 shortage: 0
+
+Nurse Summary:
+Patrick assignments: 23 weekends: 3 days_off: 5
+Andrea assignments: 23 weekends: 3 days_off: 5
+Stefaan assignments: 25 weekends: 4 days_off: 3
+Sara assignments: 22 weekends: 4 days_off: 6
+Nguyen assignments: 21 weekends: 3 days_off: 7
+
+Roster:
+W1_Mon
+  Andrea L HeadNurse
+  Stefaan N Nurse
+  Sara E Nurse
+  Nguyen L Nurse
+W1_Tue
+  Patrick N Nurse
+  Andrea E HeadNurse
+  Sara L Nurse
+  Nguyen E Nurse
+W1_Wed
+  Patrick N HeadNurse
+  Andrea N Nurse
+  Stefaan E Nurse
+  Sara L Nurse
+W1_Thu
+  Andrea N Nurse
+  Stefaan L Nurse
+  Sara E Nurse
+W1_Fri
+  Patrick L Nurse
+  Andrea N Nurse
+  Stefaan E HeadNurse
+  Nguyen E Nurse
+W1_Sat
+  Patrick L Nurse
+  Andrea N HeadNurse
+  Stefaan E Nurse
+  Sara L Nurse
+  Nguyen N Nurse
+W1_Sun
+  Patrick E Nurse
+  Andrea N HeadNurse
+  Stefaan L HeadNurse
+  Sara L Nurse
+  Nguyen N Nurse
+W2_Mon
+  Patrick N HeadNurse
+  Stefaan L Nurse
+  Sara E Nurse
+  Nguyen N Nurse
+W2_Tue
+  Patrick N HeadNurse
+  Andrea L HeadNurse
+  Stefaan L Nurse
+  Sara E Nurse
+  Nguyen N Nurse
+W2_Wed
+  Andrea E Nurse
+  Stefaan L HeadNurse
+  Sara L Nurse
+  Nguyen N Nurse
+W2_Thu
+  Patrick N Nurse
+  Andrea L Nurse
+  Sara E Nurse
+W2_Fri
+  Patrick N Nurse
+  Stefaan L Nurse
+  Sara E Nurse
+W2_Sat
+  Patrick N HeadNurse
+  Stefaan L Nurse
+  Sara N Nurse
+  Nguyen E Nurse
+W2_Sun
+  Patrick N HeadNurse
+  Stefaan E Nurse
+  Sara N Nurse
+  Nguyen L Nurse
+W3_Mon
+  Patrick N HeadNurse
+  Andrea L Nurse
+  Stefaan L HeadNurse
+  Sara N Nurse
+  Nguyen E Nurse
+W3_Tue
+  Patrick N Nurse
+  Stefaan L Nurse
+  Nguyen E Nurse
+W3_Wed
+  Patrick N HeadNurse
+  Andrea E HeadNurse
+  Stefaan E Nurse
+  Sara L Nurse
+  Nguyen N Nurse
+W3_Thu
+  Patrick N HeadNurse
+  Andrea E Nurse
+  Stefaan L Nurse
+  Nguyen N Nurse
+W3_Fri
+  Patrick N Nurse
+  Andrea E HeadNurse
+  Stefaan L Nurse
+  Sara E Nurse
+W3_Sat
+  Patrick N Nurse
+  Andrea L HeadNurse
+  Stefaan L Nurse
+  Sara E Nurse
+W3_Sun
+  Patrick N Nurse
+  Andrea E Nurse
+  Stefaan L HeadNurse
+  Sara L Nurse
+W4_Mon
+  Patrick N Nurse
+  Andrea E HeadNurse
+  Stefaan L HeadNurse
+  Sara E Nurse
+  Nguyen L Nurse
+W4_Tue
+  Patrick N HeadNurse
+  Andrea E Nurse
+  Stefaan L HeadNurse
+  Sara N Nurse
+  Nguyen L Nurse
+W4_Wed
+  Patrick N Nurse
+  Andrea L HeadNurse
+  Stefaan E Nurse
+  Nguyen L Nurse
+W4_Thu
+  Patrick N Nurse
+  Andrea L Nurse
+  Nguyen E Nurse
+W4_Fri
+  Patrick N HeadNurse
+  Andrea E Nurse
+  Stefaan N Nurse
+  Nguyen L Nurse
+W4_Sat
+  Andrea E HeadNurse
+  Stefaan N HeadNurse
+  Sara L Nurse
+  Nguyen E Nurse
+W4_Sun
+  Andrea E Nurse
+  Stefaan N Nurse
+  Sara E Nurse
+  Nguyen L Nurse

@@ -1,0 +1,62 @@
+[
+  {
+    "bundle_id": "B26_swap_W4_Thu_Patrick_Nguyen",
+    "reason": "Consecutive constraints: Patrick has multiple minimum consecutive days-off violations; swapping his W4_Thu Early with Nguyen OFF creates a 2-day OFF block (W4_Wed-Thu) for Patrick while keeping coverage and avoiding forbidden successions.",
+    "moves": [
+      {
+        "type": "swap",
+        "day": "W4_Thu",
+        "nurse_a": "Patrick",
+        "nurse_b": "Nguyen"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B27_swap_W4_Fri_Patrick_Nguyen",
+    "reason": "Consecutive constraints: Patrick has minimum consecutive days-off violations; swapping his W4_Fri Early with Nguyen OFF creates a 2-day OFF block (W4_Wed-Fri if combined with existing OFF on Wed) and may reduce off-block penalties without breaking coverage.",
+    "moves": [
+      {
+        "type": "swap",
+        "day": "W4_Fri",
+        "nurse_a": "Patrick",
+        "nurse_b": "Nguyen"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B28_swap_W1_Mon_Patrick_Nguyen",
+    "reason": "Preferences: Patrick has a shift-off request on W1_Mon; swapping his W1_Mon Early with Nguyen OFF removes the preference penalty while keeping minimum coverage and avoiding forbidden successions (Nguyen has E on W1_Tue).",
+    "moves": [
+      {
+        "type": "swap",
+        "day": "W1_Mon",
+        "nurse_a": "Patrick",
+        "nurse_b": "Nguyen"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B29_swap_W3_Fri_Andrea_Patrick",
+    "reason": "Non working days constraints: Patrick has a minimum consecutive days-off violation around W3_Fri (OFF between N blocks); swapping Andrea's W3_Fri Early with Patrick OFF can reduce Patrick off-block penalties while preserving HeadNurse coverage and avoiding illegal successions (Patrick has N on W3_Thu).",
+    "moves": [
+      {
+        "type": "swap",
+        "day": "W3_Fri",
+        "nurse_a": "Andrea",
+        "nurse_b": "Patrick"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B30_swap_W2_Mon_Andrea_Nguyen",
+    "reason": "Optimal coverage constraints: W2_Mon is 1 short for Late Nurse; swapping Andrea's W2_Mon Early with Nguyen OFF keeps minimum coverage and may allow later conversion of an Early-to-Late pattern without increasing total assignments for over-max nurses.",
+    "moves": [
+      {
+        "type": "swap",
+        "day": "W2_Mon",
+        "nurse_a": "Andrea",
+        "nurse_b": "Nguyen"
+      }
+    ]
+  }
+]

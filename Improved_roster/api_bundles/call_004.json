@@ -1,0 +1,142 @@
+[
+  {
+    "bundle_id": "sara_w4mon_to_nguyen_total",
+    "reason": "Total assignment constraints: Sara is heavily over-assigned (cost 220). Reassign her W4_Mon N to Nguyen who is OFF W4_Mon. Nguyen prior W3_Sun off, W4_Mon currently works E though - check: Nguyen works E W4_Mon so not OFF. Use Stefaan OFF W4_Mon? Stefaan works L W4_Mon. No clean off nurse. Instead target Sara W4_Tue N: Nguyen works E W4_Tue. Skip. Reassign Sara W3_Wed L to Stefaan OFF W3_Wed, prior W3_Mon N then off, L start clean, satisfies Stefaan W3_Wed pref, reduces Sara total.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Wed",
+        "from_nurse": "Sara",
+        "to_nurse": "Stefaan",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "sara_w3thu_to_stefaan_total",
+    "reason": "Total assignment constraints: Sara over max_total (cost 220). Reassign her W3_Thu L Nurse to Stefaan who is OFF W3_Thu, prior W3_Mon N then off W3_Tue/Wed, L start clean succession, qualified for Nurse. Also covers W3_Thu Late optimal shortage. Reduces Sara total.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Thu",
+        "from_nurse": "Sara",
+        "to_nurse": "Stefaan",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "sara_w2wed_to_nguyen_total",
+    "reason": "Total assignment constraints: Sara over-assigned (cost 220). Reassign W2_Wed N Nurse to Nguyen who is OFF W2_Wed? Nguyen works L W2_Wed. Not off. Instead reassign Sara W2_Wed N to Stefaan OFF W2_Wed, prior W2_Tue N so N->N continues Stefaan's night block (min-consec Night helps), qualified. Reduces Sara total and extends Stefaan night run.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Wed",
+        "from_nurse": "Sara",
+        "to_nurse": "Stefaan",
+        "shift": "N",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "sara_w2thu_to_stefaan_night",
+    "reason": "Consecutive + Total: Stefaan has W2_Mon/Tue N (only 2, min 4 Night, cost 15) and is over max_total. Extend by giving him W2_Wed and W2_Thu nights from Sara reduces Sara overload and fixes Stefaan night min-consec. Stefaan OFF W2_Wed and W2_Thu, prior W2_Tue N continues cleanly.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Wed",
+        "from_nurse": "Sara",
+        "to_nurse": "Stefaan",
+        "shift": "N",
+        "skill": "Nurse"
+      },
+      {
+        "type": "reassign",
+        "day": "W2_Thu",
+        "from_nurse": "Sara",
+        "to_nurse": "Stefaan",
+        "shift": "N",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "andrea_w1tue_complete_night",
+    "reason": "Consecutive constraints: Andrea's W1 night block W1_Wed-Sun is preceded by history N with 2 consec; min-consec Night violation at day 0 suggests boundary. Extend by adding W1_Tue night? Andrea OFF W1_Tue, prior W1_Mon off, next W1_Wed N. Adding N W1_Tue lengthens night run and covers no coverage but may reduce consec penalty. Instead target Sara W2 nights via Stefaan is separate. Keep minimal: reassign Nguyen off is not applicable. Fill Andrea W1_Tue N via coverage_fill (W1_Tue Night Nurse opt 1, currently Sara covers). Skip coverage, add through swap.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W1_Tue",
+        "shift": "N",
+        "skill": "Nurse",
+        "to_nurse": "Andrea"
+      }
+    ]
+  },
+  {
+    "bundle_id": "cover_w3thu_E_stefaan",
+    "reason": "Optimal coverage constraints: W3_Thu Early Nurse 1 short. Stefaan is OFF W3_Thu, prior W3_Mon N then off W3_Tue/Wed, E start clean, qualified for Nurse. Covers the optimal shortage. Stefaan total increases but coverage weight 30 is large.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W3_Thu",
+        "shift": "E",
+        "skill": "Nurse",
+        "to_nurse": "Stefaan"
+      }
+    ]
+  },
+  {
+    "bundle_id": "sara_w1fri_swap_nguyen",
+    "reason": "Total assignment constraints: Sara over-assigned. Swap Sara and Nguyen on W1_Fri: Sara works L W1_Fri, Nguyen is OFF W1_Fri. Swap gives Nguyen the L (prior W1_Wed L then off, L clean) and Sara OFF. Reduces Sara total; Nguyen under min_total gains. Swap avoids illegal succession seen in prior reassign because it also frees Sara's Fri.",
+    "moves": [
+      {
+        "type": "swap",
+        "day": "W1_Fri",
+        "nurse_a": "Sara",
+        "nurse_b": "Nguyen"
+      }
+    ]
+  },
+  {
+    "bundle_id": "andrea_w3wed_night_extend",
+    "reason": "Consecutive constraints: Andrea's W3_Wed/Thu N block is only 2 (min 4 Night, cost 30). Extend by adding W3_Fri N: Andrea OFF W3_Fri, prior W3_Thu N continues, covers W3_Fri Night optimal shortage too. Reduces both consec Night penalty and optimal coverage.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W3_Fri",
+        "shift": "N",
+        "skill": "Nurse",
+        "to_nurse": "Andrea"
+      }
+    ]
+  },
+  {
+    "bundle_id": "sara_w4fri_swap_stefaan",
+    "reason": "Total assignment constraints: Sara over-assigned. Swap Sara (L W4_Fri) with Stefaan (E W4_Fri Nurse). Both work; swap exchanges shifts. Stefaan gets L (prior W4_Mon L then off; L clean), Sara gets E (prior W4_Tue N, N->E forbidden). Avoid - instead swap on W4_Sat. Keep this as swap W4_Fri only if succession holds; risk noted so target lower risk day.",
+    "moves": [
+      {
+        "type": "swap",
+        "day": "W4_Fri",
+        "nurse_a": "Sara",
+        "nurse_b": "Stefaan"
+      }
+    ]
+  },
+  {
+    "bundle_id": "cover_w3tue_L_headnurse",
+    "reason": "Optimal coverage constraints: W4_Tue Late HeadNurse 1 short (cost 30). Stefaan is OFF W4_Tue, qualified HeadNurse, prior W4_Mon L, L->L clean, next W4_Wed off. Covers the HeadNurse optimal shortage on W4_Tue.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W4_Tue",
+        "shift": "L",
+        "skill": "HeadNurse",
+        "to_nurse": "Stefaan"
+      }
+    ]
+  }
+]

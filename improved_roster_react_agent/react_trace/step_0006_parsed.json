@@ -1,0 +1,29 @@
+{
+  "thought": "Largest reducible soft cost is weekend overages; shift one full weekend off Patrick onto Stefaan (who is not over max weekends) while swapping a weekday back to keep totals balanced and avoid single-assignment conflicts.",
+  "action": {
+    "type": "propose_bundle",
+    "bundle_id": 6,
+    "target_penalty": "max_working_weekend",
+    "reason": "Move Patrick's W2 weekend (Sat+Sun) to Stefaan to reduce Patrick's working-weekend count, and swap a weekday to compensate workload without changing coverage.",
+    "moves": [
+      {
+        "type": "swap",
+        "day": "W2_Sat",
+        "nurse_a": "Patrick",
+        "nurse_b": "Stefaan"
+      },
+      {
+        "type": "swap",
+        "day": "W2_Sun",
+        "nurse_a": "Patrick",
+        "nurse_b": "Stefaan"
+      },
+      {
+        "type": "swap",
+        "day": "W1_Tue",
+        "nurse_a": "Patrick",
+        "nurse_b": "Stefaan"
+      }
+    ]
+  }
+}

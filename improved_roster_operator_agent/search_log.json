@@ -1,0 +1,84 @@
+{
+  "method": "agentic_operator_selection_with_deterministic_candidate_generation",
+  "initial_total_cost": 1915,
+  "best_total_cost": 1885,
+  "iterations": [
+    {
+      "iteration": 1,
+      "operator": "reduce_overload",
+      "status": "no_improvement",
+      "strategy": {
+        "operator": "reduce_overload",
+        "target_nurses": [
+          "Stefaan",
+          "Nguyen"
+        ],
+        "target_days": [
+          "W1_Mon",
+          "W2_Wed",
+          "W3_Thu"
+        ],
+        "reason": "Total assignment over-max penalties are among the largest atoms (Stefaan over_max_total=7, Nguyen over_max_total=8). Reducing their workload by moving assignments to less-overloaded nurses is likely to yield a direct cost drop while keeping hard constraints feasible.",
+        "avoid": [
+          "Do not transfer assignments to nurses already over max_weekends (Patrick, Sara, Nguyen, Andrea) if it increases their weekend count.",
+          "Avoid creating forbidden shift successions or breaking required minimum coverage when moving work off Stefaan/Nguyen."
+        ]
+      },
+      "candidate_count": 15,
+      "old_cost": 1915,
+      "new_cost": 1915,
+      "delta": 0
+    },
+    {
+      "iteration": 2,
+      "operator": "repair_optimal_coverage",
+      "status": "improved",
+      "strategy": {
+        "operator": "repair_optimal_coverage",
+        "target_nurses": [],
+        "target_days": [
+          "W1_Tue",
+          "W1_Thu",
+          "W1_Fri",
+          "W2_Mon",
+          "W3_Mon",
+          "W3_Wed",
+          "W3_Fri",
+          "W4_Mon",
+          "W4_Tue"
+        ],
+        "reason": "Optimal coverage cost (420) is one of the largest remaining components and is represented by multiple 1-missing atoms across several days/shifts. Unlike reduce_overload (which already produced no improvement), filling optional shortages can often be done by assigning currently-off qualified nurses without breaking hard constraints, yielding a direct cost decrease.",
+        "avoid": [
+          "Do not add weekend assignments to nurses already over max_weekends (Patrick, Sara, Nguyen, Andrea).",
+          "Avoid creating forbidden shift successions and do not break required minimum coverage when reassigning staff to fill optimal shortages."
+        ]
+      },
+      "candidate_count": 24,
+      "old_cost": 1915,
+      "new_cost": 1885,
+      "delta": -30,
+      "accepted_bundle": {
+        "operator": "repair_optimal_coverage",
+        "reason": "Fill optimal coverage shortage on W1_Tue E/Nurse with Nguyen.",
+        "moves": [
+          {
+            "type": "coverage_fill",
+            "day": "W1_Tue",
+            "shift": "E",
+            "skill": "Nurse",
+            "to_nurse": "Nguyen"
+          }
+        ],
+        "meta": {
+          "target_day": "W1_Tue",
+          "shift": "E",
+          "skill": "Nurse",
+          "nurse": "Nguyen"
+        }
+      },
+      "changes": [
+        "W1_Tue: Nguyen OFF -> E/Nurse"
+      ]
+    }
+  ]
+}

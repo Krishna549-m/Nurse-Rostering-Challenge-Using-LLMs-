@@ -1,0 +1,7 @@
+{
+  "operator": "window_rebuild",
+  "target_nurses": ["Sara", "Stefaan", "Patrick", "Andrea", "Nguyen"],
+  "target_days": ["W2_Mon", "W2_Tue", "W2_Wed", "W2_Thu", "W2_Fri", "W2_Sat", "W2_Sun"],
+  "reason": "Consecutive_cost (405) and non_working_days_cost (450) are the largest components, with multiple consecutive-working and consecutive-days-off penalty atoms across several nurses. Previous ruin_recreate_overload had no candidates and weekend_transfer_bundle found no improvement, so rebuilding a full 7-day window (W2) is more likely to reshape work/rest patterns while also potentially reducing weekend overages and coverage gaps.",
+  "avoid": ["Try not to increase max_working_weekend_cost further (Patrick/Sara/Nguyen already exceed max weekends).", "Keep complete weekends intact (Sat+Sun together) to preserve complete_weekends_cost at 0.", "Avoid adding assignments to Stefaan/Nguyen if it worsens their max_total violations."]
+}

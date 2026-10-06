@@ -1,0 +1,28 @@
+{
+  "operator": "weekend_transfer_bundle",
+  "reason": "Transfer weekend 2 from Stefaan to Andrea.",
+  "moves": [
+    {
+      "type": "reassign",
+      "day": "W2_Sat",
+      "from_nurse": "Stefaan",
+      "to_nurse": "Andrea",
+      "shift": "N",
+      "skill": "HeadNurse"
+    },
+    {
+      "type": "reassign",
+      "day": "W2_Sun",
+      "from_nurse": "Stefaan",
+      "to_nurse": "Andrea",
+      "shift": "N",
+      "skill": "HeadNurse"
+    }
+  ],
+  "meta": {
+    "source": "Stefaan",
+    "target": "Andrea",
+    "week": 2,
+    "compensated": false
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "thought": "Hard constraints are clean, but soft penalties are dominated by consecutive_cost and non_working_days_cost, with significant weekend overages and some optimal_coverage shortage. Prior block_swap attempts frequently triggered illegal_succession, while single-day swap/reassign tended to be hard-feasible but non-improving. A multi-day pattern change is still needed to fix consecutive/off and weekend structure, but should avoid the illegal-succession-prone block_swap patterns.",
+  "strategy": {
+    "neighborhood": "block_reassign",
+    "target_penalty": "non_working_days_cost",
+    "reason": "Block_reassign can create/extend consecutive OFF blocks and break long work stretches (addressing both non_working_days_cost and consecutive_cost) while also allowing weekend-duty relocation from over-weekend nurses; it is less likely than block_swap to introduce illegal_succession because it doesn’t exchange shift types between nurses.",
+    "avoid": "Avoid block_swap (repeated illegal_succession spikes) and avoid coverage_fill since adding assignments tends to worsen consecutive patterns and weekend/max-total pressure.",
+    "max_candidates": 100
+  }
+}

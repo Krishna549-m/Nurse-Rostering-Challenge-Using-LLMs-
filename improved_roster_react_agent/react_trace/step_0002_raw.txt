@@ -1,0 +1,51 @@
+{
+  "thought": "Main cost drivers are over-max total assignments for Stefaan/Nguyen and weekend overages. Reduce Stefaan and Nguyen workload by reassigning some of their weekday shifts to Sara (at max but can swap out later) and Patrick/Andrea while keeping skills valid (avoid moving HeadNurse work to non-HeadNurse).",
+  "action": {
+    "type": "propose_bundle",
+    "bundle_id": 2,
+    "target_penalty": "total_assignments",
+    "reason": "Reassign several Nurse-skill weekday shifts from over-max nurses (Stefaan, Nguyen) to qualified nurses, avoiding HeadNurse-only shifts and not touching weekend days to prevent worsening weekend penalties.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Mon",
+        "from_nurse": "Stefaan",
+        "to_nurse": "Sara",
+        "shift": "E",
+        "skill": "Nurse"
+      },
+      {
+        "type": "reassign",
+        "day": "W1_Sun",
+        "from_nurse": "Stefaan",
+        "to_nurse": "Andrea",
+        "shift": "E",
+        "skill": "Nurse"
+      },
+      {
+        "type": "reassign",
+        "day": "W1_Wed",
+        "from_nurse": "Nguyen",
+        "to_nurse": "Patrick",
+        "shift": "E",
+        "skill": "Nurse"
+      },
+      {
+        "type": "reassign",
+        "day": "W1_Thu",
+        "from_nurse": "Nguyen",
+        "to_nurse": "Sara",
+        "shift": "E",
+        "skill": "Nurse"
+      },
+      {
+        "type": "reassign",
+        "day": "W1_Fri",
+        "from_nurse": "Nguyen",
+        "to_nurse": "Andrea",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  }
+}

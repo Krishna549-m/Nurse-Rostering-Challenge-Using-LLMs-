@@ -1,0 +1,55 @@
+{
+  "initial_total_cost": 1905,
+  "best_total_cost": 1870,
+  "iterations": [
+    {
+      "iteration": 1,
+      "status": "improved",
+      "accepted_bundle_id": 449,
+      "accepted_bundle_reason": "deterministic single remove-assignment candidate",
+      "old_cost": 1905,
+      "new_cost": 1885,
+      "delta": -20,
+      "changes": [
+        "W3_Wed: Sara E/Nurse -> OFF"
+      ],
+      "accepted_bundle": {
+        "bundle_id": 449,
+        "reason": "deterministic single remove-assignment candidate",
+        "moves": [
+          {
+            "type": "remove_assignment",
+            "day": "W3_Wed",
+            "nurse": "Sara"
+          }
+        ]
+      }
+    },
+    {
+      "iteration": 2,
+      "status": "improved",
+      "accepted_bundle_id": 637,
+      "accepted_bundle_reason": "deterministic single add-assignment candidate",
+      "old_cost": 1885,
+      "new_cost": 1870,
+      "delta": -15,
+      "changes": [
+        "W1_Tue: Nguyen OFF -> E/Nurse"
+      ],
+      "accepted_bundle": {
+        "bundle_id": 637,
+        "reason": "deterministic single add-assignment candidate",
+        "moves": [
+          {
+            "type": "add_assignment",
+            "day": "W1_Tue",
+            "nurse": "Nguyen",
+            "shift": "E",
+            "skill": "Nurse"
+          }
+        ]
+      }
+    }
+  ],
+  "total_validator_calls": 1319
+}

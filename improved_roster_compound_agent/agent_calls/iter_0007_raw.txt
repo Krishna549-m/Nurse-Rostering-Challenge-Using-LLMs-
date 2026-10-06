@@ -1,0 +1,7 @@
+{
+  "operator": "window_rebuild",
+  "target_nurses": ["Sara", "Stefaan", "Patrick", "Andrea", "Nguyen"],
+  "target_days": ["W3_Mon", "W3_Tue", "W3_Wed", "W3_Thu", "W3_Fri", "W3_Sat", "W3_Sun"],
+  "reason": "Largest remaining cost components are non_working_days_cost (450) and consecutive_cost (405), with multiple consecutive-days-off and consecutive-working penalties clustered around W3 (e.g., Sara W3_Sun/W3_Mon, Stefaan W3_Thu, Patrick W3_Wed). After broad mixed/random attempts failed to improve, a focused 7-day rebuild on W3 can reshape work/rest blocks and potentially reduce weekend overages without relying on the previously unproductive overload/weekend-only operators.",
+  "avoid": ["Avoid increasing max_working_weekend_cost further (Patrick/Sara/Nguyen/Andrea already exceed max weekends).", "Keep Sat+Sun together to preserve complete_weekends_cost at 0.", "Do not add assignments to Stefaan or Nguyen in a way that worsens their max_total violations."]
+}

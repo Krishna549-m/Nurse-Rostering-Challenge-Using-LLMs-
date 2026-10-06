@@ -1,0 +1,17 @@
+{
+  "initial_total_cost": 1910,
+  "best_total_cost": 1895,
+  "iterations": [
+    {
+      "iteration": 1,
+      "accepted_bundle_id": 8,
+      "accepted_bundle_reason": "Reduce high optimal-coverage penalty by filling missing W1_Tue Early Nurse (opt short) with an OFF qualified nurse.",
+      "accepted_cost": 1895,
+      "changes": [
+        "W1_Tue: Nguyen OFF -> E/Nurse"
+      ],
+      "status": "improved"
+    }
+  ],
+  "total_validator_calls": 20
+}

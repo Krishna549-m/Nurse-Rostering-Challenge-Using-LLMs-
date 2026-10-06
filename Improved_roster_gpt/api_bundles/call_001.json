@@ -1,0 +1,132 @@
+[
+  {
+    "bundle_id": "B1_fill_W1_Wed_E_Nurse",
+    "reason": "Optimal coverage constraints: W1_Wed is 1 short for Early Nurse; add an Early Nurse on an OFF nurse to cut 30 cost without affecting minimum coverage.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W1_Wed",
+        "shift": "E",
+        "skill": "Nurse",
+        "to_nurse": "Nguyen"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B2_fill_W1_Fri_N_Nurse",
+    "reason": "Optimal coverage constraints: W1_Fri is 1 short for Night Nurse; fill with an OFF qualified nurse to reduce 30 cost.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W1_Fri",
+        "shift": "N",
+        "skill": "Nurse",
+        "to_nurse": "Andrea"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B3_fill_W2_Mon_L_Nurse",
+    "reason": "Optimal coverage constraints: W2_Mon is 1 short for Late Nurse; fill with an OFF qualified nurse to reduce 30 cost.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W2_Mon",
+        "shift": "L",
+        "skill": "Nurse",
+        "to_nurse": "Patrick"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B4_fill_W2_Fri_N_Nurse",
+    "reason": "Optimal coverage constraints: W2_Fri is 1 short for Night Nurse; fill with an OFF qualified nurse to reduce 30 cost.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W2_Fri",
+        "shift": "N",
+        "skill": "Nurse",
+        "to_nurse": "Stefaan"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B5_fill_W3_Mon_L_Nurse",
+    "reason": "Optimal coverage constraints: W3_Mon is 1 short for Late Nurse; fill with an OFF qualified nurse to reduce 30 cost.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W3_Mon",
+        "shift": "L",
+        "skill": "Nurse",
+        "to_nurse": "Nguyen"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B6_fill_W3_Fri_E_Nurse",
+    "reason": "Optimal coverage constraints: W3_Fri is 1 short for Early Nurse; fill with an OFF qualified nurse to reduce 30 cost.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W3_Fri",
+        "shift": "E",
+        "skill": "Nurse",
+        "to_nurse": "Patrick"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B7_fill_W3_Fri_N_Nurse",
+    "reason": "Optimal coverage constraints: W3_Fri is 1 short for Night Nurse; fill with an OFF qualified nurse to reduce 30 cost.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W3_Fri",
+        "shift": "N",
+        "skill": "Nurse",
+        "to_nurse": "Stefaan"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B8_fill_W4_Mon_E_Nurse",
+    "reason": "Optimal coverage constraints: W4_Mon is 1 short for Early Nurse (opt=2); add an extra Early Nurse on an OFF nurse to reduce 30 cost.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W4_Mon",
+        "shift": "E",
+        "skill": "Nurse",
+        "to_nurse": "Nguyen"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B9_fill_W4_Tue_L_HeadNurse",
+    "reason": "Optimal coverage constraints: W4_Tue is 1 short for Late HeadNurse; fill with an OFF HeadNurse-qualified nurse to reduce 30 cost.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W4_Tue",
+        "shift": "L",
+        "skill": "HeadNurse",
+        "to_nurse": "Andrea"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B10_fill_W4_Wed_L_Nurse",
+    "reason": "Optimal coverage constraints: W4_Wed is 1 short for Late Nurse; fill with an OFF qualified nurse to reduce 30 cost.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W4_Wed",
+        "shift": "L",
+        "skill": "Nurse",
+        "to_nurse": "Patrick"
+      }
+    ]
+  }
+]

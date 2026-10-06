@@ -1,0 +1,20 @@
+{
+  "operator": "ruin_recreate_overload",
+  "target_nurses": [
+    "Stefaan",
+    "Nguyen",
+    "Sara"
+  ],
+  "target_days": [
+    "W1_Mon",
+    "W1_Tue",
+    "W1_Wed",
+    "W2_Tue",
+    "W2_Wed"
+  ],
+  "reason": "Largest penalty atoms are maximum total assignments for Stefaan and Sara, and workload stats show Stefaan (+7) and Nguyen (+8) are heavily over max_total while Sara is at max_total. Ruin/recreate can remove several assignments from these overloaded nurses and reassign them to reduce total_assignments penalties while also potentially improving coverage gaps.",
+  "avoid": [
+    "Avoid increasing max_working_weekend_cost (Patrick/Sara/Nguyen already exceed max weekends).",
+    "Prefer moving weekday assignments before weekend days unless it also reduces weekend overages."
+  ]
+}

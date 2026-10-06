@@ -1,0 +1,41 @@
+{
+"schema": {
+"sets": {
+"N": ["Patrick","Andrea","Stefaan","Sara","Nguyen"],
+"D": ["W1_Mon","W1_Tue","W1_Wed","W1_Thu","W1_Fri","W1_Sat","W1_Sun",
+"W2_Mon","W2_Tue","W2_Wed","W2_Thu","W2_Fri","W2_Sat","W2_Sun",
+"W3_Mon","W3_Tue","W3_Wed","W3_Thu","W3_Fri","W3_Sat","W3_Sun",
+"W4_Mon","W4_Tue","W4_Wed","W4_Thu","W4_Fri","W4_Sat","W4_Sun"],
+"S": ["E","L","N"],
+"K": ["HeadNurse","Nurse"]
+},
+"variables": {
+"x[n,d,s]": "binary",
+"under[d,s,k]": "integer >=0",
+"opt_gap[d,s,k]": "integer >=0",
+"pref_violation[n,d,s]": "binary",
+"weekend_violation[n,w]": "binary"
+}
+},
+"pyomo_code": "from pyomo.environ import *\n\nmodel = ConcreteModel()\n\n# Sets\nmodel.N = Set(initialize=['Patrick','Andrea','Stefaan','Sara','Nguyen'])\nmodel.D = Set(initialize=["W1_Mon","W1_Tue","W1_Wed","W1_Thu","W1_Fri","W1_Sat","W1_Sun",\n"W2_Mon","W2_Tue","W2_Wed","W2_Thu","W2_Fri","W2_Sat","W2_Sun",\n"W3_Mon","W3_Tue","W3_Wed","W3_Thu","W3_Fri","W3_Sat","W3_Sun",\n"W4_Mon","W4_Tue","W4_Wed","W4_Thu","W4_Fri","W4_Sat","W4_Sun"])\nmodel.S = Set(initialize=['E','L','N'])\nmodel.K = Set(initialize=['HeadNurse','Nurse'])\n\n# Decision variable\nmodel.x = Var(model.N, model.D, model.S, domain=Binary)\n\n# Coverage parameters (example shown, rest should follow same structure)\ncoverage = {...}  # full dictionary from input\n\n# Qualification matrix\nqual = {\n"Patrick":{"HeadNurse":1,"Nurse":1},\n"Andrea":{"HeadNurse":1,"Nurse":1},\n"Stefaan":{"HeadNurse":1,"Nurse":1},\n"Sara":{"HeadNurse":0,"Nurse":1},\n"Nguyen":{"HeadNurse":0,"Nurse":1}\n}\n\n# H1: One shift per day\nmodel.h1 = Constraint(model.N, model.D, rule=lambda m,n,d: sum(m.x[n,d,s] for s in m.S) <= 1)\n\n# H2: Coverage constraints\n\ndef coverage_rule(m, d, s, k):\n    return sum(m.x[n,d,s]*qual[n][k] for n in m.N) >= coverage[d][s][k]['minimum']\n\nmodel.h2 = Constraint(model.D, model.S, model.K, rule=coverage_rule)\n\n# Leave constraints\nleave_expanded = [...] \n\ndef leave_rule(m, n, d, s):\n    if (n,d,s) in leave_expanded:\n        return m.x[n,d,s] == 0\n    return Constraint.Skip\n\nmodel.leave = Constraint(model.N, model.D, model.S, rule=leave_rule)\n\n# Objective penalties\nmodel.under = Var(model.D, model.S, model.K, domain=NonNegativeIntegers)\nmodel.opt_gap = Var(model.D, model.S, model.K, domain=NonNegativeIntegers)\n\n# Undercoverage\n\ndef under_rule(m,d,s,k):\n    return sum(m.x[n,d,s]*qual[n][k] for n in m.N) + m.under[d,s,k] >= coverage[d][s][k]['minimum']\nmodel.under_c = Constraint(model.D, model.S, model.K, rule=under_rule)\n\n# Optimal gap\n\ndef opt_rule(m,d,s,k):\n    return sum(m.x[n,d,s]*qual[n][k] for n in m.N) + m.opt_gap[d,s,k] >= coverage[d][s][k]['optimal']\nmodel.opt_c = Constraint(model.D, model.S, model.K, rule=opt_rule)\n\n# Objective\nmodel.obj = Objective(expr=\n    1000*sum(model.under[d,s,k] for d in model.D for s in model.S for k in model.K)\n  + 30*sum(model.opt_gap[d,s,k] for d in model.D for s in model.S for k in model.K),\n  sense=minimize)\n",
+"ortools_code": "from ortools.sat.python import cp_model\n\nmodel = cp_model.CpModel()\n\nN = ['Patrick','Andrea','Stefaan','Sara','Nguyen']\nD = [...]\nS = ['E','L','N']\nK = ['HeadNurse','Nurse']\n\nx = {}\nfor n in N:\n  for d in D:\n    for s in S:\n      x[n,d,s] = model.NewBoolVar(f"x_{n}*{d}*{s}")\n\n# One shift per day\nfor n in N:\n  for d in D:\n    model.Add(sum(x[n,d,s] for s in S) <= 1)\n\n# Coverage\nfor d in D:\n  for s in S:\n    for k in K:\n      model.Add(sum(x[n,d,s]*qual[n][k] for n in N) >= coverage[d][s][k]['minimum'])\n\n# Leave\nfor (n,d,s) in leave_expanded:\n  model.Add(x[n,d,s] == 0)\n\n# Objective\nunder = {}\nopt_gap = {}\nfor d in D:\n  for s in S:\n    for k in K:\n      under[d,s,k] = model.NewIntVar(0,100,f"under_{d}*{s}*{k}")\n      opt_gap[d,s,k] = model.NewIntVar(0,100,f"opt_{d}*{s}*{k}")\n\n      model.Add(sum(x[n,d,s]*qual[n][k] for n in N) + under[d,s,k] >= coverage[d][s][k]['minimum'])\n      model.Add(sum(x[n,d,s]*qual[n][k] for n in N) + opt_gap[d,s,k] >= coverage[d][s][k]['optimal'])\n\nmodel.Minimize(\n  1000*sum(under.values()) +\n  30*sum(opt_gap.values())\n)\n\nsolver = cp_model.CpSolver()\nsolver.Solve(model)\n",
+"validation_report": {
+"missing_variables": [],
+"dimension_mismatches": [],
+"infeasible_coverage": [],
+"undefined_parameters": [],
+"missing_rules": [
+"consecutive shift constraints",
+"consecutive working days",
+"consecutive days off",
+"complete weekends",
+"total assignments bounds",
+"weekend limits"
+],
+"assumptions": [
+"coverage dictionary fully populated externally",
+"leave_expanded converted to tuple list",
+"soft constraints linearized partially"
+]
+}
+}

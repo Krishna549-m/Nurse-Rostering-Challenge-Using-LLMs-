@@ -1,0 +1,15 @@
+{
+  "minimal_coverage": 0,
+  "required_skill": 0,
+  "illegal_succession": 0,
+  "single_assignment": 0,
+  "total_assignment_cost": 320,
+  "consecutive_cost": 375,
+  "non_working_days_cost": 390,
+  "preferences_cost": 30,
+  "max_working_weekend_cost": 210,
+  "complete_weekends_cost": 60,
+  "optimal_coverage_cost": 480,
+  "total_cost": 1865,
+  "hard_ok": true
+}

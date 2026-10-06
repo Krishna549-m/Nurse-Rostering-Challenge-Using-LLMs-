@@ -1,0 +1,12 @@
+{
+  "bundle_id": 221,
+  "reason": "deterministic single swap candidate",
+  "moves": [
+    {
+      "type": "swap",
+      "day": "W2_Sat",
+      "nurse_a": "Patrick",
+      "nurse_b": "Andrea"
+    }
+  ]
+}

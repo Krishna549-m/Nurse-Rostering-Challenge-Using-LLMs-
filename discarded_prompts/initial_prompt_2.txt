@@ -1,0 +1,475 @@
+NURSE ROSTERING PROBLEM INSTANCE
+
+NURSES:
+- Nurse "Patrick": full-time, skills = {HeadNurse, Nurse}
+- Nurse "Andrea": full-time, skills = {HeadNurse, Nurse}
+- Nurse "Stefaan": part-time, skills = {HeadNurse, Nurse}
+- Nurse "Sara": full-time, skills = {Nurse}
+- Nurse "Nguyen": part-time, skills = {Nurse}
+
+PLANNING HORIZON:
+- 4 Weeks
+
+SHIFT TYPES:
+- Early (E): minimum consecutive assignments = 2; maximum consecutive assignments = 5
+- Late (L): minimum consecutive assignments = 2; maximum consecutive assignments = 3
+- Night (N): minimum consecutive assignments = 4; maximum consecutive assignments = 5
+
+Contracts:
+- FullTime : "minimumNumberOfAssignments" : 15,
+    "maximumNumberOfAssignments" : 22,
+    "minimumNumberOfConsecutiveWorkingDays" : 3,
+    "maximumNumberOfConsecutiveWorkingDays" : 5,
+    "minimumNumberOfConsecutiveDaysOff" : 2,
+    "maximumNumberOfConsecutiveDaysOff" : 3,
+    "maximumNumberOfWorkingWeekends" : 2,
+    "completeWeekends" : 1
+
+- PartTime : "minimumNumberOfAssignments" : 7,
+    "maximumNumberOfAssignments" : 11,
+    "minimumNumberOfConsecutiveWorkingDays" : 3,
+    "maximumNumberOfConsecutiveWorkingDays" : 5,
+    "minimumNumberOfConsecutiveDaysOff" : 3,
+    "maximumNumberOfConsecutiveDaysOff" : 5,
+    "maximumNumberOfWorkingWeekends" : 2,
+    "completeWeekends" : 1
+
+HISTORICAL ASSIGNMENTS (PREVIOUS WEEK):
+- "Patrick" :
+    "numberOfAssignments" : 0,
+    "numberOfWorkingWeekends" : 0,
+    "lastAssignedShiftType" : "Night",
+    "numberOfConsecutiveAssignments" : 1,
+    "numberOfConsecutiveWorkingDays" : 4,
+    "numberOfConsecutiveDaysOff" : 0
+
+- "Andrea" :
+    "numberOfAssignments" : 0,
+    "numberOfWorkingWeekends" : 0,
+    "lastAssignedShiftType" : "Early",
+    "numberOfConsecutiveAssignments" : 3,
+    "numberOfConsecutiveWorkingDays" : 3,
+    "numberOfConsecutiveDaysOff" : 0
+
+- "Stefaan" :
+    "numberOfAssignments" : 0,
+    "numberOfWorkingWeekends" : 0,
+    "lastAssignedShiftType" : "None",
+    "numberOfConsecutiveAssignments" : 0,
+    "numberOfConsecutiveWorkingDays" : 0,
+    "numberOfConsecutiveDaysOff" : 3
+
+- "Sara" :
+    "numberOfAssignments" : 0,
+    "numberOfWorkingWeekends" : 0,
+    "lastAssignedShiftType" : "Late",
+    "numberOfConsecutiveAssignments" : 1,
+    "numberOfConsecutiveWorkingDays" : 4,
+    "numberOfConsecutiveDaysOff" : 0
+
+- "Nguyen" :
+    "numberOfAssignments" : 0,
+    "numberOfWorkingWeekends" : 0,
+    "lastAssignedShiftType" : "None",
+    "numberOfConsecutiveAssignments" : 0,
+    "numberOfConsecutiveWorkingDays" : 0,
+    "numberOfConsecutiveDaysOff" : 1
+
+
+LEAVE / UNAVAILABILITY:
+(nursename, shiftType, day)
+
+- Week1 :
+("Patrick", "Any", "Monday")
+("Stefaan", "Late", "Wednesday")
+("Sara", "Any", "Friday")
+  
+
+- Week2 :
+("Andrea", "Late", "Friday")
+("Andrea", "Any", "Saturday")
+
+
+- Week3 :
+("Andrea", "Any", "Tuesday")
+("Stefaan", "Any", "Wednesday")
+("Nguyen", "Any", "Friday")
+("Nguyen", "Any", "Saturday")
+("Sara", "Late", "Saturday")
+
+- Week4 :
+("Sara", "Any", "Thursday")
+("Sara", "Night", "Saturday")
+("Stefaan", "Late", "Saturday")
+
+Weekly Requirements(order start from Monday to Sunday)
+(Shift, Skill, Minimum, Optimal)
+- Week1 :
+Monday :
+(Early, HeadNurse, 0, 0)
+(Early, Nurse, 1, 1)
+(Late, HeadNurse, 1, 1)
+(Late, Nurse, 1, 1)
+(Night, HeadNurse, 0, 0)
+(Night, Nurse, 0, 1)
+
+Tuesday :
+(Early, HeadNurse, 1, 1)
+(Early, Nurse, 0, 1)
+(Late, HeadNurse, 0, 0)
+(Late, Nurse, 1, 1)
+(Night, HeadNurse, 0, 0)
+(Night, Nurse, 1, 1)
+
+Wednesday :
+(Early, HeadNurse, 0, 0)
+(Early, Nurse, 0, 1)
+(Late, HeadNurse, 0, 0)
+(Late, Nurse, 1, 1)
+(Night, HeadNurse, 1, 1)
+(Night, Nurse, 1, 1)
+
+Thursday :
+(Early, HeadNurse, 0, 0)
+(Early, Nurse, 1, 1)
+(Late, HeadNurse, 0, 0)
+(Late, Nurse, 0, 1)
+(Night, HeadNurse, 0, 0)
+(Night, Nurse, 1, 1)
+
+Friday :
+(Early, HeadNurse, 1, 1)
+(Early, Nurse, 1, 1)
+(Late, HeadNurse, 0, 0)
+(Late, Nurse, 1, 1)
+(Night, HeadNurse, 0, 0)
+(Night, Nurse, 0, 1)
+
+Saturday :
+(Early, HeadNurse, 0, 0)
+(Early, Nurse, 1, 1)
+(Late, HeadNurse, 0, 0)
+(Late, Nurse, 1, 1)
+(Night, HeadNurse, 1, 1)
+(Night, Nurse, 1, 1)
+
+Sunday :
+(Early, HeadNurse, 0, 0)
+(Early, Nurse, 1, 1)
+(Late, HeadNurse, 1, 1)
+(Late, Nurse, 1, 1)
+(Night, HeadNurse, 1, 1)
+(Night, Nurse, 1, 1)
+
+- Week2 :
+Monday :
+(Early, HeadNurse, 0, 0)
+(Early, Nurse, 1, 1)
+(Late, HeadNurse, 0, 0)
+(Late, Nurse, 0, 1)
+(Night, HeadNurse, 1, 1)
+(Night, Nurse, 0, 1)
+
+Tuesday :
+(Early, HeadNurse, 0, 0)
+(Early, Nurse, 1, 1)
+(Late, HeadNurse, 1, 1)
+(Late, Nurse, 1, 1)
+(Night, HeadNurse, 1, 1)
+(Night, Nurse, 1, 1)
+
+Wednesday :
+(Early, HeadNurse, 0, 0)
+(Early, Nurse, 1, 1)
+(Late, HeadNurse, 1, 1)
+(Late, Nurse, 1, 1)
+(Night, HeadNurse, 0, 0)
+(Night, Nurse, 1, 1)
+
+Thursday :
+(Early, HeadNurse, 0, 0)
+(Early, Nurse, 1, 1)
+(Late, HeadNurse, 0, 0)
+(Late, Nurse, 1, 1)
+(Night, HeadNurse, 0, 0)
+(Night, Nurse, 1, 1)
+
+Friday :
+(Early, HeadNurse, 0, 0)
+(Early, Nurse, 1, 1)
+(Late, HeadNurse, 0, 0)
+(Late, Nurse, 1, 1)
+(Night, HeadNurse, 0, 0)
+(Night, Nurse, 0, 1)
+
+Saturday :
+(Early, HeadNurse, 0, 0)
+(Early, Nurse, 1, 1)
+(Late, HeadNurse, 0, 0)
+(Late, Nurse, 0, 1)
+(Night, HeadNurse, 1, 1)
+(Night, Nurse, 1, 1)
+
+Sunday :
+(Early, HeadNurse, 0, 0)
+(Early, Nurse, 1, 1)
+(Late, HeadNurse, 0, 0)
+(Late, Nurse, 1, 1)
+(Night, HeadNurse, 1, 1)
+(Night, Nurse, 1, 1)
+
+- Week3 :
+Monday :
+(Early, HeadNurse, 0, 0)
+(Early, Nurse, 1, 1)
+(Late, HeadNurse, 1, 1)
+(Late, Nurse, 0, 1)
+(Night, HeadNurse, 1, 1)
+(Night, Nurse, 1, 1)
+
+Tuesday :
+(Early, HeadNurse, 0, 0)
+(Early, Nurse, 1, 1)
+(Late, HeadNurse, 0, 0)
+(Late, Nurse, 1, 1)
+(Night, HeadNurse, 0, 0)
+(Night, Nurse, 1, 1)
+
+Wednesday :
+(Early, HeadNurse, 1, 1)
+(Early, Nurse, 0, 1)
+(Late, HeadNurse, 0, 0)
+(Late, Nurse, 1, 1)
+(Night, HeadNurse, 1, 1)
+(Night, Nurse, 0, 1)
+
+Thursday :
+(Early, HeadNurse, 0, 0)
+(Early, Nurse, 1, 1)
+(Late, HeadNurse, 0, 0)
+(Late, Nurse, 1, 1)
+(Night, HeadNurse, 1, 1)
+(Night, Nurse, 1, 1)
+
+Friday :
+(Early, HeadNurse, 1, 1)
+(Early, Nurse, 0, 1)
+(Late, HeadNurse, 0, 0)
+(Late, Nurse, 1, 1)
+(Night, HeadNurse, 0, 0)
+(Night, Nurse, 0, 1)
+
+Saturday :
+(Early, HeadNurse, 0, 0)
+(Early, Nurse, 1, 1)
+(Late, HeadNurse, 1, 1)
+(Late, Nurse, 1, 1)
+(Night, HeadNurse, 0, 0)
+(Night, Nurse, 1, 1)
+
+Sunday :
+(Early, HeadNurse, 0, 0)
+(Early, Nurse, 1, 1)
+(Late, HeadNurse, 1, 1)
+(Late, Nurse, 1, 1)
+(Night, HeadNurse, 0, 0)
+(Night, Nurse, 1, 1)
+
+- Week4 :
+Monday : 
+(Early, HeadNurse, 1, 1)
+(Early, Nurse, 1, 2)
+(Late, HeadNurse, 1, 1)
+(Late, Nurse, 1, 1)
+(Night, HeadNurse, 0, 0)
+(Night, Nurse, 0, 1)
+
+Tuesday :
+
+(Early, HeadNurse, 0, 0)
+(Early, Nurse, 1, 1)
+(Late, HeadNurse, 0, 1)
+(Late, Nurse, 1, 1)
+(Night, HeadNurse, 1, 1)
+(Night, Nurse, 1, 1)
+
+Wednesday
+(Early, HeadNurse, 0, 0)
+(Early, Nurse, 1, 1)
+(Late, HeadNurse, 1, 1)
+(Late, Nurse, 0, 1)
+(Night, HeadNurse, 0, 0)
+(Night, Nurse, 1, 1)
+
+Thursday
+(Early, HeadNurse, 0, 0)
+(Early, Nurse, 0, 1)
+(Late, HeadNurse, 0, 0)
+(Late, Nurse, 0, 1)
+(Night, HeadNurse, 0, 0)
+(Night, Nurse, 1, 1)
+
+Friday
+(Early, HeadNurse, 0, 0)
+(Early, Nurse, 1, 1)
+(Late, HeadNurse, 0, 0)
+(Late, Nurse, 1, 1)
+(Night, HeadNurse, 1, 1)
+(Night, Nurse, 1, 1)
+
+Saturday
+(Early, HeadNurse, 1, 1)
+(Early, Nurse, 1, 1)
+(Late, HeadNurse, 0, 0)
+(Late, Nurse, 1, 1)
+(Night, HeadNurse, 1, 1)
+(Night, Nurse, 0, 1)
+
+Sunday
+(Early, HeadNurse, 0, 0)
+(Early, Nurse, 0, 1)
+(Late, HeadNurse, 0, 0)
+(Late, Nurse, 1, 1)
+(Night, HeadNurse, 0, 0)
+(Night, Nurse, 1, 1)
+
+
+HARD RULES (H):
+- H1. Single assignment per day: A nurse can be assigned to at most one shift per day.
+- H2. Under-staffing: The number of nurses for each shift for each skill must be at least equal to the minimum
+requirement.
+- H3. Shift type successions: The shift type assignments of one nurse in two consecutive days must belong to
+the legal successions provided in the scenario.
+- H4. Missing required skill: A shift of a given skill must necessarily be fulfilled by a nurse having that skill
+
+SOFT RULES:
+- S1. Insufficient staffing for optimal coverage (30): The number of nurses for each shift for each skill must
+be equal to the optimal requirement. Each missing nurse is penalised according to the weight provided.
+Extra nurses above the optimal value are not considered in the cost.
+- S2. Consecutive assignments (15/30): Minimum and maximum number of consecutive assignments, per
+shift or global, should be respected. Their evaluation involves also the border data. Each extra or missing day is multiplied by the corresponding weight. The weights for consecutive shift constraint and for
+consecutive working days are respectively 15 and 30.
+- S3. Consecutive days off (30): Minimum and maximum number of consecutive days off should be respected.
+Their evaluation involves also the border data. Each extra or missing day is multiplied by the corresponding
+weight.
+- S4. Preferences (10): Each assignment to an undesired shift is penalised by the corresponding weight.
+- S5. Complete week-end (30): Every nurse that has the complete weekend value set to true, must work both
+week-end days or none. If she/he works only one of the two days Sat and Sun this is penalised by the
+corresponding weight.
+- S6. Total assignments (20): For each nurse the total number of assignments (working days) must be included within the limits (minimum and maximum) enforced by her/his contract. The difference (in either
+direction), multiplied by its weight, is added to the objective function.
+- S7. Total working week-ends (30): For each nurse the number of working weed-ends must be less than or
+equal to the maximum. The number of worked week-ends in excess is added to the objective function
+multiplied by the weight. A week-end is considered “working” if at least one of the two days (Sat and Sun)
+is busy for the nurse.
+
+
+OBJECTIVE:
+You are an expert scheduling modeler LLM. Your task is to read the input data (JSON and any natural-language notes) and produce three deliverables:
+
+1. **Structured constraint schema (JSON)** that a downstream program can consume.
+2. **Solver-ready model code** in both **Pyomo** (for MIP) and **OR-Tools CP-SAT** (for CP), faithful to the schema.
+3. **Automated validation report** listing missing variables, inconsistent ranges, contradictions, and solver compatibility issues.
+
+Do not use placeholder coverage rules such as >= 1.
+You must instantiate all coverage minima and optimal values explicitly from the input data.
+Every variable referenced in schema expressions must be declared in both schema and solver code.
+Every soft rule and every hard rule must be included if present in the input.
+If any rule is omitted, include it under validation_report.missing_rules.
+Do not output example code or placeholder logic.
+
+Follow these rules exactly.
+
+INPUT
+- The input will be provided after the marker `<<<DATA>>>`.
+- Treat the JSON as authoritative for coverage, shift types, skills, and shift-off requests.
+- If natural-language notes are present, extract implied constraints and preferences.
+
+DELIVERABLE 1 — Constraint Schema (JSON)
+- Output a single JSON object with these top-level keys:
+  - **variables**: list of variable declarations. Each variable entry must include:
+    - **name** (string)
+    - **type**: one of `"binary"`, `"integer"`, `"continuous"`
+    - **domain**: `[min, max]`
+    - **indices**: list of index sets used (e.g., `["nurses","days","shifts"]`)
+    - **description** (string)
+  - **sets**: definitions for index sets with explicit elements, e.g., `"days":["Monday",...], "shifts":["Early","Late","Night"], "skills":["Nurse","HeadNurse"], "nurses":[...]"`
+  - **hard_constraints**: array of constraints. Each constraint entry must include:
+    - **id** (string)
+    - **type** (string) e.g., `"coverage"`, `"max_weekly_hours"`, `"min_rest"`, `"skill_qualification"`, `"one_shift_per_day"`, `"legal"`, etc.
+    - **expression**: a machine-readable expression using variable names and indices (use simple linear algebraic notation).
+    - **description** (string)
+  - **soft_constraints**: array of soft constraints. Each entry must include:
+    - **id**
+    - **penalty_weight** (numeric)
+    - **expression** (how violation is measured)
+    - **description**
+  - **objective**: object describing the objective function:
+    - **type**: `"minimize"` or `"maximize"`
+    - **expression**: linear combination of penalties and/or costs
+    - **description**
+  - **metadata**: source mapping that links each schema item to the original input fields (e.g., which JSON path or NL sentence produced it).
+
+- Use clear, consistent variable naming. Example variable names:
+  - `x[nurse,day,shift]` binary = 1 if nurse works shift on day
+  - `y[nurse,week]` integer = total hours per week
+  - `pen_pref[nurse,day,shift]` continuous = penalty for violating a preference
+
+DELIVERABLE 2 — Solver Code
+- Provide **two** code sections: **Pyomo** and **OR-Tools CP-SAT**.
+- Each section must:
+  - Declare sets and parameters from the schema.
+  - Declare variables exactly as in the schema.
+  - Add all **hard constraints** so they are enforced by the solver.
+  - Implement **soft constraints** via penalty variables and include them in the objective.
+  - Define the objective exactly as in the schema.
+  - Include comments mapping each constraint in code to the corresponding `hard_constraints` or `soft_constraints` `id` from the schema.
+  - Use realistic parameter values from the input JSON (coverage minima/optimals, shift-off requests).
+- For Pyomo:
+  - Use `ConcreteModel()` and standard Pyomo constructs.
+  - Provide a short note on solver recommendations (e.g., `glpk` for small MIP, `cbc` or `gurobi` for larger).
+- For OR-Tools CP-SAT:
+  - Use CP-SAT idioms (BoolVar, Add, AddAllowedAssignments or linear constraints).
+  - Model soft constraints using integer penalty variables and `Add`/`AddHint` where appropriate.
+
+DELIVERABLE 3 — Validation Report
+- Run a static validation (no solver run required) and produce:
+  - **missing_variables**: list of any variables referenced in constraints but not declared.
+  - **inconsistent_ranges**: any domain or parameter ranges that are impossible (e.g., negative hours).
+  - **contradictory_constraints**: pairs or sets of constraints that cannot be satisfied together (explain why).
+  - **solver_incompatibilities**: constructs that are not directly supported by CP-SAT or linear MIP (e.g., non-linear expressions), and suggested linearizations.
+  - **suggested_fixes**: actionable fixes for each issue.
+- Also produce a **compact feasibility check**: for each day/shift/skill, compare declared coverage minima to the number of available qualified nurses (from `sets.nurses` and qualifications). If minima exceed available staff, flag as infeasible.
+
+OUTPUT FORMAT
+- Return a single JSON object with keys: `"schema"`, `"pyomo_code"`, `"ortools_code"`, `"validation_report"`.
+- **schema** must be the JSON schema object described above.
+- **pyomo_code** and **ortools_code** must be strings containing the full code.
+- **validation_report** must be a JSON object as described in Deliverable 3.
+- After the JSON object, append a short plain-text summary (3–6 sentences) describing the main modeling choices and any critical issues.
+
+ADDITIONAL REQUIREMENTS
+- Preserve all coverage minima and optimal values from the input JSON.
+- Include shift-off requests as hard constraints forbidding assignment for that nurse/day/shift type.
+- For skill qualifications, assume a nurse can perform a skill only if listed in an input qualification mapping. If no mapping is provided, assume all nurses are qualified for `"Nurse"` and only explicitly named nurses are `"HeadNurse"` if provided in metadata; otherwise, add a warning in the validation report.
+- Use **penalty weights** for soft constraints as follows unless the input specifies otherwise:
+  - Preference violation: 10
+  - Weekend fairness deviation: 5 per extra weekend shift
+  - Undercoverage below minimum: 1000 per missing slot (treat as effectively infeasible)
+- Keep all expressions linear. If a soft constraint is naturally non-linear, linearize it and document the linearization.
+
+EXAMPLES
+- If input contains `"requirementOnMonday": {"minimum":1,"optimal":2}` for `(Early,Nurse)`, produce a hard constraint ensuring `sum_{n in Nurses} x[n,Monday,Early] >= 1` and a soft penalty term `max(0, 2 - sum_{n} x[n,Monday,Early])` with weight for objective.
+
+ERROR HANDLING
+- If the input JSON is malformed or missing required fields, return a JSON object with `"error": "<explanation>"` and a list of missing fields.
+- If any assumption is made (e.g., nurse qualifications), list it in `validation_report.metadata.assumptions`.
+
+PERFORMANCE AND READABILITY
+- Keep code readable and commented.
+- Keep the schema compact but complete.
+- Do not run a solver; only produce model code and static validation.
+
+Now read the data after `<<<DATA>>>` and produce the single JSON object with keys `"schema"`, `"pyomo_code"`, `"ortools_code"`, and `"validation_report"`. After that JSON object, append a 3–6 sentence plain-text summary of the modeling choices and critical issues.
+<<<DATA>>>
+{paste the scheduling JSON and any natural-language notes here}

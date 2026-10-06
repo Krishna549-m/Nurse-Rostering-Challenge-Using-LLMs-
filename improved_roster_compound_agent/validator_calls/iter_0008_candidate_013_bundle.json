@@ -1,0 +1,29 @@
+{
+  "operator": "ruin_recreate_overload",
+  "reason": "Ruin-recreate 2 assignments from overloaded nurse Nguyen.",
+  "moves": [
+    {
+      "type": "reassign",
+      "day": "W1_Fri",
+      "from_nurse": "Nguyen",
+      "to_nurse": "Patrick",
+      "shift": "E",
+      "skill": "Nurse"
+    },
+    {
+      "type": "reassign",
+      "day": "W4_Mon",
+      "from_nurse": "Nguyen",
+      "to_nurse": "Sara",
+      "shift": "L",
+      "skill": "Nurse"
+    }
+  ],
+  "meta": {
+    "source_nurse": "Nguyen",
+    "selected_days": [
+      "W1_Fri",
+      "W4_Mon"
+    ]
+  }
+}

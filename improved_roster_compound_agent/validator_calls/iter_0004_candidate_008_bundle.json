@@ -1,0 +1,52 @@
+{
+  "operator": "block_rotation",
+  "reason": "Rotate assignments among Stefaan, Patrick, and Sara around W3_Thu.",
+  "moves": [
+    {
+      "type": "reassign",
+      "day": "W3_Wed",
+      "from_nurse": "Patrick",
+      "to_nurse": "Sara",
+      "shift": "L",
+      "skill": "Nurse"
+    },
+    {
+      "type": "reassign",
+      "day": "W3_Thu",
+      "from_nurse": "Stefaan",
+      "to_nurse": "Patrick",
+      "shift": "N",
+      "skill": "HeadNurse"
+    },
+    {
+      "type": "reassign",
+      "day": "W3_Fri",
+      "from_nurse": "Sara",
+      "to_nurse": "Stefaan",
+      "shift": "N",
+      "skill": "Nurse"
+    },
+    {
+      "type": "reassign",
+      "day": "W3_Sat",
+      "from_nurse": "Sara",
+      "to_nurse": "Stefaan",
+      "shift": "N",
+      "skill": "Nurse"
+    }
+  ],
+  "meta": {
+    "nurses": [
+      "Stefaan",
+      "Patrick",
+      "Sara"
+    ],
+    "center_day": "W3_Thu",
+    "block_days": [
+      "W3_Wed",
+      "W3_Thu",
+      "W3_Fri",
+      "W3_Sat"
+    ]
+  }
+}

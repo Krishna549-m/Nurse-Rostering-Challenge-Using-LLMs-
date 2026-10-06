@@ -1,0 +1,267 @@
+[
+  {
+    "bundle_id": 1,
+    "reason": "Reduce high non-working-days and consecutive penalties by creating a 2-day off block for Andrea around W3_Tue while keeping coverage via reassignment.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Mon",
+        "from_nurse": "Andrea",
+        "to_nurse": "Nguyen",
+        "shift": "L",
+        "skill": "HeadNurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 2,
+    "reason": "Reduce Sara max-total-assignments and improve her consecutive-days-off by giving her W4_Thu off (preference day) while maintaining coverage.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Thu",
+        "from_nurse": "Sara",
+        "to_nurse": "Patrick",
+        "shift": "N",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 3,
+    "reason": "Reduce Sara max-total-assignments and improve consecutive-days-off by giving her W4_Fri off while maintaining coverage.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Fri",
+        "from_nurse": "Sara",
+        "to_nurse": "Patrick",
+        "shift": "N",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 4,
+    "reason": "Reduce Sara max-total-assignments and improve consecutive-days-off by giving her W4_Wed off while maintaining coverage.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Wed",
+        "from_nurse": "Sara",
+        "to_nurse": "Patrick",
+        "shift": "N",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 5,
+    "reason": "Reduce Stefaan max-total-assignments (largest total-assignment penalty) by moving one of his weekend nights to an OFF qualified nurse while keeping minimum coverage.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Sat",
+        "from_nurse": "Stefaan",
+        "to_nurse": "Sara",
+        "shift": "N",
+        "skill": "HeadNurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 6,
+    "reason": "Reduce Stefaan max-total-assignments by moving a weekend night to an OFF qualified nurse while keeping minimum coverage.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Sun",
+        "from_nurse": "Stefaan",
+        "to_nurse": "Sara",
+        "shift": "N",
+        "skill": "HeadNurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 7,
+    "reason": "Reduce Stefaan max-total-assignments by moving a weekday night to an OFF qualified nurse while keeping minimum coverage.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Tue",
+        "from_nurse": "Stefaan",
+        "to_nurse": "Patrick",
+        "shift": "N",
+        "skill": "HeadNurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 8,
+    "reason": "Reduce high optimal-coverage penalty by filling missing W1_Tue Early Nurse (opt short) with an OFF qualified nurse.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W1_Tue",
+        "shift": "E",
+        "skill": "Nurse",
+        "to_nurse": "Nguyen"
+      }
+    ]
+  },
+  {
+    "bundle_id": 9,
+    "reason": "Reduce high optimal-coverage penalty by filling missing W1_Wed Early Nurse (opt short) with an OFF qualified nurse.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W1_Wed",
+        "shift": "E",
+        "skill": "Nurse",
+        "to_nurse": "Sara"
+      }
+    ]
+  },
+  {
+    "bundle_id": 10,
+    "reason": "Reduce high optimal-coverage penalty by filling missing W1_Thu Late Nurse (opt short) with an OFF qualified nurse.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W1_Thu",
+        "shift": "L",
+        "skill": "Nurse",
+        "to_nurse": "Andrea"
+      }
+    ]
+  },
+  {
+    "bundle_id": 11,
+    "reason": "Reduce high optimal-coverage penalty by filling missing W2_Mon Late Nurse (opt short) with an OFF qualified nurse.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W2_Mon",
+        "shift": "L",
+        "skill": "Nurse",
+        "to_nurse": "Sara"
+      }
+    ]
+  },
+  {
+    "bundle_id": 12,
+    "reason": "Reduce high optimal-coverage penalty by filling missing W2_Fri Night Nurse (opt short) with an OFF qualified nurse.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W2_Fri",
+        "shift": "N",
+        "skill": "Nurse",
+        "to_nurse": "Patrick"
+      }
+    ]
+  },
+  {
+    "bundle_id": 13,
+    "reason": "Reduce high optimal-coverage penalty by filling missing W3_Wed Night Nurse (opt short) with an OFF qualified nurse.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W3_Wed",
+        "shift": "N",
+        "skill": "Nurse",
+        "to_nurse": "Nguyen"
+      }
+    ]
+  },
+  {
+    "bundle_id": 14,
+    "reason": "Reduce high optimal-coverage penalty by filling missing W3_Fri Early Nurse (opt short) with an OFF qualified nurse.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W3_Fri",
+        "shift": "E",
+        "skill": "Nurse",
+        "to_nurse": "Patrick"
+      }
+    ]
+  },
+  {
+    "bundle_id": 15,
+    "reason": "Reduce high optimal-coverage penalty by filling missing W4_Mon Early Nurse (opt short) with an OFF qualified nurse.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W4_Mon",
+        "shift": "E",
+        "skill": "Nurse",
+        "to_nurse": "Stefaan"
+      }
+    ]
+  },
+  {
+    "bundle_id": 16,
+    "reason": "Reduce high optimal-coverage penalty by filling missing W4_Tue Late HeadNurse (opt short) with an OFF qualified nurse.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W4_Tue",
+        "shift": "L",
+        "skill": "HeadNurse",
+        "to_nurse": "Andrea"
+      }
+    ]
+  },
+  {
+    "bundle_id": 17,
+    "reason": "Reduce high optimal-coverage penalty by filling missing W4_Wed Late Nurse (opt short) with an OFF qualified nurse.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W4_Wed",
+        "shift": "L",
+        "skill": "Nurse",
+        "to_nurse": "Nguyen"
+      }
+    ]
+  },
+  {
+    "bundle_id": 18,
+    "reason": "Reduce high optimal-coverage penalty by filling missing W4_Thu Late Nurse (opt short) with an OFF qualified nurse.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W4_Thu",
+        "shift": "L",
+        "skill": "Nurse",
+        "to_nurse": "Patrick"
+      }
+    ]
+  },
+  {
+    "bundle_id": 19,
+    "reason": "Reduce high optimal-coverage penalty by filling missing W4_Sat Night Nurse (opt short) with an OFF qualified nurse.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W4_Sat",
+        "shift": "N",
+        "skill": "Nurse",
+        "to_nurse": "Sara"
+      }
+    ]
+  },
+  {
+    "bundle_id": 20,
+    "reason": "Attempt to reduce weekend-related penalties by repairing Andrea's incomplete weekend in week 1 (works Sun only).",
+    "moves": [
+      {
+        "type": "weekend_repair",
+        "nurse": "Andrea",
+        "week": 1
+      }
+    ]
+  }
+]

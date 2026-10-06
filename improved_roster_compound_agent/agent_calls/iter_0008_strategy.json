@@ -1,0 +1,22 @@
+{
+  "operator": "ruin_recreate_overload",
+  "target_nurses": [
+    "Stefaan",
+    "Nguyen"
+  ],
+  "target_days": [
+    "W1_Wed",
+    "W1_Thu",
+    "W1_Fri",
+    "W4_Mon",
+    "W4_Tue",
+    "W4_Wed",
+    "W4_Thu"
+  ],
+  "reason": "Stefaan (+7) and Nguyen (+8) are heavily over max_total, and total_assignment_cost is driven by max total assignments penalties. Previous overload attempt returned no candidates when including Sara and earlier-week days; refocus ruin/recreate on the most over-max nurses and on weekday-heavy spans (W1 midweek and W4 Mon-Thu) to create feasible removal/reassignment bundles while also potentially improving optimal coverage gaps.",
+  "avoid": [
+    "Avoid moving/creating weekend (Sat/Sun) assignments unless it directly reduces max_working_weekend_cost.",
+    "Do not add any assignments to Stefaan or Nguyen (already over max_total).",
+    "Try not to worsen optimal_coverage shortages on W1_Tue (E) and W4_Mon (E/N)."
+  ]
+}

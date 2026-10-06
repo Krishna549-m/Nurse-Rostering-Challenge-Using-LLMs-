@@ -1,0 +1,132 @@
+[
+  {
+    "bundle_id": "sara_reduce_total_1",
+    "reason": "Total assignment constraints: Sara is heavily over-assigned (cost 220). Removing her single weekend day in week 1 (she works both Sat/Sun) reduces overload and working-weekend penalty. Actually remove one lone weekend; use week 3 where removal helps. Prefer moving her W4 late block off by weekend_repair week 3.",
+    "moves": [
+      {
+        "type": "weekend_repair",
+        "nurse": "Sara",
+        "week": 3
+      }
+    ]
+  },
+  {
+    "bundle_id": "stefaan_reduce_total_1",
+    "reason": "Total assignment constraints: Stefaan is over max_total (cost 100). He works a lone weekend day pattern; removing an isolated assignment reduces his total. Reassign his W4_Fri E Nurse to Nguyen who is off Sat/Sun but not Fri... instead remove via reassign to an under-loaded nurse. Move W3_Fri E HeadNurse off Stefaan is not possible via off-nurse. Use W4_Fri.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Fri",
+        "from_nurse": "Stefaan",
+        "to_nurse": "Patrick",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "cover_w1_tue_E",
+    "reason": "Optimal coverage constraints: W1_Tue Early Nurse is 1 short. Nguyen works L on W1_Tue; instead fill a genuinely off nurse. Stefaan is OFF W1_Tue and qualified; assigning him E Nurse covers the shortage. Check succession: W1_Mon Stefaan L -> E is forbidden? L->E forbidden. So use Patrick? Patrick works E Tue already. Use coverage_fill with Sara off? Sara works. Use Nguyen off? Nguyen works L. Only Andrea off W1_Tue but Andrea W1_Wed is N. E->N ok. Andrea qualified.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W1_Tue",
+        "shift": "E",
+        "skill": "Nurse",
+        "to_nurse": "Andrea"
+      }
+    ]
+  },
+  {
+    "bundle_id": "cover_w2_mon_L",
+    "reason": "Optimal coverage constraints: W2_Mon Late Nurse 1 short. Patrick is OFF W2_Mon; his prior day W1_Sun is L HeadNurse, L->L ok, and next W2_Tue is L. Filling L Nurse keeps consecutive Late. Patrick qualified for Nurse.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W2_Mon",
+        "shift": "L",
+        "skill": "Nurse",
+        "to_nurse": "Patrick"
+      }
+    ]
+  },
+  {
+    "bundle_id": "cover_w3_mon_L",
+    "reason": "Optimal coverage constraints: W3_Mon Late Nurse 1 short. Sara is OFF W3_Mon and qualified; but Sara is over-assigned. Use Nguyen? Nguyen works N W3_Mon. Use Patrick? works E. Sara off; her next W3_Wed is L. Adds to overload though. Instead fill with Nguyen not possible. Keep Sara off. Use coverage for W3_Wed E instead below.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W3_Mon",
+        "shift": "L",
+        "skill": "Nurse",
+        "to_nurse": "Sara"
+      }
+    ]
+  },
+  {
+    "bundle_id": "andrea_pref_w3tue",
+    "reason": "Preferences: Andrea has shift-off request W3_Tue (cost 10) but currently works L. Also W2_Fri L preference is satisfied. Reassign Andrea W3_Tue L Nurse to Patrick who is OFF? Patrick works E W3_Tue. Use Sara off W3_Tue and qualified; her surrounding: W3_Mon off, W3_Wed L, so L on Tue extends late block. Reduces Andrea preference penalty.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Tue",
+        "from_nurse": "Andrea",
+        "to_nurse": "Sara",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "cover_w2_sat_L",
+    "reason": "Optimal coverage constraints: W2_Sat Late Nurse 1 short and Andrea complete-weekend issue in week1. Andrea works W2_Sun L but W2_Sat off (complete weekend penalty day 13). Filling Andrea W2_Sat covers optimal Late and completes her weekend. Andrea prior W2_Fri E, E->L ok; qualified.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W2_Sat",
+        "shift": "L",
+        "skill": "Nurse",
+        "to_nurse": "Andrea"
+      }
+    ]
+  },
+  {
+    "bundle_id": "nguyen_complete_weekend_w1",
+    "reason": "Complete weekends: Nguyen works W1_Sun E but not W1_Sat (penalty day 6). Filling W1_Sat completes the weekend. Nguyen W1_Fri off, prior W1_Wed L then off, W1_Sun E. E on Sat ok, E->E succession fine.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W1_Sat",
+        "shift": "E",
+        "skill": "Nurse",
+        "to_nurse": "Nguyen"
+      }
+    ]
+  },
+  {
+    "bundle_id": "cover_w4_thu_E",
+    "reason": "Optimal coverage constraints: W4_Thu Early Nurse 1 short. Patrick is OFF W4_Thu, prior W4_Wed L HeadNurse, L->E forbidden. Use Sara off W4_Thu but overloaded. Use Nguyen works N W4_Thu. Fill with Stefaan? works none W4_Thu, prior W4_Mon L then off, ok E. Stefaan HeadNurse but Nurse skill qualified. However Stefaan over-assigned. Use Andrea off W4_Thu prior W4_Wed N, N->E forbidden. Use Patrick blocked. Best Sara: prior W4_Wed off, next W4_Fri L, E->L forbidden succession Thu E -> Fri L is fine (E->L allowed). Sara qualified.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W4_Thu",
+        "shift": "E",
+        "skill": "Nurse",
+        "to_nurse": "Sara"
+      }
+    ]
+  },
+  {
+    "bundle_id": "cover_w3_wed_L",
+    "reason": "Optimal coverage constraints: W3_Wed Late Nurse 1 short. Patrick works E W3_Wed. Nguyen works N. Sara works L already W3_Wed? Sara W3_Wed L yes. So covered by moving Andrea? Andrea works N W3_Wed. Fill with an off nurse: only Nguyen(N) working. Actually Patrick off none. Skip; use W4_Wed L instead: W4_Wed Late Nurse 1 short. Sara off W4_Wed, prior W4_Tue N, N->L forbidden. Use Nguyen works E W4_Wed. Use Patrick works L W4_Wed HeadNurse. Fill Nurse: Andrea works N. None clean; propose Sara despite succession risk removed by choosing E day. Skip actual, target W4_Wed via Stefaan off, prior W4_Mon L, ok.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W4_Wed",
+        "shift": "L",
+        "skill": "Nurse",
+        "to_nurse": "Stefaan"
+      }
+    ]
+  }
+]

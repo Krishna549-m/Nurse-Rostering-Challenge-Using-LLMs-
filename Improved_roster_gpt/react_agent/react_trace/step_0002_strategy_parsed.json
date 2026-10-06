@@ -1,0 +1,7 @@
+{
+  "neighborhood": "swap",
+  "target_penalty": "consecutive_cost + non_working_days_cost (and incidental weekend constraints)",
+  "reason": "Single-day swaps are less likely than block swaps to create illegal_succession chains, while still allowing us to break long work streaks / fix too-short off blocks and potentially reduce weekend and preference penalties without changing total coverage.",
+  "avoid": "Avoid block_swap for now due to repeated illegal_succession hard violations; also avoid coverage_fill because several nurses are already at/over max_total and adding shifts risks increasing total_assignment_cost and weekend overages.",
+  "max_candidates": 100
+}

@@ -1,0 +1,460 @@
+{
+"nurses": [
+{"name": "Patrick", "contract": "FullTime", "skills": ["HeadNurse", "Nurse"]},
+{"name": "Andrea", "contract": "FullTime", "skills": ["HeadNurse", "Nurse"]},
+{"name": "Stefaan", "contract": "PartTime", "skills": ["HeadNurse", "Nurse"]},
+{"name": "Sara", "contract": "FullTime", "skills": ["Nurse"]},
+{"name": "Nguyen", "contract": "PartTime", "skills": ["Nurse"]}
+],
+"nurse_contract_map": {
+"Patrick": "FullTime",
+"Andrea": "FullTime",
+"Stefaan": "PartTime",
+"Sara": "FullTime",
+"Nguyen": "PartTime"
+},
+"contracts": {
+"FullTime": {
+"minimumNumberOfAssignments": 15,
+"maximumNumberOfAssignments": 22,
+"minimumNumberOfConsecutiveWorkingDays": 3,
+"maximumNumberOfConsecutiveWorkingDays": 5,
+"minimumNumberOfConsecutiveDaysOff": 2,
+"maximumNumberOfConsecutiveDaysOff": 3,
+"maximumNumberOfWorkingWeekends": 2,
+"completeWeekends": 1
+},
+"PartTime": {
+"minimumNumberOfAssignments": 7,
+"maximumNumberOfAssignments": 11,
+"minimumNumberOfConsecutiveWorkingDays": 3,
+"maximumNumberOfConsecutiveWorkingDays": 5,
+"minimumNumberOfConsecutiveDaysOff": 3,
+"maximumNumberOfConsecutiveDaysOff": 5,
+"maximumNumberOfWorkingWeekends": 2,
+"completeWeekends": 1
+}
+},
+"planning_horizon": {
+"weeks": 4,
+"days": [
+"W1_Mon","W1_Tue","W1_Wed","W1_Thu","W1_Fri","W1_Sat","W1_Sun",
+"W2_Mon","W2_Tue","W2_Wed","W2_Thu","W2_Fri","W2_Sat","W2_Sun",
+"W3_Mon","W3_Tue","W3_Wed","W3_Thu","W3_Fri","W3_Sat","W3_Sun",
+"W4_Mon","W4_Tue","W4_Wed","W4_Thu","W4_Fri","W4_Sat","W4_Sun"
+]
+},
+"day_to_week": {
+"W1_Mon":1,"W1_Tue":1,"W1_Wed":1,"W1_Thu":1,"W1_Fri":1,"W1_Sat":1,"W1_Sun":1,
+"W2_Mon":2,"W2_Tue":2,"W2_Wed":2,"W2_Thu":2,"W2_Fri":2,"W2_Sat":2,"W2_Sun":2,
+"W3_Mon":3,"W3_Tue":3,"W3_Wed":3,"W3_Thu":3,"W3_Fri":3,"W3_Sat":3,"W3_Sun":3,
+"W4_Mon":4,"W4_Tue":4,"W4_Wed":4,"W4_Thu":4,"W4_Fri":4,"W4_Sat":4,"W4_Sun":4
+},
+"weekend_pairs": [
+["W1_Sat","W1_Sun"],
+["W2_Sat","W2_Sun"],
+["W3_Sat","W3_Sun"],
+["W4_Sat","W4_Sun"]
+],
+"shift_types": {
+"E": {"name":"Early","min_consecutive":2,"max_consecutive":5},
+"L": {"name":"Late","min_consecutive":2,"max_consecutive":3},
+"N": {"name":"Night","min_consecutive":4,"max_consecutive":5}
+},
+"derived_rules": {
+"shift_consecutive_limits": {
+"E":{"min":2,"max":5},
+"L":{"min":2,"max":3},
+"N":{"min":4,"max":5}
+},
+"contract_working_day_limits": {
+"FullTime":{"min":3,"max":5},
+"PartTime":{"min":3,"max":5}
+},
+"contract_days_off_limits": {
+"FullTime":{"min":2,"max":3},
+"PartTime":{"min":3,"max":5}
+}
+},
+"skills": ["HeadNurse","Nurse"],
+"qualification_matrix": {
+"Patrick":{"HeadNurse":1,"Nurse":1},
+"Andrea":{"HeadNurse":1,"Nurse":1},
+"Stefaan":{"HeadNurse":1,"Nurse":1},
+"Sara":{"HeadNurse":0,"Nurse":1},
+"Nguyen":{"HeadNurse":0,"Nurse":1}
+},
+"historical_assignments": {
+"Patrick":{"lastAssignedShiftType":"Night","numberOfAssignments":0,"numberOfWorkingWeekends":0,"numberOfConsecutiveAssignments":1,"numberOfConsecutiveWorkingDays":4,"numberOfConsecutiveDaysOff":0},
+"Andrea":{"lastAssignedShiftType":"Early","numberOfAssignments":0,"numberOfWorkingWeekends":0,"numberOfConsecutiveAssignments":3,"numberOfConsecutiveWorkingDays":3,"numberOfConsecutiveDaysOff":0},
+"Stefaan":{"lastAssignedShiftType":"None","numberOfAssignments":0,"numberOfWorkingWeekends":0,"numberOfConsecutiveAssignments":0,"numberOfConsecutiveWorkingDays":0,"numberOfConsecutiveDaysOff":3},
+"Sara":{"lastAssignedShiftType":"Late","numberOfAssignments":0,"numberOfWorkingWeekends":0,"numberOfConsecutiveAssignments":1,"numberOfConsecutiveWorkingDays":4,"numberOfConsecutiveDaysOff":0},
+"Nguyen":{"lastAssignedShiftType":"None","numberOfAssignments":0,"numberOfWorkingWeekends":0,"numberOfConsecutiveAssignments":0,"numberOfConsecutiveWorkingDays":0,"numberOfConsecutiveDaysOff":1}
+},
+"leave": [
+{"nurse":"Patrick","shift":"Any","day":"W1_Mon"},
+{"nurse":"Stefaan","shift":"L","day":"W1_Wed"},
+{"nurse":"Sara","shift":"Any","day":"W1_Fri"},
+{"nurse":"Andrea","shift":"L","day":"W2_Fri"},
+{"nurse":"Andrea","shift":"Any","day":"W2_Sat"},
+{"nurse":"Andrea","shift":"Any","day":"W3_Tue"},
+{"nurse":"Stefaan","shift":"Any","day":"W3_Wed"},
+{"nurse":"Nguyen","shift":"Any","day":"W3_Fri"},
+{"nurse":"Nguyen","shift":"Any","day":"W3_Sat"},
+{"nurse":"Sara","shift":"L","day":"W3_Sat"},
+{"nurse":"Sara","shift":"Any","day":"W4_Thu"},
+{"nurse":"Sara","shift":"N","day":"W4_Sat"},
+{"nurse":"Stefaan","shift":"L","day":"W4_Sat"}
+],
+"leave_expanded": [
+{"nurse":"Patrick","shift":"E","day":"W1_Mon"},
+{"nurse":"Patrick","shift":"L","day":"W1_Mon"},
+{"nurse":"Patrick","shift":"N","day":"W1_Mon"},
+{"nurse":"Stefaan","shift":"L","day":"W1_Wed"},
+{"nurse":"Sara","shift":"E","day":"W1_Fri"},
+{"nurse":"Sara","shift":"L","day":"W1_Fri"},
+{"nurse":"Sara","shift":"N","day":"W1_Fri"},
+{"nurse":"Andrea","shift":"L","day":"W2_Fri"},
+{"nurse":"Andrea","shift":"E","day":"W2_Sat"},
+{"nurse":"Andrea","shift":"L","day":"W2_Sat"},
+{"nurse":"Andrea","shift":"N","day":"W2_Sat"},
+{"nurse":"Andrea","shift":"E","day":"W3_Tue"},
+{"nurse":"Andrea","shift":"L","day":"W3_Tue"},
+{"nurse":"Andrea","shift":"N","day":"W3_Tue"},
+{"nurse":"Stefaan","shift":"E","day":"W3_Wed"},
+{"nurse":"Stefaan","shift":"L","day":"W3_Wed"},
+{"nurse":"Stefaan","shift":"N","day":"W3_Wed"},
+{"nurse":"Nguyen","shift":"E","day":"W3_Fri"},
+{"nurse":"Nguyen","shift":"L","day":"W3_Fri"},
+{"nurse":"Nguyen","shift":"N","day":"W3_Fri"},
+{"nurse":"Nguyen","shift":"E","day":"W3_Sat"},
+{"nurse":"Nguyen","shift":"L","day":"W3_Sat"},
+{"nurse":"Nguyen","shift":"N","day":"W3_Sat"},
+{"nurse":"Sara","shift":"L","day":"W3_Sat"},
+{"nurse":"Sara","shift":"E","day":"W4_Thu"},
+{"nurse":"Sara","shift":"L","day":"W4_Thu"},
+{"nurse":"Sara","shift":"N","day":"W4_Thu"},
+{"nurse":"Sara","shift":"N","day":"W4_Sat"},
+{"nurse":"Stefaan","shift":"L","day":"W4_Sat"}
+],
+"preferences": [
+{"nurse":"Patrick","shift":"E","day":"W1_Mon","type":"undesired"},
+{"nurse":"Patrick","shift":"L","day":"W1_Mon","type":"undesired"},
+{"nurse":"Patrick","shift":"N","day":"W1_Mon","type":"undesired"}
+],
+{
+  "weekly_requirements": [
+    {"day": "W1_Mon", "shift": "E", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W1_Mon", "shift": "E", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W1_Mon", "shift": "L", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W1_Mon", "shift": "L", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W1_Mon", "shift": "N", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W1_Mon", "shift": "N", "skill": "Nurse", "minimum": 0, "optimal": 1},
+    {"day": "W1_Tue", "shift": "E", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W1_Tue", "shift": "E", "skill": "Nurse", "minimum": 0, "optimal": 1},
+    {"day": "W1_Tue", "shift": "L", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W1_Tue", "shift": "L", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W1_Tue", "shift": "N", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W1_Tue", "shift": "N", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W1_Wed", "shift": "E", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W1_Wed", "shift": "E", "skill": "Nurse", "minimum": 0, "optimal": 1},
+    {"day": "W1_Wed", "shift": "L", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W1_Wed", "shift": "L", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W1_Wed", "shift": "N", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W1_Wed", "shift": "N", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W1_Thu", "shift": "E", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W1_Thu", "shift": "E", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W1_Thu", "shift": "L", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W1_Thu", "shift": "L", "skill": "Nurse", "minimum": 0, "optimal": 1},
+    {"day": "W1_Thu", "shift": "N", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W1_Thu", "shift": "N", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W1_Fri", "shift": "E", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W1_Fri", "shift": "E", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W1_Fri", "shift": "L", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W1_Fri", "shift": "L", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W1_Fri", "shift": "N", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W1_Fri", "shift": "N", "skill": "Nurse", "minimum": 0, "optimal": 1},
+    {"day": "W1_Sat", "shift": "E", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W1_Sat", "shift": "E", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W1_Sat", "shift": "L", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W1_Sat", "shift": "L", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W1_Sat", "shift": "N", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W1_Sat", "shift": "N", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W1_Sun", "shift": "E", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W1_Sun", "shift": "E", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W1_Sun", "shift": "L", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W1_Sun", "shift": "L", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W1_Sun", "shift": "N", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W1_Sun", "shift": "N", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W2_Mon", "shift": "E", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W2_Mon", "shift": "E", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W2_Mon", "shift": "L", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W2_Mon", "shift": "L", "skill": "Nurse", "minimum": 0, "optimal": 1},
+    {"day": "W2_Mon", "shift": "N", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W2_Mon", "shift": "N", "skill": "Nurse", "minimum": 0, "optimal": 1},
+    {"day": "W2_Tue", "shift": "E", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W2_Tue", "shift": "E", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W2_Tue", "shift": "L", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W2_Tue", "shift": "L", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W2_Tue", "shift": "N", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W2_Tue", "shift": "N", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W2_Wed", "shift": "E", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W2_Wed", "shift": "E", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W2_Wed", "shift": "L", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W2_Wed", "shift": "L", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W2_Wed", "shift": "N", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W2_Wed", "shift": "N", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W2_Thu", "shift": "E", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W2_Thu", "shift": "E", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W2_Thu", "shift": "L", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W2_Thu", "shift": "L", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W2_Thu", "shift": "N", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W2_Thu", "shift": "N", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W2_Fri", "shift": "E", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W2_Fri", "shift": "E", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W2_Fri", "shift": "L", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W2_Fri", "shift": "L", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W2_Fri", "shift": "N", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W2_Fri", "shift": "N", "skill": "Nurse", "minimum": 0, "optimal": 1},
+    {"day": "W2_Sat", "shift": "E", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W2_Sat", "shift": "E", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W2_Sat", "shift": "L", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W2_Sat", "shift": "L", "skill": "Nurse", "minimum": 0, "optimal": 1},
+    {"day": "W2_Sat", "shift": "N", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W2_Sat", "shift": "N", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W2_Sun", "shift": "E", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W2_Sun", "shift": "E", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W2_Sun", "shift": "L", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W2_Sun", "shift": "L", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W2_Sun", "shift": "N", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W2_Sun", "shift": "N", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Mon", "shift": "E", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W3_Mon", "shift": "E", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Mon", "shift": "L", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Mon", "shift": "L", "skill": "Nurse", "minimum": 0, "optimal": 1},
+    {"day": "W3_Mon", "shift": "N", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Mon", "shift": "N", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Tue", "shift": "E", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W3_Tue", "shift": "E", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Tue", "shift": "L", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W3_Tue", "shift": "L", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Tue", "shift": "N", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W3_Tue", "shift": "N", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Wed", "shift": "E", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Wed", "shift": "E", "skill": "Nurse", "minimum": 0, "optimal": 1},
+    {"day": "W3_Wed", "shift": "L", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W3_Wed", "shift": "L", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Wed", "shift": "N", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Wed", "shift": "N", "skill": "Nurse", "minimum": 0, "optimal": 1},
+    {"day": "W3_Thu", "shift": "E", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W3_Thu", "shift": "E", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Thu", "shift": "L", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W3_Thu", "shift": "L", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Thu", "shift": "N", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Thu", "shift": "N", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Fri", "shift": "E", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Fri", "shift": "E", "skill": "Nurse", "minimum": 0, "optimal": 1},
+    {"day": "W3_Fri", "shift": "L", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W3_Fri", "shift": "L", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Fri", "shift": "N", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W3_Fri", "shift": "N", "skill": "Nurse", "minimum": 0, "optimal": 1},
+    {"day": "W3_Sat", "shift": "E", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W3_Sat", "shift": "E", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Sat", "shift": "L", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Sat", "shift": "L", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Sat", "shift": "N", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W3_Sat", "shift": "N", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Sun", "shift": "E", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W3_Sun", "shift": "E", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Sun", "shift": "L", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Sun", "shift": "L", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W3_Sun", "shift": "N", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W3_Sun", "shift": "N", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W4_Mon", "shift": "E", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W4_Mon", "shift": "E", "skill": "Nurse", "minimum": 1, "optimal": 2},
+    {"day": "W4_Mon", "shift": "L", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W4_Mon", "shift": "L", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W4_Mon", "shift": "N", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W4_Mon", "shift": "N", "skill": "Nurse", "minimum": 0, "optimal": 1},
+    {"day": "W4_Tue", "shift": "E", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W4_Tue", "shift": "E", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W4_Tue", "shift": "L", "skill": "HeadNurse", "minimum": 0, "optimal": 1},
+    {"day": "W4_Tue", "shift": "L", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W4_Tue", "shift": "N", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W4_Tue", "shift": "N", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W4_Wed", "shift": "E", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W4_Wed", "shift": "E", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W4_Wed", "shift": "L", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W4_Wed", "shift": "L", "skill": "Nurse", "minimum": 0, "optimal": 1},
+    {"day": "W4_Wed", "shift": "N", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W4_Wed", "shift": "N", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W4_Thu", "shift": "E", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W4_Thu", "shift": "E", "skill": "Nurse", "minimum": 0, "optimal": 1},
+    {"day": "W4_Thu", "shift": "L", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W4_Thu", "shift": "L", "skill": "Nurse", "minimum": 0, "optimal": 1},
+    {"day": "W4_Thu", "shift": "N", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W4_Thu", "shift": "N", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W4_Fri", "shift": "E", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W4_Fri", "shift": "E", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W4_Fri", "shift": "L", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W4_Fri", "shift": "L", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W4_Fri", "shift": "N", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W4_Fri", "shift": "N", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W4_Sat", "shift": "E", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W4_Sat", "shift": "E", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W4_Sat", "shift": "L", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W4_Sat", "shift": "L", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W4_Sat", "shift": "N", "skill": "HeadNurse", "minimum": 1, "optimal": 1},
+    {"day": "W4_Sat", "shift": "N", "skill": "Nurse", "minimum": 0, "optimal": 1},
+    {"day": "W4_Sun", "shift": "E", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W4_Sun", "shift": "E", "skill": "Nurse", "minimum": 0, "optimal": 1},
+    {"day": "W4_Sun", "shift": "L", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W4_Sun", "shift": "L", "skill": "Nurse", "minimum": 1, "optimal": 1},
+    {"day": "W4_Sun", "shift": "N", "skill": "HeadNurse", "minimum": 0, "optimal": 0},
+    {"day": "W4_Sun", "shift": "N", "skill": "Nurse", "minimum": 1, "optimal": 1}
+  ],
+  "coverage_requirements": {
+    "W1_Mon": {
+      "E": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 0, "optimal": 1}}
+    },
+    "W1_Tue": {
+      "E": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 0, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}}
+    },
+    "W1_Wed": {
+      "E": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 0, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 1, "optimal": 1}}
+    },
+    "W1_Thu": {
+      "E": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 0, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}}
+    },
+    "W1_Fri": {
+      "E": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 0, "optimal": 1}}
+    },
+    "W1_Sat": {
+      "E": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 1, "optimal": 1}}
+    },
+    "W1_Sun": {
+      "E": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 1, "optimal": 1}}
+    },
+    "W2_Mon": {
+      "E": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 0, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 0, "optimal": 1}}
+    },
+    "W2_Tue": {
+      "E": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 1, "optimal": 1}}
+    },
+    "W2_Wed": {
+      "E": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}}
+    },
+    "W2_Thu": {
+      "E": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}}
+    },
+    "W2_Fri": {
+      "E": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 0, "optimal": 1}}
+    },
+    "W2_Sat": {
+      "E": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 0, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 1, "optimal": 1}}
+    },
+    "W2_Sun": {
+      "E": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 1, "optimal": 1}}
+    },
+    "W3_Mon": {
+      "E": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 0, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 1, "optimal": 1}}
+    },
+    "W3_Tue": {
+      "E": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}}
+    },
+    "W3_Wed": {
+      "E": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 0, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 0, "optimal": 1}}
+    },
+    "W3_Thu": {
+      "E": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 1, "optimal": 1}}
+    },
+    "W3_Fri": {
+      "E": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 0, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 0, "optimal": 1}}
+    },
+    "W3_Sat": {
+      "E": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}}
+    },
+    "W3_Sun": {
+      "E": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}}
+    },
+    "W4_Mon": {
+      "E": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 1, "optimal": 2}},
+      "L": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 0, "optimal": 1}}
+    },
+    "W4_Tue": {
+      "E": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 0, "optimal": 1}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 1, "optimal": 1}}
+    },
+    "W4_Wed": {
+      "E": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 0, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}}
+    },
+    "W4_Thu": {
+      "E": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 0, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 0, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}}
+    },
+    "W4_Fri": {
+      "E": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 1, "optimal": 1}}
+    },
+    "W4_Sat": {
+      "E": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 1, "optimal": 1}, "Nurse": {"minimum": 0, "optimal": 1}}
+    },
+    "W4_Sun": {
+      "E": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 0, "optimal": 1}},
+      "L": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}},
+      "N": {"HeadNurse": {"minimum": 0, "optimal": 0}, "Nurse": {"minimum": 1, "optimal": 1}}
+    }
+  },
+  "assumptions": [],
+  "missing_fields": []
+}

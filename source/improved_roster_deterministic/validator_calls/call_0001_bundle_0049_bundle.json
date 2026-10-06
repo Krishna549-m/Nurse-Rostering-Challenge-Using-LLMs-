@@ -1,0 +1,14 @@
+{
+  "bundle_id": 49,
+  "reason": "deterministic single reassign candidate",
+  "moves": [
+    {
+      "type": "reassign",
+      "day": "W1_Sat",
+      "from_nurse": "Stefaan",
+      "to_nurse": "Nguyen",
+      "shift": "N",
+      "skill": "Nurse"
+    }
+  ]
+}

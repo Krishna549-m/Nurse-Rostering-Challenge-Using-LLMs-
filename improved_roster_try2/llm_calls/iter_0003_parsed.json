@@ -1,0 +1,279 @@
+[
+  {
+    "bundle_id": 1,
+    "reason": "Reduce total working weekends penalty by moving one weekend day off an over-weekended nurse while keeping coverage feasible",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Sat",
+        "from_nurse": "Patrick",
+        "to_nurse": "Sara",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 2,
+    "reason": "Reduce total working weekends penalty by moving one weekend day off an over-weekended nurse while keeping coverage feasible",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Sun",
+        "from_nurse": "Patrick",
+        "to_nurse": "Sara",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 3,
+    "reason": "Reduce total working weekends penalty by moving one weekend day off an over-weekended nurse while keeping coverage feasible",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Sat",
+        "from_nurse": "Patrick",
+        "to_nurse": "Sara",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 4,
+    "reason": "Reduce total working weekends penalty by moving one weekend day off an over-weekended nurse while keeping coverage feasible",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Sun",
+        "from_nurse": "Patrick",
+        "to_nurse": "Sara",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 5,
+    "reason": "Reduce total working weekends penalty by moving one weekend day off an over-weekended nurse while keeping coverage feasible",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Sat",
+        "from_nurse": "Patrick",
+        "to_nurse": "Andrea",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 6,
+    "reason": "Reduce total working weekends penalty by moving one weekend day off an over-weekended nurse while keeping coverage feasible",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Sun",
+        "from_nurse": "Patrick",
+        "to_nurse": "Nguyen",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 7,
+    "reason": "Reduce consecutive working-days/assignments penalties by breaking a long run for Nguyen using an OFF qualified nurse on the same shift",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Fri",
+        "from_nurse": "Nguyen",
+        "to_nurse": "Andrea",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 8,
+    "reason": "Reduce consecutive working-days/assignments penalties by breaking a long run for Nguyen using an OFF qualified nurse on the same shift",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Thu",
+        "from_nurse": "Nguyen",
+        "to_nurse": "Stefaan",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 9,
+    "reason": "Reduce consecutive working-days penalties by breaking Sara's 5-day L run while keeping L coverage feasible",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Fri",
+        "from_nurse": "Sara",
+        "to_nurse": "Patrick",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 10,
+    "reason": "Reduce consecutive working-days penalties by breaking Sara's 5-day L run while keeping L coverage feasible",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Thu",
+        "from_nurse": "Sara",
+        "to_nurse": "Stefaan",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 11,
+    "reason": "Reduce consecutive working-days penalties by breaking Sara's 5-day L run while keeping L coverage feasible",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Tue",
+        "from_nurse": "Sara",
+        "to_nurse": "Andrea",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 12,
+    "reason": "Reduce consecutive working-days penalties by breaking Sara's 5-day L run while keeping L coverage feasible",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Wed",
+        "from_nurse": "Sara",
+        "to_nurse": "Nguyen",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 13,
+    "reason": "Reduce consecutive working-days penalties by breaking Andrea's 7-day run (W3_Wed..W4_Tue) using an OFF qualified nurse on same shift/skill",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Mon",
+        "from_nurse": "Andrea",
+        "to_nurse": "Sara",
+        "shift": "L",
+        "skill": "HeadNurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 14,
+    "reason": "Reduce consecutive working-days penalties by breaking Andrea's 7-day run (W3_Wed..W4_Tue) using an OFF qualified nurse on same shift/skill",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Mon",
+        "from_nurse": "Andrea",
+        "to_nurse": "Patrick",
+        "shift": "L",
+        "skill": "HeadNurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 15,
+    "reason": "Reduce consecutive working-days penalties by breaking Andrea's 7-day run (W3_Wed..W4_Tue) using an OFF qualified nurse on same shift/skill",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Fri",
+        "from_nurse": "Andrea",
+        "to_nurse": "Patrick",
+        "shift": "E",
+        "skill": "HeadNurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 16,
+    "reason": "Reduce consecutive working-days penalties by breaking Andrea's 7-day run (W3_Wed..W4_Tue) using an OFF qualified nurse on same shift/skill",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Sat",
+        "from_nurse": "Andrea",
+        "to_nurse": "Sara",
+        "shift": "L",
+        "skill": "HeadNurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 17,
+    "reason": "Reduce consecutive working-days penalties by breaking Nguyen's 7-day run (W4_Mon..W4_Sun) using an OFF qualified nurse on same shift/skill",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Fri",
+        "from_nurse": "Nguyen",
+        "to_nurse": "Patrick",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 18,
+    "reason": "Reduce consecutive working-days penalties by breaking Nguyen's 7-day run (W4_Mon..W4_Sun) using an OFF qualified nurse on same shift/skill",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Sat",
+        "from_nurse": "Nguyen",
+        "to_nurse": "Sara",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 19,
+    "reason": "Reduce consecutive working-days penalties by breaking Nguyen's 7-day run (W4_Mon..W4_Sun) using an OFF qualified nurse on same shift/skill",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Sun",
+        "from_nurse": "Nguyen",
+        "to_nurse": "Sara",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 20,
+    "reason": "Reduce complete-weekend penalty by repairing Andrea's incomplete weekend in week 1 (works Sun only)",
+    "moves": [
+      {
+        "type": "weekend_repair",
+        "nurse": "Andrea",
+        "week": 1
+      }
+    ]
+  }
+]

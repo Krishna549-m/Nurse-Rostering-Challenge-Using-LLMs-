@@ -1,0 +1,10 @@
+{
+  "thought": "Hard constraints are all satisfied. The largest soft costs are consecutive_cost and non_working_days_cost, with many atoms tied to specific nurses (Andrea, Sara, Patrick) indicating pattern-based violations across multiple days. Weekend overages are also significant, but fixing consecutive work/off patterns via multi-day exchanges is likely to reduce several penalties at once while preserving coverage.",
+  "strategy": {
+    "neighborhood": "block_swap",
+    "target_penalty": "consecutive_cost + non_working_days_cost",
+    "reason": "Block swaps can restructure multi-day work/off sequences to satisfy min/max consecutive working days and consecutive days off simultaneously, and can also incidentally reduce weekend-related penalties while keeping daily coverage stable.",
+    "avoid": "Avoid coverage_fill because optimal_coverage_cost is not dominant and adding shifts risks increasing total_assignment_cost and weekend overages; also avoid simple single-day reassign that may not resolve multi-day consecutive patterns.",
+    "max_candidates": 100
+  }
+}

@@ -1,0 +1,163 @@
+You are a data normalization engine.
+
+Your task is to convert a semi-structured nurse rostering problem description into a STRICT, VALID, SOLVER-READY JSON object.
+
+Return ONLY a valid JSON object.
+Do not return explanations, markdown, comments, or code fences.
+The JSON must be parseable by json.loads().
+
+IMPORTANT:
+- This prompt must extract all NON-COVERAGE data only.
+- Do NOT include weekly_requirements.
+- Do NOT include coverage_requirements.
+- Those will be extracted in a separate pass.
+- Do not infer or summarize missing coverage.
+- Output may be long.
+
+REQUIRED OUTPUT STRUCTURE:
+
+{
+  "nurses": [
+    {
+      "name": string,
+      "contract": "FullTime" | "PartTime",
+      "skills": [string]
+    }
+  ],
+  "nurse_contract_map": {
+    "Patrick": "FullTime"
+  },
+  "contracts": {
+    "FullTime": {
+      "minimumNumberOfAssignments": int,
+      "maximumNumberOfAssignments": int,
+      "minimumNumberOfConsecutiveWorkingDays": int,
+      "maximumNumberOfConsecutiveWorkingDays": int,
+      "minimumNumberOfConsecutiveDaysOff": int,
+      "maximumNumberOfConsecutiveDaysOff": int,
+      "maximumNumberOfWorkingWeekends": int,
+      "completeWeekends": int
+    },
+    "PartTime": {
+      "minimumNumberOfAssignments": int,
+      "maximumNumberOfAssignments": int,
+      "minimumNumberOfConsecutiveWorkingDays": int,
+      "maximumNumberOfConsecutiveWorkingDays": int,
+      "minimumNumberOfConsecutiveDaysOff": int,
+      "maximumNumberOfConsecutiveDaysOff": int,
+      "maximumNumberOfWorkingWeekends": int,
+      "completeWeekends": int
+    }
+  },
+  "planning_horizon": {
+    "weeks": int,
+    "days": [string]
+  },
+  "day_to_week": {
+    "W1_Mon": 1
+  },
+  "weekend_pairs": [
+    ["W1_Sat", "W1_Sun"]
+  ],
+  "shift_types": {
+    "E": {
+      "name": "Early",
+      "min_consecutive": int,
+      "max_consecutive": int
+    },
+    "L": {
+      "name": "Late",
+      "min_consecutive": int,
+      "max_consecutive": int
+    },
+    "N": {
+      "name": "Night",
+      "min_consecutive": int,
+      "max_consecutive": int
+    }
+  },
+  "derived_rules": {
+    "shift_consecutive_limits": {
+      "E": {"min": int, "max": int},
+      "L": {"min": int, "max": int},
+      "N": {"min": int, "max": int}
+    },
+    "contract_working_day_limits": {
+      "FullTime": {"min": int, "max": int},
+      "PartTime": {"min": int, "max": int}
+    },
+    "contract_days_off_limits": {
+      "FullTime": {"min": int, "max": int},
+      "PartTime": {"min": int, "max": int}
+    }
+  },
+  "skills": [string],
+  "qualification_matrix": {
+    "Patrick": {"Nurse": 1, "HeadNurse": 1}
+  },
+  "historical_assignments": {
+    "Patrick": {
+      "lastAssignedShiftType": string,
+      "numberOfAssignments": int,
+      "numberOfWorkingWeekends": int,
+      "numberOfConsecutiveAssignments": int,
+      "numberOfConsecutiveWorkingDays": int,
+      "numberOfConsecutiveDaysOff": int
+    }
+  },
+  "leave": [
+    {
+      "nurse": string,
+      "shift": string,
+      "day": string
+    }
+  ],
+  "leave_expanded": [
+    {
+      "nurse": string,
+      "shift": "E" | "L" | "N",
+      "day": string
+    }
+  ],
+  "preferences": [
+    {
+      "nurse": string,
+      "shift": "E" | "L" | "N",
+      "day": string,
+      "type": "undesired"
+    }
+  ],
+  "rule_interpretation": {
+    "H3": "Derived from shift min/max consecutive assignment limits and contract consecutive working/day-off limits, using historical assignments as border data.",
+    "S4": "Derived from leave/unavailability requests and represented as undesired shift preferences."
+  },
+  "assumptions": [],
+  "missing_fields": [],
+  "unresolved_rules": []
+}
+
+NORMALIZATION RULES:
+- Convert Week1 Monday to W1_Mon, Week1 Tuesday to W1_Tue, etc.
+- Build nurse_contract_map explicitly from nurse contract fields.
+- Build qualification_matrix explicitly from nurse skill lists.
+- Build weekend_pairs explicitly from the planning horizon.
+- Expand leave records:
+  - if shift = "Any", create leave_expanded entries for E, L, and N
+  - otherwise create one leave_expanded entry for the specific shift code
+- Also derive preferences from leave_expanded:
+  - every leave_expanded entry becomes a preference entry with type = "undesired"
+- Build derived_rules using:
+  - shift_types for shift consecutive limits
+  - contracts for consecutive working day and day-off limits
+- If non-coverage data exists in the source, it must be extracted explicitly and not omitted.
+
+ERROR RULE:
+- If you cannot extract the required non-coverage fields, return:
+  {
+    "error": "non-coverage extraction incomplete"
+  }
+
+Now convert the following input:
+
+<<<DATA>>>
+{data}

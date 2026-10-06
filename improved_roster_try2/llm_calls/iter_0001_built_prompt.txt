@@ -1,0 +1,2177 @@
+You are an expert nurse rostering local-search assistant.
+
+You will be given:
+1. the full instance JSON
+2. the current roster as a nested dictionary
+3. the current validator summary text
+
+Your task is to propose candidate move bundles that are most likely to LOWER TOTAL COST while NOT causing hard-constraint violations.
+
+PRIMARY OBJECTIVE
+
+Your only objective is:
+- reduce total penalty as much as possible
+- do not break hard constraints
+
+You must optimize only for penalty reduction subject to hard-constraint feasibility.
+
+Use the validator summary to identify the most expensive penalty sources and target those first.
+
+Priority order for improvement:
+1. Total assignment constraints
+2. Consecutive constraints
+3. Non working days constraints
+4. Max working weekend
+5. Complete weekends
+6. Optimal coverage constraints
+7. Preferences
+
+CRITICAL OUTPUT RULES
+
+Return ONLY a strict JSON array.
+Do NOT output markdown.
+Do NOT output commentary.
+Do NOT output explanations outside JSON.
+Do NOT output any keys other than those explicitly allowed below.
+
+Each element of the returned JSON array must be a bundle object with exactly these keys:
+- bundle_id
+- reason
+- moves
+
+Each moves value must be an array containing 1 to 5 move objects.
+
+Return at most 20 bundles.
+
+The top-level output must be a JSON ARRAY only.
+
+BUNDLE SELECTION RULES
+
+Each returned bundle must be a serious candidate for immediate application in local search.
+
+Prefer bundles that are most likely to reduce the highest current penalties.
+
+Strong candidates usually include moves such as:
+- moving assignments away from overloaded nurses
+- reducing excess working weekends
+- repairing incomplete weekends
+- reducing bad consecutive shift patterns
+- reducing bad consecutive working-day patterns
+- improving consecutive days-off patterns
+- rebalancing work from overloaded nurses to underloaded qualified OFF nurses
+- filling optimal coverage shortages when feasible without creating larger penalties elsewhere
+
+Avoid low-value bundles such as:
+- bundles that do not target a significant current penalty
+- bundles that add work to already overloaded nurses
+- bundles that increase weekend pressure on nurses already near weekend limits
+- bundles that are likely to worsen consecutive patterns
+- bundles that are valid but unlikely to materially reduce total cost
+- near-duplicate bundles unless they offer meaningfully different penalty-reduction opportunities
+
+MOVE TYPES
+
+Only these move types are allowed:
+- reassign
+- swap
+- coverage_fill
+- weekend_repair
+
+CRITICAL SCHEMA RULES
+
+You MUST follow the exact schema for each move type.
+
+1. REASSIGN MOVE
+Meaning:
+Move one existing assignment on one day from one nurse to another nurse on the same day.
+
+Allowed keys exactly:
+- type
+- day
+- from_nurse
+- to_nurse
+- shift
+- skill
+
+Required format:
+{
+  "type": "reassign",
+  "day": "W2_Fri",
+  "from_nurse": "Andrea",
+  "to_nurse": "Sara",
+  "shift": "L",
+  "skill": "Nurse"
+}
+
+2. SWAP MOVE
+Meaning:
+Swap the assignments of two nurses on the same day.
+
+Allowed keys exactly:
+- type
+- day
+- nurse_a
+- nurse_b
+
+Required format:
+{
+  "type": "swap",
+  "day": "W2_Fri",
+  "nurse_a": "Andrea",
+  "nurse_b": "Sara"
+}
+
+IMPORTANT:
+For swap moves:
+- DO NOT use from_nurse
+- DO NOT use to_nurse
+- DO NOT include shift
+- DO NOT include skill
+
+3. COVERAGE_FILL MOVE
+Meaning:
+Assign an OFF nurse to a specific day/shift/skill.
+
+Allowed keys exactly:
+- type
+- day
+- shift
+- skill
+- to_nurse
+
+Required format:
+{
+  "type": "coverage_fill",
+  "day": "W3_Fri",
+  "shift": "E",
+  "skill": "Nurse",
+  "to_nurse": "Patrick"
+}
+
+IMPORTANT:
+For coverage_fill moves:
+- DO NOT use from_nurse
+- the nurse must be the destination nurse only
+
+4. WEEKEND_REPAIR MOVE
+Meaning:
+Request a weekend repair for one nurse on one week.
+
+Allowed keys exactly:
+- type
+- nurse
+- week
+
+Required format:
+{
+  "type": "weekend_repair",
+  "nurse": "Sara",
+  "week": 2
+}
+
+IMPORTANT:
+For weekend_repair moves:
+- DO NOT use day
+- DO NOT use from_nurse
+- DO NOT use to_nurse
+- DO NOT include shift
+- DO NOT include skill
+- week must be an integer, for example 0, 1, 2, 3
+
+DAY LABEL RULES
+
+For reassign, swap, and coverage_fill:
+- use day labels like W1_Mon, W2_Fri, W3_Sat
+- DO NOT use plain day names like Mon or Friday
+- DO NOT use invalid day strings
+
+WEEKEND_REPAIR WEEK RULE
+
+For weekend_repair:
+- use the integer week index only
+- example: "week": 2
+- DO NOT encode the week as a day label
+
+ROSTER-AWARE FEASIBILITY RULES
+
+Before proposing a move, use the provided CURRENT ROSTER DICT, INSTANCE JSON, and VALIDATOR SUMMARY.
+
+You MUST avoid obviously invalid or self-defeating moves, including:
+- reassigning from a nurse who is OFF on that day
+- reassigning to a nurse who is already working on that day
+- coverage_fill to a nurse who is already working on that day
+- assigning a nurse to a skill they are not qualified for
+- obviously impossible swaps
+- bundles whose own moves conflict with each other
+- moves that obviously create illegal shift successions
+- moves that obviously create or worsen hard minimum coverage violations
+
+You should prefer:
+- reassigning from overloaded nurses to underloaded qualified nurses who are OFF that day
+- using coverage_fill only when the target nurse is OFF and qualified
+- weekend_repair only when weekend-related penalties are plausible
+- swaps only when they plausibly lower penalty without breaking feasibility
+
+VALIDATOR-AWARE RULES
+
+Use the validator summary to identify:
+- which penalty categories are largest
+- which nurses appear most responsible for those penalties
+- which days or patterns are most promising for local improvement
+
+Focus most strongly on the highest-cost penalty categories first.
+
+When several candidate bundles look feasible, prefer the one more likely to reduce the larger penalty component.
+
+SCORING MINDSET
+
+When deciding whether to output a bundle, reason as follows:
+- Will this likely reduce one of the largest current penalties?
+- Is it likely feasible with respect to hard constraints?
+- Is it likely better than a random feasible alternative?
+- Is the expected penalty reduction large enough to justify inclusion among the top bundles?
+
+Only output bundles that pass that test.
+
+STRICT NEGATIVE RULES
+
+DO NOT invent new move types.
+
+DO NOT use these invalid keys for swap:
+- from_nurse
+- to_nurse
+- shift
+- skill
+
+DO NOT use these invalid keys for weekend_repair:
+- day
+- from_nurse
+- to_nurse
+- shift
+- skill
+
+DO NOT return malformed JSON.
+DO NOT return a JSON object at the top level.
+Return a JSON ARRAY only.
+
+VALID EXAMPLE OUTPUT
+
+[
+  {
+    "bundle_id": 1,
+    "reason": "reduce overload and fill shortage",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Fri",
+        "from_nurse": "Andrea",
+        "to_nurse": "Sara",
+        "shift": "L",
+        "skill": "Nurse"
+      },
+      {
+        "type": "coverage_fill",
+        "day": "W3_Fri",
+        "shift": "E",
+        "skill": "Nurse",
+        "to_nurse": "Patrick"
+      }
+    ]
+  },
+  {
+    "bundle_id": 2,
+    "reason": "swap assignments on one day to reduce overload",
+    "moves": [
+      {
+        "type": "swap",
+        "day": "W2_Thu",
+        "nurse_a": "Patrick",
+        "nurse_b": "Andrea"
+      }
+    ]
+  },
+  {
+    "bundle_id": 3,
+    "reason": "repair incomplete weekend for a penalized nurse",
+    "moves": [
+      {
+        "type": "weekend_repair",
+        "nurse": "Sara",
+        "week": 2
+      }
+    ]
+  }
+]
+
+INSTANCE JSON:
+{
+  "sets": {
+    "N": [
+      "Patrick",
+      "Andrea",
+      "Stefaan",
+      "Sara",
+      "Nguyen"
+    ],
+    "D": [
+      "W1_Mon",
+      "W1_Tue",
+      "W1_Wed",
+      "W1_Thu",
+      "W1_Fri",
+      "W1_Sat",
+      "W1_Sun",
+      "W2_Mon",
+      "W2_Tue",
+      "W2_Wed",
+      "W2_Thu",
+      "W2_Fri",
+      "W2_Sat",
+      "W2_Sun",
+      "W3_Mon",
+      "W3_Tue",
+      "W3_Wed",
+      "W3_Thu",
+      "W3_Fri",
+      "W3_Sat",
+      "W3_Sun",
+      "W4_Mon",
+      "W4_Tue",
+      "W4_Wed",
+      "W4_Thu",
+      "W4_Fri",
+      "W4_Sat",
+      "W4_Sun"
+    ],
+    "S": [
+      "E",
+      "L",
+      "N"
+    ],
+    "K": [
+      "HeadNurse",
+      "Nurse"
+    ]
+  },
+  "parameters": {
+    "coverage": {
+      "W1_Mon": {
+        "E": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 0,
+            "opt": 1
+          }
+        }
+      },
+      "W1_Tue": {
+        "E": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 0,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        }
+      },
+      "W1_Wed": {
+        "E": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 0,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        }
+      },
+      "W1_Thu": {
+        "E": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 0,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        }
+      },
+      "W1_Fri": {
+        "E": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 0,
+            "opt": 1
+          }
+        }
+      },
+      "W1_Sat": {
+        "E": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        }
+      },
+      "W1_Sun": {
+        "E": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        }
+      },
+      "W2_Mon": {
+        "E": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 0,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 0,
+            "opt": 1
+          }
+        }
+      },
+      "W2_Tue": {
+        "E": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        }
+      },
+      "W2_Wed": {
+        "E": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        }
+      },
+      "W2_Thu": {
+        "E": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        }
+      },
+      "W2_Fri": {
+        "E": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 0,
+            "opt": 1
+          }
+        }
+      },
+      "W2_Sat": {
+        "E": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 0,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        }
+      },
+      "W2_Sun": {
+        "E": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        }
+      },
+      "W3_Mon": {
+        "E": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 0,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        }
+      },
+      "W3_Tue": {
+        "E": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        }
+      },
+      "W3_Wed": {
+        "E": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 0,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 0,
+            "opt": 1
+          }
+        }
+      },
+      "W3_Thu": {
+        "E": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        }
+      },
+      "W3_Fri": {
+        "E": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 0,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 0,
+            "opt": 1
+          }
+        }
+      },
+      "W3_Sat": {
+        "E": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        }
+      },
+      "W3_Sun": {
+        "E": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        }
+      },
+      "W4_Mon": {
+        "E": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 2
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 0,
+            "opt": 1
+          }
+        }
+      },
+      "W4_Tue": {
+        "E": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        }
+      },
+      "W4_Wed": {
+        "E": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 0,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        }
+      },
+      "W4_Thu": {
+        "E": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 0,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 0,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        }
+      },
+      "W4_Fri": {
+        "E": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        }
+      },
+      "W4_Sat": {
+        "E": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 1,
+            "opt": 1
+          },
+          "Nurse": {
+            "min": 0,
+            "opt": 1
+          }
+        }
+      },
+      "W4_Sun": {
+        "E": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 0,
+            "opt": 1
+          }
+        },
+        "L": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        },
+        "N": {
+          "HeadNurse": {
+            "min": 0,
+            "opt": 0
+          },
+          "Nurse": {
+            "min": 1,
+            "opt": 1
+          }
+        }
+      }
+    },
+    "qualifications": {
+      "Patrick": {
+        "HeadNurse": 1,
+        "Nurse": 1
+      },
+      "Andrea": {
+        "HeadNurse": 1,
+        "Nurse": 1
+      },
+      "Stefaan": {
+        "HeadNurse": 1,
+        "Nurse": 1
+      },
+      "Sara": {
+        "HeadNurse": 0,
+        "Nurse": 1
+      },
+      "Nguyen": {
+        "HeadNurse": 0,
+        "Nurse": 1
+      }
+    },
+    "contracts": {
+      "Patrick": {
+        "min_total": 15,
+        "max_total": 22,
+        "min_consec_work": 3,
+        "max_consec_work": 5,
+        "min_consec_off": 2,
+        "max_consec_off": 3,
+        "max_weekends": 2,
+        "complete_weekend": 1
+      },
+      "Andrea": {
+        "min_total": 15,
+        "max_total": 22,
+        "min_consec_work": 3,
+        "max_consec_work": 5,
+        "min_consec_off": 2,
+        "max_consec_off": 3,
+        "max_weekends": 2,
+        "complete_weekend": 1
+      },
+      "Stefaan": {
+        "min_total": 7,
+        "max_total": 11,
+        "min_consec_work": 3,
+        "max_consec_work": 5,
+        "min_consec_off": 3,
+        "max_consec_off": 5,
+        "max_weekends": 2,
+        "complete_weekend": 1
+      },
+      "Sara": {
+        "min_total": 15,
+        "max_total": 22,
+        "min_consec_work": 3,
+        "max_consec_work": 5,
+        "min_consec_off": 2,
+        "max_consec_off": 3,
+        "max_weekends": 2,
+        "complete_weekend": 1
+      },
+      "Nguyen": {
+        "min_total": 7,
+        "max_total": 11,
+        "min_consec_work": 3,
+        "max_consec_work": 5,
+        "min_consec_off": 3,
+        "max_consec_off": 5,
+        "max_weekends": 2,
+        "complete_weekend": 1
+      }
+    },
+    "shift_type_limits": {
+      "E": {
+        "min_consec": 2,
+        "max_consec": 5
+      },
+      "L": {
+        "min_consec": 2,
+        "max_consec": 3
+      },
+      "N": {
+        "min_consec": 4,
+        "max_consec": 5
+      }
+    },
+    "shift_successions": {
+      "forbidden": [
+        [
+          "L",
+          "E"
+        ],
+        [
+          "N",
+          "E"
+        ],
+        [
+          "N",
+          "L"
+        ]
+      ]
+    },
+    "historical_assignments": {
+      "Patrick": {
+        "lastAssignedShiftType": "E",
+        "numberOfConsecutiveAssignments": 2,
+        "numberOfConsecutiveWorkingDays": 2,
+        "numberOfConsecutiveDaysOff": 0,
+        "numberOfAssignments": 0,
+        "numberOfWorkingWeekends": 0
+      },
+      "Andrea": {
+        "lastAssignedShiftType": "N",
+        "numberOfConsecutiveAssignments": 2,
+        "numberOfConsecutiveWorkingDays": 4,
+        "numberOfConsecutiveDaysOff": 0,
+        "numberOfAssignments": 0,
+        "numberOfWorkingWeekends": 0
+      },
+      "Stefaan": {
+        "lastAssignedShiftType": "L",
+        "numberOfConsecutiveAssignments": 1,
+        "numberOfConsecutiveWorkingDays": 4,
+        "numberOfConsecutiveDaysOff": 0,
+        "numberOfAssignments": 0,
+        "numberOfWorkingWeekends": 0
+      },
+      "Sara": {
+        "lastAssignedShiftType": "L",
+        "numberOfConsecutiveAssignments": 2,
+        "numberOfConsecutiveWorkingDays": 2,
+        "numberOfConsecutiveDaysOff": 0,
+        "numberOfAssignments": 0,
+        "numberOfWorkingWeekends": 0
+      },
+      "Nguyen": {
+        "lastAssignedShiftType": "None",
+        "numberOfConsecutiveAssignments": 0,
+        "numberOfConsecutiveWorkingDays": 0,
+        "numberOfConsecutiveDaysOff": 2,
+        "numberOfAssignments": 0,
+        "numberOfWorkingWeekends": 0
+      }
+    },
+    "preferences": [
+      {
+        "nurse": "Patrick",
+        "day": "W1_Mon",
+        "shift": "Any"
+      },
+      {
+        "nurse": "Stefaan",
+        "day": "W1_Wed",
+        "shift": "L"
+      },
+      {
+        "nurse": "Sara",
+        "day": "W1_Fri",
+        "shift": "Any"
+      },
+      {
+        "nurse": "Andrea",
+        "day": "W2_Fri",
+        "shift": "L"
+      },
+      {
+        "nurse": "Andrea",
+        "day": "W2_Sat",
+        "shift": "Any"
+      },
+      {
+        "nurse": "Andrea",
+        "day": "W3_Tue",
+        "shift": "Any"
+      },
+      {
+        "nurse": "Stefaan",
+        "day": "W3_Wed",
+        "shift": "Any"
+      },
+      {
+        "nurse": "Nguyen",
+        "day": "W3_Fri",
+        "shift": "Any"
+      },
+      {
+        "nurse": "Nguyen",
+        "day": "W3_Sat",
+        "shift": "Any"
+      },
+      {
+        "nurse": "Sara",
+        "day": "W3_Sat",
+        "shift": "L"
+      },
+      {
+        "nurse": "Sara",
+        "day": "W4_Thu",
+        "shift": "Any"
+      },
+      {
+        "nurse": "Sara",
+        "day": "W4_Sat",
+        "shift": "N"
+      },
+      {
+        "nurse": "Stefaan",
+        "day": "W4_Sat",
+        "shift": "L"
+      }
+    ],
+    "soft_rule_weights": {
+      "optimal_coverage": 30,
+      "preferences": 10,
+      "consecutive_shift_assignments": 15,
+      "consecutive_working_days": 30,
+      "consecutive_days_off": 30,
+      "complete_weekend": 30,
+      "total_assignments": 20,
+      "total_working_weekends": 30
+    }
+  },
+  "constraints_text": [
+    "FORBIDDEN SHIFTS TYPE SUCCESSIONS",
+    "",
+    "Late -> Early  ",
+    "Night -> Early/Late",
+    "",
+    "",
+    "HARD RULES (H):",
+    "- H1. Single assignment per day: A nurse can be assigned to at most one shift per day.",
+    "- H2. Under-staffing: The number of nurses for each shift for each skill must be at least equal to the minimum requirement.",
+    "- H3. Shift type successions: The shift type assignments of one nurse in two consecutive days must belong to the legal successions provided in forbidden shift type successions. ",
+    "- H4. Missing required skill: A shift of a given skill must necessarily be fulfilled by a nurse having that skill",
+    "",
+    "SOFT RULES:",
+    "- S1. Insufficient staffing for optimal coverage (30): The number of nurses for each shift for each skill must be equal to the optimal requirement. Each missing nurse is penalised according to the weight provided. Extra nurses above the optimal value are not considered in the cost.",
+    "- S2. Consecutive assignments (15/30): Minimum and maximum number of consecutive assignments, per shift or global, should be respected. Their evaluation involves also the border data. Each extra or missing day is multiplied by the corresponding weight. The weights for consecutive shift constraint and for consecutive working days are respectively 15 and 30.",
+    "- S3. Consecutive days off (30): Minimum and maximum number of consecutive days off should be respected. Their evaluation involves also the border data. Each extra or missing day is multiplied by the corresponding weight.",
+    "- S4. Preferences (10): Each assignment to an undesired shift is penalised by the corresponding weight.",
+    "- S5. Complete week-end (30): Every nurse that has the complete weekend value set to true, must work both week-end days or none. If she/he works only one of the two days Sat and Sun this is penalised by the corresponding weight.",
+    "- S6. Total assignments (20): For each nurse the total number of assignments (working days) must be included within the limits (minimum and maximum) enforced by her/his contract. The difference (in either direction), multiplied by its weight, is added to the objective function.",
+    "- S7. Total working week-ends (30): For each nurse the number of working weed-ends must be less than or equal to the maximum. The number of worked week-ends in excess is added to the objective function multiplied by the weight. A week-end is considered \u201cworking\u201d if at least one of the two days (Sat and Sun) is busy for the nurse."
+  ],
+  "hard_rules": {
+    "single_assignment_per_day": true,
+    "minimum_coverage": true,
+    "shift_successions": true,
+    "consecutive_shift_limits": true,
+    "consecutive_working_days_limits": true,
+    "historical_boundary_conditions": true,
+    "skill_compatibility": true
+  }
+}
+
+CURRENT ROSTER DICT:
+{
+  "Patrick": {
+    "W1_Mon": [
+      "E",
+      "Nurse"
+    ],
+    "W1_Tue": [
+      "E",
+      "HeadNurse"
+    ],
+    "W1_Wed": [
+      "L",
+      "Nurse"
+    ],
+    "W1_Thu": null,
+    "W1_Fri": [
+      "E",
+      "HeadNurse"
+    ],
+    "W1_Sat": [
+      "E",
+      "Nurse"
+    ],
+    "W1_Sun": [
+      "E",
+      "Nurse"
+    ],
+    "W2_Mon": [
+      "E",
+      "Nurse"
+    ],
+    "W2_Tue": [
+      "L",
+      "HeadNurse"
+    ],
+    "W2_Wed": [
+      "L",
+      "HeadNurse"
+    ],
+    "W2_Thu": null,
+    "W2_Fri": null,
+    "W2_Sat": [
+      "E",
+      "Nurse"
+    ],
+    "W2_Sun": [
+      "E",
+      "Nurse"
+    ],
+    "W3_Mon": [
+      "L",
+      "Nurse"
+    ],
+    "W3_Tue": [
+      "L",
+      "Nurse"
+    ],
+    "W3_Wed": [
+      "L",
+      "Nurse"
+    ],
+    "W3_Thu": null,
+    "W3_Fri": null,
+    "W3_Sat": [
+      "E",
+      "Nurse"
+    ],
+    "W3_Sun": [
+      "E",
+      "Nurse"
+    ],
+    "W4_Mon": [
+      "E",
+      "HeadNurse"
+    ],
+    "W4_Tue": [
+      "L",
+      "Nurse"
+    ],
+    "W4_Wed": [
+      "L",
+      "HeadNurse"
+    ],
+    "W4_Thu": null,
+    "W4_Fri": null,
+    "W4_Sat": [
+      "E",
+      "Nurse"
+    ],
+    "W4_Sun": [
+      "E",
+      "Nurse"
+    ]
+  },
+  "Andrea": {
+    "W1_Mon": [
+      "N",
+      "Nurse"
+    ],
+    "W1_Tue": [
+      "N",
+      "Nurse"
+    ],
+    "W1_Wed": [
+      "N",
+      "HeadNurse"
+    ],
+    "W1_Thu": null,
+    "W1_Fri": null,
+    "W1_Sat": null,
+    "W1_Sun": [
+      "L",
+      "HeadNurse"
+    ],
+    "W2_Mon": [
+      "N",
+      "HeadNurse"
+    ],
+    "W2_Tue": [
+      "N",
+      "HeadNurse"
+    ],
+    "W2_Wed": [
+      "N",
+      "Nurse"
+    ],
+    "W2_Thu": [
+      "N",
+      "Nurse"
+    ],
+    "W2_Fri": null,
+    "W2_Sat": [
+      "L",
+      "Nurse"
+    ],
+    "W2_Sun": [
+      "L",
+      "Nurse"
+    ],
+    "W3_Mon": [
+      "L",
+      "HeadNurse"
+    ],
+    "W3_Tue": null,
+    "W3_Wed": [
+      "E",
+      "HeadNurse"
+    ],
+    "W3_Thu": [
+      "E",
+      "Nurse"
+    ],
+    "W3_Fri": [
+      "E",
+      "HeadNurse"
+    ],
+    "W3_Sat": [
+      "L",
+      "HeadNurse"
+    ],
+    "W3_Sun": [
+      "L",
+      "Nurse"
+    ],
+    "W4_Mon": [
+      "L",
+      "HeadNurse"
+    ],
+    "W4_Tue": null,
+    "W4_Wed": [
+      "E",
+      "Nurse"
+    ],
+    "W4_Thu": [
+      "E",
+      "Nurse"
+    ],
+    "W4_Fri": [
+      "N",
+      "HeadNurse"
+    ],
+    "W4_Sat": [
+      "N",
+      "HeadNurse"
+    ],
+    "W4_Sun": [
+      "N",
+      "Nurse"
+    ]
+  },
+  "Stefaan": {
+    "W1_Mon": [
+      "L",
+      "HeadNurse"
+    ],
+    "W1_Tue": null,
+    "W1_Wed": null,
+    "W1_Thu": null,
+    "W1_Fri": [
+      "L",
+      "Nurse"
+    ],
+    "W1_Sat": [
+      "N",
+      "HeadNurse"
+    ],
+    "W1_Sun": [
+      "N",
+      "HeadNurse"
+    ],
+    "W2_Mon": [
+      "N",
+      "Nurse"
+    ],
+    "W2_Tue": [
+      "N",
+      "Nurse"
+    ],
+    "W2_Wed": null,
+    "W2_Thu": null,
+    "W2_Fri": null,
+    "W2_Sat": [
+      "N",
+      "HeadNurse"
+    ],
+    "W2_Sun": [
+      "N",
+      "HeadNurse"
+    ],
+    "W3_Mon": [
+      "N",
+      "HeadNurse"
+    ],
+    "W3_Tue": [
+      "N",
+      "Nurse"
+    ],
+    "W3_Wed": [
+      "N",
+      "HeadNurse"
+    ],
+    "W3_Thu": [
+      "N",
+      "HeadNurse"
+    ],
+    "W3_Fri": null,
+    "W3_Sat": [
+      "L",
+      "Nurse"
+    ],
+    "W3_Sun": [
+      "L",
+      "HeadNurse"
+    ],
+    "W4_Mon": [
+      "L",
+      "Nurse"
+    ],
+    "W4_Tue": [
+      "N",
+      "HeadNurse"
+    ],
+    "W4_Wed": null,
+    "W4_Thu": null,
+    "W4_Fri": [
+      "E",
+      "Nurse"
+    ],
+    "W4_Sat": [
+      "E",
+      "HeadNurse"
+    ],
+    "W4_Sun": [
+      "E",
+      "Nurse"
+    ]
+  },
+  "Sara": {
+    "W1_Mon": [
+      "L",
+      "Nurse"
+    ],
+    "W1_Tue": [
+      "L",
+      "Nurse"
+    ],
+    "W1_Wed": null,
+    "W1_Thu": [
+      "E",
+      "Nurse"
+    ],
+    "W1_Fri": [
+      "E",
+      "Nurse"
+    ],
+    "W1_Sat": [
+      "L",
+      "Nurse"
+    ],
+    "W1_Sun": [
+      "L",
+      "Nurse"
+    ],
+    "W2_Mon": null,
+    "W2_Tue": [
+      "L",
+      "Nurse"
+    ],
+    "W2_Wed": [
+      "L",
+      "Nurse"
+    ],
+    "W2_Thu": [
+      "L",
+      "Nurse"
+    ],
+    "W2_Fri": [
+      "L",
+      "Nurse"
+    ],
+    "W2_Sat": null,
+    "W2_Sun": null,
+    "W3_Mon": [
+      "E",
+      "Nurse"
+    ],
+    "W3_Tue": [
+      "E",
+      "Nurse"
+    ],
+    "W3_Wed": [
+      "E",
+      "Nurse"
+    ],
+    "W3_Thu": [
+      "L",
+      "Nurse"
+    ],
+    "W3_Fri": [
+      "L",
+      "Nurse"
+    ],
+    "W3_Sat": null,
+    "W3_Sun": null,
+    "W4_Mon": [
+      "E",
+      "Nurse"
+    ],
+    "W4_Tue": [
+      "E",
+      "Nurse"
+    ],
+    "W4_Wed": [
+      "N",
+      "Nurse"
+    ],
+    "W4_Thu": [
+      "N",
+      "Nurse"
+    ],
+    "W4_Fri": [
+      "N",
+      "Nurse"
+    ],
+    "W4_Sat": null,
+    "W4_Sun": null
+  },
+  "Nguyen": {
+    "W1_Mon": null,
+    "W1_Tue": null,
+    "W1_Wed": [
+      "N",
+      "Nurse"
+    ],
+    "W1_Thu": [
+      "N",
+      "Nurse"
+    ],
+    "W1_Fri": [
+      "N",
+      "Nurse"
+    ],
+    "W1_Sat": [
+      "N",
+      "Nurse"
+    ],
+    "W1_Sun": [
+      "N",
+      "Nurse"
+    ],
+    "W2_Mon": null,
+    "W2_Tue": [
+      "E",
+      "Nurse"
+    ],
+    "W2_Wed": [
+      "E",
+      "Nurse"
+    ],
+    "W2_Thu": [
+      "E",
+      "Nurse"
+    ],
+    "W2_Fri": [
+      "E",
+      "Nurse"
+    ],
+    "W2_Sat": [
+      "N",
+      "Nurse"
+    ],
+    "W2_Sun": [
+      "N",
+      "Nurse"
+    ],
+    "W3_Mon": [
+      "N",
+      "Nurse"
+    ],
+    "W3_Tue": null,
+    "W3_Wed": null,
+    "W3_Thu": [
+      "N",
+      "Nurse"
+    ],
+    "W3_Fri": [
+      "N",
+      "Nurse"
+    ],
+    "W3_Sat": [
+      "N",
+      "Nurse"
+    ],
+    "W3_Sun": [
+      "N",
+      "Nurse"
+    ],
+    "W4_Mon": [
+      "N",
+      "Nurse"
+    ],
+    "W4_Tue": [
+      "N",
+      "Nurse"
+    ],
+    "W4_Wed": null,
+    "W4_Thu": null,
+    "W4_Fri": [
+      "L",
+      "Nurse"
+    ],
+    "W4_Sat": [
+      "L",
+      "Nurse"
+    ],
+    "W4_Sun": [
+      "L",
+      "Nurse"
+    ]
+  }
+}
+
+VALIDATOR SUMMARY:
+        |M|T|W|T|F|S|S| |M|T|W|T|F|S|S| |M|T|W|T|F|S|S| |M|T|W|T|F|S|S|
+-------------------------------------------------------------------------
+Patrick |E|E|L|-|E|E|E| |E|L|L|-|-|E|E| |L|L|L|-|-|E|E| |E|L|L|-|-|E|E|
+Andrea  |N|N|N|-|-|-|L| |N|N|N|N|-|L|L| |L|-|E|E|E|L|L| |L|-|E|E|N|N|N|
+Stefaan |L|-|-|-|L|N|N| |N|N|-|-|-|N|N| |N|N|N|N|-|L|L| |L|N|-|-|E|E|E|
+Sara    |L|L|-|E|E|L|L| |-|L|L|L|L|-|-| |E|E|E|L|L|-|-| |E|E|N|N|N|-|-|
+Nguyen  |-|-|N|N|N|N|N| |-|E|E|E|E|N|N| |N|-|-|N|N|N|N| |N|N|-|-|L|L|L|
+
+
+Hard constraint violations
+--------------------------
+
+Minimal coverage constraints: 0
+Required skill constraints: 0
+Illegal shift type succession constraints: 0
+Single assignment per day: 0
+
+
+Cost per constraint type
+------------------------
+
+Total assignment constraints: 340
+Consecutive constraints: 420
+Non working days constraints: 450
+Preferences: 70
+Max working weekend: 240
+Complete weekends: 30
+Optimal coverage constraints: 360
+
+------------------------
+
+Total cost: 1910
+ 
+Patrick
+-------
+
+   Total assignments 
+   -----------------
+
+   Consecutive assignments 
+   -----------------------
+     - Minimum number of consecutive shift types (Late), nurse Patrick, day: 2, cost: 15
+     - Maximum number of consecutive working days, nurse Patrick, day: 9, cost: 30
+
+   Consecutive days off 
+   --------------------
+     - Minimum number of consecutive days off, nurse Patrick, day: 2, cost: 30
+
+   Weekend constraints 
+   -------------------
+     - Maximum number of working weekends exceeded for nurse Patrick, nurse Patrick, day: 0, cost: 60
+
+   Preferences 
+   -----------
+     - Shift off request, nurse Patrick, day: 0, cost: 10
+
+   Hard constraint violations 
+   --------------------------
+
+
+Andrea
+------
+
+   Total assignments 
+   -----------------
+
+   Consecutive assignments 
+   -----------------------
+     - Minimum number of consecutive shift types (Late), nurse Andrea, day: 6, cost: 15
+     - Maximum number of consecutive working days, nurse Andrea, day: 21, cost: 30
+     - Maximum number of consecutive working days, nurse Andrea, day: 2, cost: 60
+
+   Consecutive days off 
+   --------------------
+     - Minimum number of consecutive days off, nurse Andrea, day: 21, cost: 30
+     - Minimum number of consecutive days off, nurse Andrea, day: 14, cost: 30
+     - Minimum number of consecutive days off, nurse Andrea, day: 10, cost: 30
+
+   Weekend constraints 
+   -------------------
+     - Maximum number of working weekends exceeded for nurse Andrea, nurse Andrea, day: 0, cost: 60
+     - Complete working weekends, nurse Andrea, day: 6, cost: 30
+
+   Preferences 
+   -----------
+     - Shift off request, nurse Andrea, day: 12, cost: 10
+
+   Hard constraint violations 
+   --------------------------
+
+
+Stefaan
+-------
+
+   Total assignments 
+   -----------------
+     - Maximum total number of assignments, nurse Stefaan, day: 0, cost: 160
+
+   Consecutive assignments 
+   -----------------------
+     - Minimum number of consecutive shift types (Night), nurse Stefaan, day: 22, cost: 45
+     - Minimum number of consecutive shift types (Late), nurse Stefaan, day: 4, cost: 15
+     - Maximum number of consecutive shift types (Night), nurse Stefaan, day: 17, cost: 15
+     - Maximum number of consecutive working days, nurse Stefaan, day: 17, cost: 30
+
+   Consecutive days off 
+   --------------------
+     - Minimum number of consecutive days off, nurse Stefaan, day: 22, cost: 30
+     - Minimum number of consecutive days off, nurse Stefaan, day: 17, cost: 60
+
+   Weekend constraints 
+   -------------------
+     - Maximum number of working weekends exceeded for nurse Stefaan, nurse Stefaan, day: 0, cost: 60
+
+   Preferences 
+   -----------
+     - Shift off request, nurse Stefaan, day: 16, cost: 10
+
+   Hard constraint violations 
+   --------------------------
+
+
+Sara
+----
+
+   Total assignments 
+   -----------------
+     - Maximum total number of assignments, nurse Sara, day: 0, cost: 180
+
+   Consecutive assignments 
+   -----------------------
+     - Minimum number of consecutive shift types (Night), nurse Sara, day: 25, cost: 15
+     - Maximum number of consecutive shift types (Late), nurse Sara, day: 11, cost: 15
+     - Maximum number of consecutive shift types (Late), nurse Sara, day: 1, cost: 15
+
+   Consecutive days off 
+   --------------------
+     - Minimum number of consecutive days off, nurse Sara, day: 18, cost: 30
+     - Minimum number of consecutive days off, nurse Sara, day: 11, cost: 30
+     - Minimum number of consecutive days off, nurse Sara, day: 6, cost: 60
+     - Minimum number of consecutive days off, nurse Sara, day: 1, cost: 60
+
+   Weekend constraints 
+   -------------------
+
+   Preferences 
+   -----------
+     - Shift off request, nurse Sara, day: 24, cost: 10
+     - Shift off request, nurse Sara, day: 24, cost: 10
+
+   Hard constraint violations 
+   --------------------------
+
+
+Nguyen
+------
+
+   Total assignments 
+   -----------------
+
+   Consecutive assignments 
+   -----------------------
+     - Minimum number of consecutive shift types (Night), nurse Nguyen, day: 14, cost: 15
+     - Maximum number of consecutive shift types (Night), nurse Nguyen, day: 22, cost: 15
+     - Maximum number of consecutive working days, nurse Nguyen, day: 22, cost: 30
+     - Maximum number of consecutive working days, nurse Nguyen, day: 14, cost: 60
+
+   Consecutive days off 
+   --------------------
+     - Minimum number of consecutive days off, nurse Nguyen, day: 6, cost: 30
+     - Maximum number of consecutive days off, nurse Nguyen, day: 0, cost: 30
+
+   Weekend constraints 
+   -------------------
+     - Maximum number of working weekends exceeded for nurse Nguyen, nurse Nguyen, day: 0, cost: 60
+
+   Preferences 
+   -----------
+     - Shift off request, nurse Nguyen, day: 19, cost: 10
+     - Shift off request, nurse Nguyen, day: 19, cost: 10
+
+   Hard constraint violations 
+   --------------------------
+
+
+Insufficient staffing for minimal coverage: 
+--------------------------------------------
+
+Insufficient staffing for optimal coverage: 
+---------------------------------------------
+   - 1 assignments short for optimal staffing for shift type (Early) for skill (Nurse) on day (Tuesday) in week (0), cost 30
+   - 1 assignments short for optimal staffing for shift type (Early) for skill (Nurse) on day (Wednesday) in week (0), cost 30
+   - 1 assignments short for optimal staffing for shift type (Late) for skill (Nurse) on day (Thursday) in week (0), cost 30
+   - 1 assignments short for optimal staffing for shift type (Late) for skill (Nurse) on day (Monday) in week (1), cost 30
+   - 1 assignments short for optimal staffing for shift type (Night) for skill (Nurse) on day (Friday) in week (1), cost 30
+   - 1 assignments short for optimal staffing for shift type (Night) for skill (Nurse) on day (Wednesday) in week (2), cost 30
+   - 1 assignments short for optimal staffing for shift type (Early) for skill (Nurse) on day (Friday) in week (2), cost 30
+   - 1 assignments short for optimal staffing for shift type (Early) for skill (Nurse) on day (Monday) in week (3), cost 30
+   - 1 assignments short for optimal staffing for shift type (Late) for skill (HeadNurse) on day (Tuesday) in week (3), cost 30
+   - 1 assignments short for optimal staffing for shift type (Late) for skill (Nurse) on day (Wednesday) in week (3), cost 30
+   - 1 assignments short for optimal staffing for shift type (Late) for skill (Nurse) on day (Thursday) in week (3), cost 30
+   - 1 assignments short for optimal staffing for shift type (Night) for skill (Nurse) on day (Saturday) in week (3), cost 30

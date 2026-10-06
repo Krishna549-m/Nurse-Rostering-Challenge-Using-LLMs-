@@ -1,0 +1,39 @@
+[
+  {
+    "step": 4,
+    "strategy": {
+      "neighborhood": "mixed",
+      "target_penalty": "non_working_days_cost",
+      "reason": "Use a mixed neighborhood to explore both single-day and multi-day pattern changes (swap/reassign/block_swap/block_reassign) to create required consecutive OFF blocks and reduce consecutive-work violations while also allowing workload/weekend redistribution; this is appropriate after repeated non-improving attempts with swap/block_swap alone.",
+      "avoid": "Avoid block_swap constructions that tend to trigger illegal_succession and avoid coverage_fill since optimal coverage is not the only driver and adding work risks worsening max_total and weekend overages.",
+      "max_candidates": 100
+    },
+    "move": {
+      "type": "coverage_fill",
+      "day": "W1_Tue",
+      "shift": "E",
+      "skill": "Nurse",
+      "to_nurse": "Nguyen"
+    },
+    "old_cost": 1915,
+    "new_cost": 1885,
+    "delta": -30,
+    "cost_delta_by_category": {
+      "total_cost": -30,
+      "total_assignment_cost": 0,
+      "consecutive_cost": 30,
+      "non_working_days_cost": -30,
+      "preferences_cost": 0,
+      "max_working_weekend_cost": 0,
+      "complete_weekends_cost": 0,
+      "optimal_coverage_cost": -30,
+      "minimal_coverage": 0,
+      "required_skill": 0,
+      "illegal_succession": 0,
+      "single_assignment": 0
+    },
+    "changes": [
+      "W1_Tue: Nguyen OFF -> E/Nurse"
+    ]
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "operator": "block_rotation",
+  "target_nurses": [
+    "Sara",
+    "Stefaan",
+    "Nguyen"
+  ],
+  "target_days": [
+    "W2_Tue",
+    "W2_Wed",
+    "W3_Thu",
+    "W4_Mon"
+  ],
+  "reason": "Previous ruin_recreate_overload and window_rebuild produced no candidates, and weekend_transfer_bundle found no improvement. A block_rotation across 3 nurses over a few days is a stronger structured move that can simultaneously relieve consecutive-working / consecutive-days-off penalties and potentially shift workload away from the most problematic patterns without relying on large rebuilds.",
+  "avoid": [
+    "Avoid increasing max_working_weekend_cost (Patrick/Sara/Nguyen already exceed max weekends).",
+    "Prefer rotating weekday assignments (avoid Sat/Sun) to keep complete_weekends_cost at 0 and not worsen weekend overages.",
+    "Do not add further total assignments to Nguyen (already over max_total) if possible."
+  ]
+}

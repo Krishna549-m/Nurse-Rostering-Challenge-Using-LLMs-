@@ -1,0 +1,26 @@
+{
+  "operator": "random_compound",
+  "target_nurses": [
+    "Sara",
+    "Stefaan",
+    "Nguyen",
+    "Patrick",
+    "Andrea"
+  ],
+  "target_days": [
+    "W1_Mon",
+    "W1_Tue",
+    "W1_Wed",
+    "W2_Tue",
+    "W2_Wed",
+    "W3_Thu",
+    "W3_Sun",
+    "W4_Mon"
+  ],
+  "reason": "We are on a clear plateau: ruin_recreate_overload and window_rebuild produced no candidates, and weekend_transfer_bundle/block_rotation/mixed_compound produced no improvement despite many candidates. Use random_compound to escape the local optimum by exploring less-structured multi-move bundles that can simultaneously perturb consecutive/non-working-day patterns and weekend/coverage interactions while keeping hard constraints satisfied.",
+  "avoid": [
+    "Avoid increasing max_working_weekend_cost further (Patrick/Sara/Nguyen/Andrea already exceed max weekends).",
+    "Avoid adding assignments to Nguyen and Stefaan where it worsens their max_total violations.",
+    "Prefer weekday-focused perturbations unless a weekend move directly reduces weekend overage penalties."
+  ]
+}

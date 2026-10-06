@@ -1,0 +1,10 @@
+{
+  "thought": "Hard constraints are clean, but the roster is heavily over-constrained by pattern penalties: consecutive_cost and non_working_days_cost are the largest, with significant weekend overages and some max_total issues. Prior block_swap attempts frequently introduced illegal_succession, while single-day swap/reassign tended to be hard-feasible but non-improving. We should still target consecutive/day-off structure but with a safer neighborhood than block_swap.",
+  "strategy": {
+    "neighborhood": "block_reassign",
+    "target_penalty": "non_working_days_cost",
+    "reason": "Block_reassign can move a short run of duties off a nurse to create/extend required consecutive OFF blocks (especially for min_consec_off=3 nurses) and can also help reduce weekend overages by relocating weekend duties, while being less prone than block_swap to create illegal_succession through cross-nurse shift-type exchanges.",
+    "avoid": "Avoid block_swap (recently caused illegal_succession spikes) and avoid coverage_fill since it risks worsening max_total/weekend pressure and previously produced mostly non-improving candidates.",
+    "max_candidates": 100
+  }
+}

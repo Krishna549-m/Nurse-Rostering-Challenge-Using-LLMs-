@@ -1,0 +1,7 @@
+{
+  "operator": "reduce_overload",
+  "target_nurses": ["Stefaan", "Nguyen"],
+  "target_days": ["W1_Mon", "W2_Wed", "W3_Thu"],
+  "reason": "Total assignment over-max penalties are among the largest atoms (Stefaan over_max_total=7, Nguyen over_max_total=8). Reducing their workload by moving assignments to less-overloaded nurses is likely to yield a direct cost drop while keeping hard constraints feasible.",
+  "avoid": ["Do not transfer assignments to nurses already over max_weekends (Patrick, Sara, Nguyen, Andrea) if it increases their weekend count.", "Avoid creating forbidden shift successions or breaking required minimum coverage when moving work off Stefaan/Nguyen."]
+}

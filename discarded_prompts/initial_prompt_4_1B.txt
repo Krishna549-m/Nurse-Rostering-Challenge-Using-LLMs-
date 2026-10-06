@@ -1,0 +1,72 @@
+You are a data normalization engine.
+
+Your task is to extract ONLY the weekly coverage requirements from a semi-structured nurse rostering problem description into STRICT, VALID JSON.
+
+Return ONLY a valid JSON object.
+Do not return explanations, markdown, comments, or code fences.
+The JSON must be parseable by json.loads().
+
+IMPORTANT:
+- Extract coverage data only.
+- Do not omit, summarize, abbreviate, compress, or defer any coverage data.
+- If coverage data exists in the source, weekly_requirements must contain every coverage entry explicitly.
+- If coverage data exists in the source, coverage_requirements must be fully derived and populated.
+- It is invalid to return weekly_requirements as [] when coverage data exists in the source.
+- It is invalid to return coverage_requirements as {} when coverage data exists in the source.
+- Do not place omitted coverage under missing_fields if it is present in the source.
+- Output may be long. Long output is expected and correct.
+
+REQUIRED OUTPUT STRUCTURE:
+
+{
+  "weekly_requirements": [
+    {
+      "day": string,
+      "shift": "E" | "L" | "N",
+      "skill": "Nurse" | "HeadNurse",
+      "minimum": int,
+      "optimal": int
+    }
+  ],
+  "coverage_requirements": {
+    "W1_Mon": {
+      "E": {
+        "HeadNurse": {"minimum": int, "optimal": int},
+        "Nurse": {"minimum": int, "optimal": int}
+      },
+      "L": {
+        "HeadNurse": {"minimum": int, "optimal": int},
+        "Nurse": {"minimum": int, "optimal": int}
+      },
+      "N": {
+        "HeadNurse": {"minimum": int, "optimal": int},
+        "Nurse": {"minimum": int, "optimal": int}
+      }
+    }
+  },
+  "assumptions": [],
+  "missing_fields": []
+}
+
+NORMALIZATION RULES:
+- Convert Week1 Monday to W1_Mon, Week1 Tuesday to W1_Tue, etc.
+- Convert shift names:
+  - Early -> E
+  - Late -> L
+  - Night -> N
+- Preserve every (day, shift, skill, minimum, optimal) record explicitly in weekly_requirements.
+- Also build coverage_requirements as a nested dictionary from the same records.
+- Preserve all numeric values exactly.
+- Do not invent or interpolate missing coverage values.
+- If coverage data is present in the source, both weekly_requirements and coverage_requirements must be non-empty and complete.
+
+ERROR RULE:
+- If you cannot fully populate weekly_requirements and coverage_requirements from the source, return:
+  {
+    "error": "coverage extraction incomplete"
+  }
+
+Now extract ONLY the coverage data from the following input:
+
+<<<DATA>>>
+{data}

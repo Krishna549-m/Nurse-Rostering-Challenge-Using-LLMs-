@@ -1,0 +1,254 @@
+[
+  {
+    "bundle_id": 1,
+    "reason": "reduce total assignment overage and consecutive-work pressure by moving one late shift from heavily loaded Sara to OFF Patrick",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Fri",
+        "from_nurse": "Sara",
+        "to_nurse": "Patrick",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 2,
+    "reason": "reduce total assignment overage and improve consecutive patterns by moving one night from overloaded Nguyen to OFF Patrick",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Thu",
+        "from_nurse": "Nguyen",
+        "to_nurse": "Patrick",
+        "shift": "N",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 3,
+    "reason": "reduce total assignment overage and improve consecutive patterns by moving one night from overloaded Nguyen to OFF Patrick",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Fri",
+        "from_nurse": "Nguyen",
+        "to_nurse": "Patrick",
+        "shift": "N",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 4,
+    "reason": "reduce total assignment overage and improve consecutive patterns by moving one early from overloaded Nguyen to OFF Andrea",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Fri",
+        "from_nurse": "Nguyen",
+        "to_nurse": "Andrea",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 5,
+    "reason": "reduce total assignment overage and improve consecutive patterns by moving one night from overloaded Nguyen to OFF Andrea",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Mon",
+        "from_nurse": "Nguyen",
+        "to_nurse": "Andrea",
+        "shift": "N",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 6,
+    "reason": "reduce total assignment overage and improve consecutive patterns by moving one night from overloaded Nguyen to OFF Andrea",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Tue",
+        "from_nurse": "Nguyen",
+        "to_nurse": "Andrea",
+        "shift": "N",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 7,
+    "reason": "reduce max-working-weekends penalty by shifting one weekend day from Patrick to OFF Sara while keeping coverage",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Sat",
+        "from_nurse": "Patrick",
+        "to_nurse": "Sara",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 8,
+    "reason": "reduce max-working-weekends penalty by shifting one weekend day from Patrick to OFF Sara while keeping coverage",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Sun",
+        "from_nurse": "Patrick",
+        "to_nurse": "Sara",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 9,
+    "reason": "reduce max-working-weekends penalty by shifting one weekend day from Patrick to OFF Sara while keeping coverage",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Sat",
+        "from_nurse": "Patrick",
+        "to_nurse": "Sara",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 10,
+    "reason": "reduce max-working-weekends penalty by shifting one weekend day from Patrick to OFF Sara while keeping coverage",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Sun",
+        "from_nurse": "Patrick",
+        "to_nurse": "Sara",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 11,
+    "reason": "reduce max-working-weekends penalty by shifting one weekend day from Stefaan to OFF Sara while keeping coverage",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Sat",
+        "from_nurse": "Stefaan",
+        "to_nurse": "Sara",
+        "shift": "N",
+        "skill": "HeadNurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 12,
+    "reason": "reduce max-working-weekends penalty by shifting one weekend day from Stefaan to OFF Sara while keeping coverage",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Sun",
+        "from_nurse": "Stefaan",
+        "to_nurse": "Sara",
+        "shift": "N",
+        "skill": "HeadNurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 13,
+    "reason": "reduce max-working-weekends penalty by shifting one weekend day from Nguyen to OFF Sara while keeping coverage",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Sat",
+        "from_nurse": "Nguyen",
+        "to_nurse": "Sara",
+        "shift": "N",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 14,
+    "reason": "reduce max-working-weekends penalty by shifting one weekend day from Nguyen to OFF Sara while keeping coverage",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Sun",
+        "from_nurse": "Nguyen",
+        "to_nurse": "Sara",
+        "shift": "N",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 15,
+    "reason": "reduce max-working-weekends penalty by shifting one weekend day from Nguyen to OFF Sara while keeping coverage",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Sat",
+        "from_nurse": "Nguyen",
+        "to_nurse": "Sara",
+        "shift": "N",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 16,
+    "reason": "reduce max-working-weekends penalty by shifting one weekend day from Nguyen to OFF Sara while keeping coverage",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Sun",
+        "from_nurse": "Nguyen",
+        "to_nurse": "Sara",
+        "shift": "N",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 17,
+    "reason": "reduce max-working-weekends penalty by shifting one weekend day from Andrea to OFF Sara while keeping coverage",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Sat",
+        "from_nurse": "Andrea",
+        "to_nurse": "Sara",
+        "shift": "N",
+        "skill": "HeadNurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 18,
+    "reason": "reduce max-working-weekends penalty by shifting one weekend day from Andrea to OFF Sara while keeping coverage",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Sun",
+        "from_nurse": "Andrea",
+        "to_nurse": "Sara",
+        "shift": "N",
+        "skill": "Nurse"
+      }
+    ]
+  }
+]

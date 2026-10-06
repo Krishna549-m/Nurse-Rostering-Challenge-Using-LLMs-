@@ -1,0 +1,13 @@
+{
+  "bundle_id": 510,
+  "reason": "deterministic single add-assignment candidate",
+  "moves": [
+    {
+      "type": "add_assignment",
+      "day": "W1_Mon",
+      "nurse": "Andrea",
+      "shift": "L",
+      "skill": "Nurse"
+    }
+  ]
+}

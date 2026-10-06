@@ -1,0 +1,5 @@
+{"error":"coverage extraction incomplete: full expansion for all 4 weeks exceeds response limits; requires chunked output"}
+
+
+
+

@@ -1,0 +1,10 @@
+{
+  "thought": "Hard constraints are clean. The biggest actionable issues are high non_working_days_cost and consecutive_cost, with additional weekend overages and some max_total violations concentrated on Stefaan/Nguyen. A block_reassign attempt produced no candidates, so we should switch to a neighborhood that preserves coverage while reshaping work/off patterns to fix consecutive days off/work and potentially reduce weekend counts.",
+  "strategy": {
+    "neighborhood": "block_swap",
+    "target_penalty": "non_working_days_cost",
+    "reason": "Block_swap can exchange multi-day patterns between nurses to create required consecutive OFF blocks (notably for Stefaan/Nguyen with min_consec_off=3) and break excessive consecutive work stretches, while keeping total staffing levels stable and offering chances to shift weekend work away from over-weekend nurses.",
+    "avoid": "Avoid repeating block_reassign (no moves generated) and avoid coverage_fill since several nurses are already at/over max_total and weekend overages are present.",
+    "max_candidates": 100
+  }
+}

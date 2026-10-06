@@ -1,0 +1,54 @@
+{
+  "operator": "window_rebuild",
+  "reason": "Rebuild 4 assignments in window around W4_Wed.",
+  "moves": [
+    {
+      "type": "reassign",
+      "day": "W4_Wed",
+      "from_nurse": "Sara",
+      "to_nurse": "Nguyen",
+      "shift": "E",
+      "skill": "Nurse"
+    },
+    {
+      "type": "reassign",
+      "day": "W4_Wed",
+      "from_nurse": "Andrea",
+      "to_nurse": "Patrick",
+      "shift": "L",
+      "skill": "HeadNurse"
+    },
+    {
+      "type": "reassign",
+      "day": "W4_Tue",
+      "from_nurse": "Sara",
+      "to_nurse": "Nguyen",
+      "shift": "E",
+      "skill": "Nurse"
+    },
+    {
+      "type": "reassign",
+      "day": "W4_Thu",
+      "from_nurse": "Sara",
+      "to_nurse": "Nguyen",
+      "shift": "E",
+      "skill": "Nurse"
+    }
+  ],
+  "meta": {
+    "center_day": "W4_Wed",
+    "window": [
+      "W4_Mon",
+      "W4_Tue",
+      "W4_Wed",
+      "W4_Thu",
+      "W4_Fri"
+    ],
+    "nurses": [
+      "Sara",
+      "Patrick",
+      "Andrea",
+      "Nguyen"
+    ]
+  }
+}

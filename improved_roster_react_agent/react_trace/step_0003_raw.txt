@@ -1,0 +1,35 @@
+{
+  "thought": "Main reducible cost is weekend overages; shift one full weekend from Patrick to Stefaan (who is at max_weekends but not over) and compensate by moving two weekday shifts from Stefaan to Patrick to keep totals balanced and avoid single-assignment conflicts.",
+  "action": {
+    "type": "propose_bundle",
+    "bundle_id": 3,
+    "target_penalty": "max_working_weekend",
+    "reason": "Reduce Patrick's working weekends by moving one weekend (Sat+Sun) to Stefaan, then swap two weekdays back from Stefaan to Patrick to keep coverage and totals balanced.",
+    "moves": [
+      {
+        "type": "swap",
+        "day": "W2_Sat",
+        "nurse_a": "Patrick",
+        "nurse_b": "Stefaan"
+      },
+      {
+        "type": "swap",
+        "day": "W2_Sun",
+        "nurse_a": "Patrick",
+        "nurse_b": "Stefaan"
+      },
+      {
+        "type": "swap",
+        "day": "W1_Tue",
+        "nurse_a": "Patrick",
+        "nurse_b": "Stefaan"
+      },
+      {
+        "type": "swap",
+        "day": "W4_Thu",
+        "nurse_a": "Patrick",
+        "nurse_b": "Stefaan"
+      }
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "step": 1,
+  "status": "no_moves_generated",
+  "accepted": false,
+  "strategy": {
+    "neighborhood": "block_reassign",
+    "target_penalty": "total_assignment_cost",
+    "reason": "Block reassign can move multiple duties off the most over-assigned nurses (notably Stefaan and Nguyen) to reduce large max_total violations and may simultaneously relieve some consecutive/weekend pressure without reducing coverage.",
+    "avoid": "Avoid coverage_fill or any move that increases total assignments for already over-max nurses or increases working weekends for Patrick/Sara/Nguyen.",
+    "max_candidates": 100
+  },
+  "old_cost": 1915,
+  "new_cost": 1915,
+  "delta": 0
+}

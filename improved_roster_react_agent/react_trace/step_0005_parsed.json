@@ -1,0 +1,35 @@
+{
+  "thought": "Reduce the largest soft penalty by cutting Sara\u2019s total assignments (at max) and also create a 2-day OFF block for her around W2_Tue by moving two of her night shifts to qualified nurses who are OFF those days, avoiding HeadNurse skill and minimizing succession risk.",
+  "action": {
+    "type": "propose_bundle",
+    "bundle_id": 5,
+    "target_penalty": "total_assignments",
+    "reason": "Reassign two Sara night shifts to Patrick/Stefaan on days they are OFF to lower Sara\u2019s max-total and improve her consecutive-days-off violations, while keeping required Nurse skill coverage.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Tue",
+        "from_nurse": "Sara",
+        "to_nurse": "Stefaan",
+        "shift": "N",
+        "skill": "Nurse"
+      },
+      {
+        "type": "reassign",
+        "day": "W3_Thu",
+        "from_nurse": "Sara",
+        "to_nurse": "Patrick",
+        "shift": "N",
+        "skill": "Nurse"
+      },
+      {
+        "type": "reassign",
+        "day": "W1_Tue",
+        "from_nurse": "Sara",
+        "to_nurse": "Nguyen",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  }
+}

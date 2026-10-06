@@ -1,0 +1,315 @@
+{
+  "step": 1,
+  "status": "rejected",
+  "accepted": false,
+  "strategy": {
+    "neighborhood": "block_swap",
+    "target_penalty": "consecutive_cost + non_working_days_cost",
+    "reason": "Block swaps can restructure multi-day work/off sequences to satisfy min/max consecutive working days and consecutive days off simultaneously, and can also incidentally reduce weekend-related penalties while keeping daily coverage stable.",
+    "avoid": "Avoid coverage_fill because optimal_coverage_cost is not dominant and adding shifts risks increasing total_assignment_cost and weekend overages; also avoid simple single-day reassign that may not resolve multi-day consecutive patterns.",
+    "max_candidates": 100
+  },
+  "old_cost": 1905,
+  "new_cost": 1905,
+  "delta": 0,
+  "candidate_count": 9,
+  "evaluated_summary": [
+    {
+      "move": {
+        "type": "block_swap",
+        "nurse_a": "Stefaan",
+        "nurse_b": "Andrea",
+        "days": [
+          "W1_Mon",
+          "W1_Fri",
+          "W3_Wed",
+          "W3_Thu"
+        ]
+      },
+      "status": "evaluated",
+      "hard_ok": false,
+      "old_cost": 1905,
+      "new_cost": 2115,
+      "delta": 210,
+      "accepted_candidate": false,
+      "cost_delta_by_category": {
+        "total_cost": 210,
+        "total_assignment_cost": 0,
+        "consecutive_cost": 180,
+        "non_working_days_cost": 30,
+        "preferences_cost": 0,
+        "max_working_weekend_cost": 0,
+        "complete_weekends_cost": 0,
+        "optimal_coverage_cost": 0,
+        "minimal_coverage": 0,
+        "required_skill": 0,
+        "illegal_succession": 3,
+        "single_assignment": 0
+      }
+    },
+    {
+      "move": {
+        "type": "block_swap",
+        "nurse_a": "Nguyen",
+        "nurse_b": "Sara",
+        "days": [
+          "W1_Mon",
+          "W1_Sun",
+          "W2_Sun",
+          "W3_Sat"
+        ]
+      },
+      "status": "evaluated",
+      "hard_ok": false,
+      "old_cost": 1905,
+      "new_cost": 2090,
+      "delta": 185,
+      "accepted_candidate": false,
+      "cost_delta_by_category": {
+        "total_cost": 185,
+        "total_assignment_cost": -20,
+        "consecutive_cost": 135,
+        "non_working_days_cost": 60,
+        "preferences_cost": 10,
+        "max_working_weekend_cost": 0,
+        "complete_weekends_cost": 0,
+        "optimal_coverage_cost": 0,
+        "minimal_coverage": 0,
+        "required_skill": 0,
+        "illegal_succession": 5,
+        "single_assignment": 0
+      }
+    },
+    {
+      "move": {
+        "type": "block_swap",
+        "nurse_a": "Patrick",
+        "nurse_b": "Andrea",
+        "days": [
+          "W1_Mon",
+          "W1_Tue",
+          "W1_Sun",
+          "W2_Fri"
+        ]
+      },
+      "status": "evaluated",
+      "hard_ok": false,
+      "old_cost": 1905,
+      "new_cost": 2145,
+      "delta": 240,
+      "accepted_candidate": false,
+      "cost_delta_by_category": {
+        "total_cost": 240,
+        "total_assignment_cost": 20,
+        "consecutive_cost": 180,
+        "non_working_days_cost": 30,
+        "preferences_cost": 10,
+        "max_working_weekend_cost": 0,
+        "complete_weekends_cost": 0,
+        "optimal_coverage_cost": 0,
+        "minimal_coverage": 0,
+        "required_skill": 0,
+        "illegal_succession": 3,
+        "single_assignment": 0
+      }
+    },
+    {
+      "move": {
+        "type": "block_swap",
+        "nurse_a": "Andrea",
+        "nurse_b": "Patrick",
+        "days": [
+          "W1_Mon",
+          "W1_Wed",
+          "W2_Sat",
+          "W3_Mon"
+        ]
+      },
+      "status": "evaluated",
+      "hard_ok": false,
+      "old_cost": 1905,
+      "new_cost": 2475,
+      "delta": 570,
+      "accepted_candidate": false,
+      "cost_delta_by_category": {
+        "total_cost": 570,
+        "total_assignment_cost": 40,
+        "consecutive_cost": 450,
+        "non_working_days_cost": 0,
+        "preferences_cost": -10,
+        "max_working_weekend_cost": 30,
+        "complete_weekends_cost": 60,
+        "optimal_coverage_cost": 0,
+        "minimal_coverage": 0,
+        "required_skill": 0,
+        "illegal_succession": 5,
+        "single_assignment": 0
+      }
+    },
+    {
+      "move": {
+        "type": "block_swap",
+        "nurse_a": "Patrick",
+        "nurse_b": "Stefaan",
+        "days": [
+          "W1_Mon",
+          "W1_Tue",
+          "W1_Sun",
+          "W2_Fri"
+        ]
+      },
+      "status": "evaluated",
+      "hard_ok": false,
+      "old_cost": 1905,
+      "new_cost": 2215,
+      "delta": 310,
+      "accepted_candidate": false,
+      "cost_delta_by_category": {
+        "total_cost": 310,
+        "total_assignment_cost": 40,
+        "consecutive_cost": 240,
+        "non_working_days_cost": 30,
+        "preferences_cost": 0,
+        "max_working_weekend_cost": 0,
+        "complete_weekends_cost": 0,
+        "optimal_coverage_cost": 0,
+        "minimal_coverage": 0,
+        "required_skill": 0,
+        "illegal_succession": 2,
+        "single_assignment": 0
+      }
+    },
+    {
+      "move": {
+        "type": "block_swap",
+        "nurse_a": "Stefaan",
+        "nurse_b": "Patrick",
+        "days": [
+          "W1_Mon",
+          "W1_Fri",
+          "W3_Wed",
+          "W3_Thu"
+        ]
+      },
+      "status": "evaluated",
+      "hard_ok": false,
+      "old_cost": 1905,
+      "new_cost": 1995,
+      "delta": 90,
+      "accepted_candidate": false,
+      "cost_delta_by_category": {
+        "total_cost": 90,
+        "total_assignment_cost": 0,
+        "consecutive_cost": 90,
+        "non_working_days_cost": 0,
+        "preferences_cost": 0,
+        "max_working_weekend_cost": 0,
+        "complete_weekends_cost": 0,
+        "optimal_coverage_cost": 0,
+        "minimal_coverage": 0,
+        "required_skill": 0,
+        "illegal_succession": 3,
+        "single_assignment": 0
+      }
+    },
+    {
+      "move": {
+        "type": "block_swap",
+        "nurse_a": "Andrea",
+        "nurse_b": "Stefaan",
+        "days": [
+          "W1_Mon",
+          "W1_Wed",
+          "W2_Sat",
+          "W3_Mon"
+        ]
+      },
+      "status": "evaluated",
+      "hard_ok": false,
+      "old_cost": 1905,
+      "new_cost": 2270,
+      "delta": 365,
+      "accepted_candidate": false,
+      "cost_delta_by_category": {
+        "total_cost": 365,
+        "total_assignment_cost": 20,
+        "consecutive_cost": 225,
+        "non_working_days_cost": 120,
+        "preferences_cost": 0,
+        "max_working_weekend_cost": 0,
+        "complete_weekends_cost": 0,
+        "optimal_coverage_cost": 0,
+        "minimal_coverage": 0,
+        "required_skill": 0,
+        "illegal_succession": 1,
+        "single_assignment": 0
+      }
+    },
+    {
+      "move": {
+        "type": "block_swap",
+        "nurse_a": "Sara",
+        "nurse_b": "Andrea",
+        "days": [
+          "W1_Mon",
+          "W1_Tue",
+          "W1_Thu",
+          "W1_Sun"
+        ]
+      },
+      "status": "evaluated",
+      "hard_ok": false,
+      "old_cost": 1905,
+      "new_cost": 1980,
+      "delta": 75,
+      "accepted_candidate": false,
+      "cost_delta_by_category": {
+        "total_cost": 75,
+        "total_assignment_cost": 0,
+        "consecutive_cost": 75,
+        "non_working_days_cost": 0,
+        "preferences_cost": 0,
+        "max_working_weekend_cost": 0,
+        "complete_weekends_cost": 0,
+        "optimal_coverage_cost": 0,
+        "minimal_coverage": 0,
+        "required_skill": 0,
+        "illegal_succession": 2,
+        "single_assignment": 0
+      }
+    },
+    {
+      "move": {
+        "type": "block_swap",
+        "nurse_a": "Sara",
+        "nurse_b": "Nguyen",
+        "days": [
+          "W1_Mon",
+          "W1_Tue",
+          "W1_Thu",
+          "W1_Sun"
+        ]
+      },
+      "status": "evaluated",
+      "hard_ok": false,
+      "old_cost": 1905,
+      "new_cost": 2045,
+      "delta": 140,
+      "accepted_candidate": false,
+      "cost_delta_by_category": {
+        "total_cost": 140,
+        "total_assignment_cost": -40,
+        "consecutive_cost": 180,
+        "non_working_days_cost": 0,
+        "preferences_cost": 0,
+        "max_working_weekend_cost": 0,
+        "complete_weekends_cost": 0,
+        "optimal_coverage_cost": 0,
+        "minimal_coverage": 0,
+        "required_skill": 0,
+        "illegal_succession": 3,
+        "single_assignment": 0
+      }
+    }
+  ]
+}

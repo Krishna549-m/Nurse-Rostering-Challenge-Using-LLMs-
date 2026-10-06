@@ -1,0 +1,139 @@
+[
+  {
+    "bundle_id": "B16_reassign_W4_Sat_Sara_L_to_Nguyen",
+    "reason": "Total assignment constraints: Sara is over max_total (cost 220); moving one of her Late shifts to OFF Nguyen (under max_total) should reduce total-assignment penalty while keeping Nurse coverage.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Sat",
+        "from_nurse": "Sara",
+        "to_nurse": "Nguyen",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B17_reassign_W4_Fri_Sara_L_to_Nguyen",
+    "reason": "Total assignment constraints: Sara is over max_total (cost 220); reassigning her W4_Fri Late Nurse to OFF Nguyen reduces Sara assignments without changing coverage.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Fri",
+        "from_nurse": "Sara",
+        "to_nurse": "Nguyen",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B18_reassign_W4_Sun_Sara_L_to_Nguyen",
+    "reason": "Total assignment constraints: Sara is over max_total (cost 220); moving W4_Sun Late Nurse to OFF Nguyen reduces Sara assignments and may also ease Sara weekend pressure.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Sun",
+        "from_nurse": "Sara",
+        "to_nurse": "Nguyen",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B19_reassign_W4_Mon_Sara_E_to_Patrick",
+    "reason": "Total assignment constraints: Sara is over max_total while Patrick has no max_total penalty; shifting one Early Nurse from Sara to OFF Patrick reduces Sara over-assignment and preserves coverage.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Mon",
+        "from_nurse": "Sara",
+        "to_nurse": "Patrick",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B20_reassign_W4_Tue_Sara_E_to_Andrea",
+    "reason": "Total assignment constraints: Sara is over max_total; moving W4_Tue Early Nurse to OFF Andrea reduces Sara assignments while keeping Nurse coverage and avoiding forbidden successions (Andrea OFF before/after).",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Tue",
+        "from_nurse": "Sara",
+        "to_nurse": "Andrea",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B21_reassign_W4_Wed_Sara_E_to_Patrick",
+    "reason": "Total assignment constraints: Sara is over max_total; reassigning W4_Wed Early Nurse to OFF Patrick reduces Sara assignments and keeps coverage stable.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Wed",
+        "from_nurse": "Sara",
+        "to_nurse": "Patrick",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B22_reassign_W2_Sat_Sara_E_to_Patrick",
+    "reason": "Total assignment constraints: Sara is over max_total; moving W2_Sat Early Nurse to OFF Patrick reduces Sara assignments and may reduce Sara working-weekends excess while preserving coverage.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Sat",
+        "from_nurse": "Sara",
+        "to_nurse": "Patrick",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B23_reassign_W2_Sun_Sara_E_to_Patrick",
+    "reason": "Total assignment constraints: Sara is over max_total; moving W2_Sun Early Nurse to OFF Patrick reduces Sara assignments and weekend load while keeping Nurse coverage.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Sun",
+        "from_nurse": "Sara",
+        "to_nurse": "Patrick",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B24_reassign_W1_Sun_Sara_L_to_Nguyen",
+    "reason": "Complete weekends: Sara works only one day of weekend 0 (W1_Sun only), incurring complete-weekend penalty (30); moving that single weekend assignment to OFF Nguyen should remove the penalty while preserving coverage.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W1_Sun",
+        "from_nurse": "Sara",
+        "to_nurse": "Nguyen",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B25_weekend_repair_Sara_week0",
+    "reason": "Complete weekends: Sara works exactly one of Sat/Sun in week 0 (only Sunday), causing a complete-weekend penalty (30); removing that lone assignment should cut this cost if coverage remains feasible.",
+    "moves": [
+      {
+        "type": "weekend_repair",
+        "nurse": "Sara",
+        "week": 0
+      }
+    ]
+  }
+]

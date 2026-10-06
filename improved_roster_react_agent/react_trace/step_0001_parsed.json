@@ -1,0 +1,41 @@
+{
+  "thought": "Reduce the biggest soft penalty by cutting Stefaan and Nguyen back toward their max_total via swaps that also give Sara/Patrick some relief on weekends without breaking skills.",
+  "action": {
+    "type": "propose_bundle",
+    "bundle_id": 1,
+    "target_penalty": "total_assignments",
+    "reason": "Swap some of Stefaan/Nguyen weekday assignments to Sara/Patrick (who are within max_total) to reduce large over-max totals while keeping coverage and skills feasible.",
+    "moves": [
+      {
+        "type": "swap",
+        "day": "W4_Thu",
+        "nurse_a": "Stefaan",
+        "nurse_b": "Sara"
+      },
+      {
+        "type": "swap",
+        "day": "W4_Fri",
+        "nurse_a": "Stefaan",
+        "nurse_b": "Sara"
+      },
+      {
+        "type": "swap",
+        "day": "W1_Fri",
+        "nurse_a": "Nguyen",
+        "nurse_b": "Patrick"
+      },
+      {
+        "type": "swap",
+        "day": "W1_Thu",
+        "nurse_a": "Nguyen",
+        "nurse_b": "Patrick"
+      },
+      {
+        "type": "swap",
+        "day": "W2_Thu",
+        "nurse_a": "Nguyen",
+        "nurse_b": "Sara"
+      }
+    ]
+  }
+}

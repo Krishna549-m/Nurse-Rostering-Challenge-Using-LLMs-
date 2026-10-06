@@ -1,0 +1,153 @@
+You are an expert scheduling optimization engineer.
+
+INPUT:
+- You will receive STRICT, FULLY NORMALIZED JSON.
+- The input is complete and must be used exactly.
+
+Your task is to generate:
+1. A structured schema (lightweight, consistent with model)
+2. FULLY RUNNABLE OR-Tools CP-SAT Python code
+3. A validation report
+
+----------------------------------------
+CRITICAL RULES (STRICT)
+----------------------------------------
+
+NO PLACEHOLDERS:
+- Do NOT use {...}, [...], or comments like "fill from input"
+- All data (coverage, leave_expanded, qualification_matrix, etc.) MUST be fully instantiated using input
+- Output is INVALID if any placeholder exists
+
+FULLY RUNNABLE CODE:
+- The OR-Tools code MUST:
+  - import cp_model
+  - define model = CpModel()
+  - declare all variables
+  - include ALL constraints
+  - define objective
+  - call solver.Solve(model)
+  - print:
+      - solver status
+      - objective value
+      - assignments x[n,d,s] where value = 1
+
+NO PARTIAL IMPLEMENTATION:
+- Every declared variable MUST be used
+- Do NOT declare unused variables
+
+CONSISTENCY:
+- Schema variables MUST match code variables
+- No undeclared variables allowed
+
+----------------------------------------
+MODELING RULES
+----------------------------------------
+
+SETS:
+- N: nurses
+- D: days
+- S: shifts
+- K: skills
+
+VARIABLE:
+- x[n,d,s] ∈ {0,1}
+
+
+IMPLEMENTATION REQUIREMENTS:
+
+
+- Use CP-SAT integer variables for penalties
+- Linearize all soft constraints
+- No placeholder logic
+- Use loops for compactness, but FULLY INSTANTIATED data
+
+
+MODELING RULES :
+
+COVERAGE:
+- Minimum coverage = HARD constraint
+- Optimal coverage = SOFT constraint (penalty variable)
+- Do NOT introduce undercoverage slack for minimum coverage
+
+SKILL:
+- Only qualified nurses may satisfy a skill requirement
+- Enforce explicitly using qualification_matrix
+
+LEAVE:
+- If shift = "Any" → forbid all shifts that day
+- Else → forbid only that shift
+
+ONE SHIFT:
+- Each nurse works at most one shift per day
+
+HARD CONSTRAINT RULES:
+
+- All hard constraints should be satisfied.
+- If any hard constraint is not satisfied output is INVALID 
+
+
+SOFT CONSTRAINT RULES:
+
+- ALL soft constraints MUST be linearized
+- Use penalty variables for:
+  - optimal coverage gap
+  - preferences
+  - weekend violations
+  - assignment deviations
+- Every penalty variable MUST appear in objective
+
+
+OBJECTIVE:
+
+Minimize total penalty:
+
+1000 * (undercoverage violations — ONLY if explicitly allowed)
++ 30 * (optimal coverage gap)
++ 10 * (preference violations)
++ 5 * (weekend violations)
++ other penalties if applicable
+
+
+NO UNUSED VARIABLES:
+- Declaring a variable and not using it is INVALID
+
+
+VALIDATION REQUIREMENTS (STRICT):
+
+Validation report MUST check:
+
+- missing_variables
+- unused_variables
+- dimension_mismatches
+- undefined_parameters
+- placeholder_usage
+- missing_rules
+- infeasible_constraints
+- schema_code_inconsistency
+
+OUTPUT FORMAT (STRICT) : 
+
+Return ONLY a JSON object:
+
+{
+  "schema": {
+    "sets": {...},
+    "variables": {...}
+  },
+  "ortools_code": "...",
+  "validation_report": {
+    "missing_variables": [],
+    "unused_variables": [],
+    "dimension_mismatches": [],
+    "undefined_parameters": [],
+    "missing_rules": [],
+    "assumptions": []
+  }
+}
+
+
+
+NOW PROCESS INPUT
+
+<<<DATA>>>
+{data}

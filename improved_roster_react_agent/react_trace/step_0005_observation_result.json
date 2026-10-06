@@ -1,0 +1,15 @@
+{
+  "step": 5,
+  "status": "no_moves_generated",
+  "accepted": false,
+  "strategy": {
+    "neighborhood": "block_reassign",
+    "target_penalty": "total_assignment_cost",
+    "reason": "Block_reassign can shift multiple duties off the most over-assigned nurses (especially Stefaan/Nguyen) to nurses with remaining capacity (e.g., Patrick/Andrea/Sara at max_total but not over), potentially also reducing weekend overages if weekend duties are moved, while keeping day-level coverage intact.",
+    "avoid": "Avoid coverage_fill (adds work to an already over-max system) and avoid block_swap patterns that previously introduced illegal_succession and large consecutive_cost increases.",
+    "max_candidates": 100
+  },
+  "old_cost": 1885,
+  "new_cost": 1885,
+  "delta": 0
+}

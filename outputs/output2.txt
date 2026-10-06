@@ -1,0 +1,11 @@
+{
+  "error": "Input format violation: The provided data is not valid JSON and does not follow the required structured input format after <<<DATA>>>. It is semi-structured natural language. A strict parser cannot reliably extract all parameters (especially coverage matrices and constraints) without ambiguity.",
+  "missing_fields": [
+    "Explicit JSON structure for coverage requirements (nested by week/day/shift/skill)",
+    "Explicit mapping of shift successions (H3 legal transitions not defined)",
+    "Explicit preference data for S4",
+    "Explicit weekend indexing structure",
+    "Explicit nurse-to-contract mapping in machine-readable format"
+  ],
+  "note": "Although the data is readable, it must be converted into structured JSON before generating a guaranteed correct schema and solver model."
+}

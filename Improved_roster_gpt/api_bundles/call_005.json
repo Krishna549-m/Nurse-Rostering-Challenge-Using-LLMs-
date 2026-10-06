@@ -1,0 +1,140 @@
+[
+  {
+    "bundle_id": "B31_reassign_W4_Thu_Patrick_E_to_Nguyen",
+    "reason": "Non working days constraints: Patrick has a minimum consecutive days-off violation around W4_Wed (single OFF day); moving W4_Thu work from Patrick to OFF Nguyen can create a 2-day OFF block (W4_Wed-Thu) for Patrick while keeping coverage.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Thu",
+        "from_nurse": "Patrick",
+        "to_nurse": "Nguyen",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B32_reassign_W4_Fri_Patrick_E_to_Nguyen",
+    "reason": "Non working days constraints: Patrick has a minimum consecutive days-off violation around W4_Wed (single OFF day); moving W4_Fri work from Patrick to OFF Nguyen can create a 2-day OFF block (W4_Wed-Fri via Thu still worked) or at least shift the isolated OFF to reduce off-block penalties without changing coverage.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Fri",
+        "from_nurse": "Patrick",
+        "to_nurse": "Nguyen",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B33_reassign_W1_Mon_Patrick_E_to_Nguyen",
+    "reason": "Non working days constraints: Patrick has a minimum consecutive days-off violation early in the horizon (day index 1); reassigning his W1_Mon Early to OFF Nguyen can help form an earlier OFF block for Patrick while preserving coverage (and also removes Patrick's W1_Mon preference penalty).",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W1_Mon",
+        "from_nurse": "Patrick",
+        "to_nurse": "Nguyen",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B34_reassign_W3_Sat_Patrick_N_to_Nguyen",
+    "reason": "Consecutive constraints: Patrick has a minimum consecutive shift-type (Night) violation (too short Night block); moving one Night from Patrick to OFF Nguyen can break the short Night sequence and potentially reduce the Night min-consecutive penalty while keeping minimum coverage.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Sat",
+        "from_nurse": "Patrick",
+        "to_nurse": "Nguyen",
+        "shift": "N",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B35_reassign_W3_Sun_Patrick_N_to_Nguyen",
+    "reason": "Consecutive constraints: Patrick has a minimum consecutive shift-type (Night) violation; moving W3_Sun Night from Patrick to OFF Nguyen reduces Patrick's Night run length and may eliminate the short Night-block penalty while preserving coverage.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Sun",
+        "from_nurse": "Patrick",
+        "to_nurse": "Nguyen",
+        "shift": "N",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B36_reassign_W4_Sat_Patrick_E_to_Nguyen",
+    "reason": "Max working weekend: Patrick exceeds max working weekends; moving his W4_Sat Early HeadNurse to OFF Nguyen (as Nurse) is not possible by skill, but moving his W4_Sat assignment is still a lever\u2014reassigning W4_Sat Early HeadNurse to OFF Andrea (HeadNurse-qualified) can reduce Patrick weekend count while keeping coverage.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Sat",
+        "from_nurse": "Patrick",
+        "to_nurse": "Andrea",
+        "shift": "E",
+        "skill": "HeadNurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B37_reassign_W4_Sun_Patrick_E_to_Andrea",
+    "reason": "Max working weekend: Patrick exceeds max working weekends; reassigning his W4_Sun Early Nurse to OFF Andrea can remove Patrick from that weekend day and potentially reduce weekend-excess penalty while preserving coverage.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Sun",
+        "from_nurse": "Patrick",
+        "to_nurse": "Andrea",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B38_reassign_W2_Sat_Stefaan_N_to_Patrick",
+    "reason": "Total assignment constraints: Stefaan is over max_total (cost 120); moving one of his assignments to an OFF qualified nurse (Patrick is OFF on W2_Sat) can reduce Stefaan total-assignment penalty while keeping coverage and avoiding illegal successions (Patrick has L on W2_Fri).",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Sat",
+        "from_nurse": "Stefaan",
+        "to_nurse": "Patrick",
+        "shift": "N",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B39_reassign_W2_Sun_Stefaan_N_to_Patrick",
+    "reason": "Total assignment constraints: Stefaan is over max_total (cost 120); moving W2_Sun Night HeadNurse from Stefaan to OFF Patrick (HeadNurse-qualified) reduces Stefaan assignments while preserving coverage and keeping Patrick within max_total.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Sun",
+        "from_nurse": "Stefaan",
+        "to_nurse": "Patrick",
+        "shift": "N",
+        "skill": "HeadNurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B40_swap_W2_Sat_Stefaan_Patrick",
+    "reason": "Total assignment constraints: Stefaan is over max_total; swapping W2_Sat (Stefaan N Nurse) with Patrick OFF reduces Stefaan assignments by 1 day if Patrick takes it, but keeps feasibility and may improve Patrick consecutive-shift structure versus isolated OFF blocks.",
+    "moves": [
+      {
+        "type": "swap",
+        "day": "W2_Sat",
+        "nurse_a": "Stefaan",
+        "nurse_b": "Patrick"
+      }
+    ]
+  }
+]

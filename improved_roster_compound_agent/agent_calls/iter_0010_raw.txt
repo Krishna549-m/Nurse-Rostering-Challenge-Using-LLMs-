@@ -1,0 +1,11 @@
+{
+  "operator": "window_rebuild",
+  "target_nurses": ["Sara", "Patrick", "Andrea", "Nguyen"],
+  "target_days": ["W1_Mon", "W1_Tue", "W1_Wed", "W1_Thu", "W1_Fri", "W1_Sat", "W1_Sun"],
+  "reason": "We remain on a cost plateau after attempts on W2 and W3 windows and multiple weekend/overload-focused bundles. The biggest remaining components are non_working_days_cost (450) and consecutive_cost (405), and W1 contains several high-impact atoms (Sara/Stefaan max total assignments flagged at W1_Mon, Andrea consecutive-working at W1_Wed, plus early optimal-coverage gaps on W1_Tue/W1_Thu/W1_Fri). Rebuilding W1 for the main weekend-over nurses (excluding Stefaan to avoid worsening his max_total violation) is the best chance to reshape work/rest blocks and weekend structure while also addressing early-week coverage shortages.",
+  "avoid": [
+    "Do not add assignments to Stefaan (already far over max_total).",
+    "Try to reduce (not increase) max_working_weekend_cost by keeping Sat+Sun paired and, if possible, moving a full weekend off an over-weekend nurse.",
+    "Avoid worsening optimal_coverage shortages on W1_Tue (E), W1_Thu (L), and W1_Fri (N)."
+  ]
+}

@@ -1,0 +1,70 @@
+[
+  {
+    "bundle_id": "B11_reassign_W1_Mon_Patrick_E_to_Nguyen",
+    "reason": "Preferences: Patrick has a shift-off request on W1_Mon; moving his Early Nurse to an OFF qualified nurse can remove 10 preference cost while keeping coverage.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W1_Mon",
+        "from_nurse": "Patrick",
+        "to_nurse": "Nguyen",
+        "shift": "E",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B12_reassign_W2_Fri_Patrick_L_to_Andrea",
+    "reason": "Preferences: Andrea requests W2_Fri off (specifically L); reassigning Patrick's W2_Fri Late Nurse to OFF Andrea removes that preference penalty while preserving coverage.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W2_Fri",
+        "from_nurse": "Patrick",
+        "to_nurse": "Andrea",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B13_reassign_W3_Wed_Stefaan_N_to_Nguyen",
+    "reason": "Preferences: Stefaan has a shift-off request on W3_Wed (Any); moving his Night HeadNurse to OFF Nguyen (qualified Nurse) keeps minimum coverage and removes 10 preference cost.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Wed",
+        "from_nurse": "Stefaan",
+        "to_nurse": "Nguyen",
+        "shift": "N",
+        "skill": "HeadNurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B14_reassign_W3_Fri_Andrea_E_to_Patrick",
+    "reason": "Preferences: Nguyen requests W3_Fri off (Any) but is currently working; moving an Early assignment from Andrea to OFF Patrick can allow later relief of Nguyen while keeping coverage stable and avoiding forbidden successions.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Fri",
+        "from_nurse": "Andrea",
+        "to_nurse": "Patrick",
+        "shift": "E",
+        "skill": "HeadNurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": "B15_swap_W4_Tue_Andrea_Patrick",
+    "reason": "Consecutive constraints: Patrick has multiple consecutive-days-off minimum violations; swapping W4_Tue (Patrick N HeadNurse) with Andrea OFF can create a longer OFF block for Patrick later in week 4 while keeping HeadNurse coverage.",
+    "moves": [
+      {
+        "type": "swap",
+        "day": "W4_Tue",
+        "nurse_a": "Patrick",
+        "nurse_b": "Andrea"
+      }
+    ]
+  }
+]

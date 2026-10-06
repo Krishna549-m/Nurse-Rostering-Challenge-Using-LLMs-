@@ -1,0 +1,423 @@
+You are an expert OR-Tools CP-SAT scheduling engineer.
+
+TASK:
+Generate FULLY RUNNABLE Python code to solve the COMPLETE multi-week INRC-style nurse rostering problem.
+
+STRICT OUTPUT RULES
+
+Return ONLY Python code and nothing else.
+
+Do NOT output:
+- JSON
+- markdown fences
+- explanations
+- headings
+- notes before the code
+- notes after the code
+- pseudocode
+
+Your response must:
+- begin with Python code on the first line
+- end with the final line of Python code
+- be directly saveable as a file named solver.py
+- run with: python solver.py
+
+If anything is approximate, assumed, or cannot be modeled exactly:
+- include that information only as Python comments inside the code
+- do NOT write prose outside the code
+
+Environment:
+- Python 3.14.4
+- ortools== 9.15.6755
+
+Compatibility rules:
+- Use only APIs available in this exact OR-Tools version
+- Do NOT use cp_model.BoolVar in Python
+- Treat BoolVars as IntVar-compatible in Python CP-SAT
+- Avoid version-fragile type checks
+
+VALIDITY REQUIREMENTS
+The generated code is INVALID if any of the following occurs:
+- any hard constraint listed below is omitted
+- H3 shift successions is not explicitly implemented with model.Add constraints
+- historical boundary conditions are omitted from H3 and consecutive constraints
+- the model does not use x[n,d,s,k] as the primary assignment variable
+- the model allows one worked shift to satisfy more than one skill demand
+- the code claims a rule is implemented but does not explicitly add the corresponding constraints
+- the code reads the JSON but ignores fields required for modeling
+- the code does not explicitly audit H3 internally after solving
+- the code does not export the final solution in weekly INRC2 JSON format
+- the code prints anything other than one short final completion message
+- the code does not save weekly solution files under a folder named initial_roster
+- the code does not name the weekly files exactly as week0.json, week1.json, week2.json, ...
+
+IMPORTANT RUNTIME OUTPUT RULE
+
+The generated solver code MUST NOT print:
+- roster output
+- debug output
+- penalty summaries
+- coverage summaries
+- nurse summaries
+- H3 audit details
+- exported JSON contents
+- intermediate progress
+- solver logs
+
+The code must print ONLY ONE short final message after execution finishes successfully, such as:
+- Code ran
+- Done
+- Solver finished
+
+If solving fails or no solution is found, the code may print ONE short failure message only, such as:
+- No feasible solution
+- Solver failed
+
+No other stdout output is allowed.
+
+IMPORTANT RULES
+
+- Use ALL input data
+- Build ONE integrated model covering ALL weeks together
+- ALL hard constraints MUST be enforced
+- ALL soft constraints listed below MUST be modeled as penalties unless mathematically impossible from the given schema
+- Do NOT omit any variable, constraint, or penalty required by the data
+- Do NOT silently simplify, weaken, or reinterpret any constraint
+- Do NOT claim a rule is implemented unless it is explicitly modeled in the code
+- If any input field is intentionally not used, explain it only in Python comments inside the code
+- The code must load input JSON from a file named "response1.json"
+- Do NOT hardcode the instance data inside the Python script
+
+PREFERENCE INTERPRETATION (CRITICAL)
+
+Preferences are shift-OFF requests, NOT preferred working shifts.
+
+Interpretation:
+- If shift == "Any":
+  - the nurse prefers NOT to work ANY shift that day
+  - penalty if assigned to any shift that day
+- If shift == specific shift s:
+  - the nurse prefers NOT to work that specific shift
+  - penalty if assigned to that shift only
+
+PRIMARY DECISION VARIABLES
+
+Use the following primary binary decision variable:
+
+x[n,d,s,k] ∈ {0,1}
+
+Meaning:
+- nurse n works shift s on day d while covering skill k
+
+IMPORTANT:
+- Each worked assignment covers exactly ONE skill
+- Do NOT allow multi-skill counting
+- Do NOT use x[n,d,s] as the main assignment variable
+- Coverage must be satisfied by summing x[n,d,s,k] over nurses for each exact skill k
+
+MANDATORY LINKING RULES
+
+You MUST explicitly define and use:
+
+1. shift_work[n,d,s] = sum_k x[n,d,s,k]
+2. work[n,d] = sum_s shift_work[n,d,s]
+3. off[n,d] = 1 - work[n,d]
+
+These linking relations MUST be explicitly enforced in the model and then reused by later constraints.
+
+HARD CONSTRAINTS
+
+H1. Single assignment per day
+For every nurse n and day d:
+
+sum_{s,k} x[n,d,s,k] <= 1
+
+This MUST be enforced explicitly.
+
+H2. Minimum coverage
+For every day d, shift s, skill k:
+
+sum_n x[n,d,s,k] >= coverage[d][s][k].min
+
+This MUST be enforced explicitly.
+
+H3. Shift type successions
+THIS IS A HARD CONSTRAINT AND MUST BE EXPLICITLY CODED WITH model.Add(...)
+
+Use the derived binary variables shift_work[n,d,s].
+
+Let forbidden_pairs = shift_successions["forbidden"].
+
+For every nurse n,
+for every consecutive pair of planning days (d_prev, d_curr),
+for every forbidden pair (a,b) in forbidden_pairs,
+you MUST enforce:
+
+shift_work[n,d_prev,a] + shift_work[n,d_curr,b] <= 1
+
+Historical boundary for H3 is MANDATORY and MUST NOT be omitted:
+Let first_day = D[0].
+Let last_shift = historical_assignments[n]["lastAssignedShiftType"].
+
+If last_shift is not "None", then for every forbidden pair (a,b):
+- if a == last_shift,
+  you MUST enforce:
+
+shift_work[n,first_day,b] == 0
+
+IMPORTANT FOR H3:
+- Do NOT convert H3 into a soft penalty
+- Do NOT “approximately” enforce it
+- Do NOT rely on implied legality
+- Do NOT skip forbidden pairs
+- Do NOT skip the historical boundary
+- Do NOT replace this with a postprocessing check only
+- The final code MUST contain explicit loops over forbidden pairs and consecutive days
+- The final code MUST internally validate H3 after solving before writing output files
+
+H4. Skill compatibility
+For every nurse n, day d, shift s, skill k:
+If qualifications[n][k] == 0, then:
+
+x[n,d,s,k] == 0
+
+This MUST be enforced explicitly.
+
+IMPORTANT:
+- A multi-skilled nurse still covers only one chosen skill on a worked shift
+- Do NOT count one assignment toward multiple skill requirements
+- Do NOT write coverage as sum(x[n,d,s] * qualifications[n][k]) because that is invalid for multi-skilled nurses
+
+SOFT CONSTRAINTS
+
+All soft constraints below MUST be modeled as penalty terms in the objective, unless mathematically impossible from the given schema. If something cannot be modeled exactly from the provided data, explain why in Python comments inside the code.
+
+S1. Optimal coverage (weight 30)
+For every day d, shift s, skill k:
+- penalize shortage relative to coverage[d][s][k].opt
+- extra staffing above optimal is not penalized
+
+S2a. Consecutive shift assignments (weight 15)
+Respect minimum and maximum consecutive assignments per shift type using shift_type_limits.
+This evaluation MUST include historical boundary data.
+
+S2b. Consecutive working days (weight 30)
+Respect contract min/max consecutive working days.
+This evaluation MUST include historical boundary data.
+
+S3. Consecutive days off (weight 30)
+Respect contract min/max consecutive days off.
+This evaluation MUST include historical boundary data.
+
+S4. Preferences (weight 10)
+Interpret preferences exactly as undesired assignments as specified above.
+
+S5. Complete weekend (weight 30)
+For nurses whose contract has complete_weekend = 1:
+- penalize working exactly one of Saturday or Sunday
+- no penalty if both are worked
+- no penalty if both are off
+
+S6. Total assignments (weight 20)
+For each nurse:
+- penalize deviation below min_total
+- penalize deviation above max_total
+
+S7. Total working weekends (weight 30)
+For each nurse:
+- a weekend counts as worked if the nurse works at least one of Sat or Sun
+- penalize any excess above contract max_weekends
+
+OBJECTIVE
+
+Minimize the total weighted penalty over all soft constraints.
+
+The code MUST:
+- build explicit penalty variables wherever needed
+- compute a single total objective expression
+- minimize it with model.Minimize(...)
+
+INPUT REQUIREMENTS
+
+The code MUST load JSON from:
+response1.json
+
+The code MUST read and use data from at least these sections when applicable:
+- sets
+- parameters.coverage
+- parameters.qualifications
+- parameters.contracts
+- parameters.shift_type_limits
+- parameters.shift_successions
+- parameters.historical_assignments
+- parameters.preferences
+- parameters.soft_rule_weights
+
+If any field exists but is not usable for exact modeling, mention that only as Python comments inside the code.
+
+IMPLEMENTATION REQUIREMENTS
+
+The generated Python code must:
+- import OR-Tools CP-SAT correctly
+- parse response1.json safely
+- build all variables explicitly
+- add all hard constraints explicitly
+- add all soft-penalty components explicitly
+- minimize objective
+- solve model
+- not print any detailed results
+- export weekly solution JSON files in INRC2 format into a folder named initial_roster
+
+REQUIRED MODELING STYLE
+
+The code MUST:
+- use descriptive variable names
+- preserve clear separation between hard constraints and soft penalties
+- use dictionaries keyed by tuples for decision variables where appropriate
+- avoid broken CP-SAT API patterns
+- avoid Python expressions that misuse max(), min(), abs(), or boolean tests directly on CP-SAT linear expressions
+- linearize all nontrivial penalty expressions correctly
+- never use a CP-SAT expression where a Python boolean is expected
+- never write logic that depends on the truthiness of linear expressions
+- ensure all sums are over existing indexed variables only
+
+MANDATORY H3 IMPLEMENTATION PATTERN
+
+The generated code MUST contain logic equivalent to the following structure, using the actual model variables and data:
+
+for n in nurses:
+    for di in range(len(days) - 1):
+        d_prev = days[di]
+        d_curr = days[di + 1]
+        for a, b in forbidden_pairs:
+            model.Add(shift_work[n,d_prev,a] + shift_work[n,d_curr,b] <= 1)
+
+for n in nurses:
+    first_day = days[0]
+    last_shift = historical_assignments[n]["lastAssignedShiftType"]
+    if last_shift != "None":
+        for a, b in forbidden_pairs:
+            if a == last_shift:
+                model.Add(shift_work[n,first_day,b] == 0)
+
+This exact logic may be written with different variable names, but the same meaning MUST be present.
+If this logic is absent, the answer is invalid.
+
+INRC2 SOLUTION EXPORT REQUIREMENTS (CRITICAL)
+
+After solving, the code MUST export the final roster into INRC2 weekly solution JSON objects/files.
+
+The code MUST generate one JSON solution per week in the exact structure:
+
+{
+  "scenario": "<scenario_name>",
+  "week": <week_number>,
+  "assignments": [
+    {
+      "nurse": "<nurse_name>",
+      "day": "<Mon|Tue|Wed|Thu|Fri|Sat|Sun>",
+      "shiftType": "<Early|Late|Night>",
+      "skill": "<skill_name>"
+    }
+  ]
+}
+
+WEEKLY EXPORT RULES
+- One JSON object/file per week
+- Use zero-based exported week numbering:
+  - W1 -> week 0
+  - W2 -> week 1
+  - W3 -> week 2
+  - W4 -> week 3
+- The code MUST infer week number from day labels such as W1_Mon, W2_Tue, etc.
+- The day field in exported assignments MUST be only:
+  Mon, Tue, Wed, Thu, Fri, Sat, Sun
+- The nurse field must be the nurse name
+- The skill field must be the assigned skill k from x[n,d,s,k]
+- Include ONLY worked assignments, not OFF days
+
+SHIFT NAME MAPPING RULES
+The exported INRC2 solution MUST map:
+- E -> Early
+- L -> Late
+- N -> Night
+
+SCENARIO NAME RULES
+- The exported JSON MUST contain a scenario field
+- If response1.json contains an explicit scenario name, use it
+- Otherwise derive it if clearly available
+- Otherwise use a clearly documented Python fallback such as "unknown_scenario"
+- Do NOT omit the scenario field
+
+FILE OUTPUT RULES
+- The code MUST create a folder named:
+  initial_roster
+- All weekly JSON solution files MUST be written inside that folder
+- The weekly files MUST be named exactly:
+  week0.json
+  week1.json
+  week2.json
+  week3.json
+  ...
+- Do NOT use names like Sol-<scenario>-0.json
+- If the instance has N planning weeks, the code must produce exactly N files:
+  initial_roster/week0.json through initial_roster/week(N-1).json
+
+MANDATORY WEEKLY GROUPING LOGIC
+The code MUST:
+- parse each solved assignment day label like W3_Fri
+- extract:
+  - week index
+  - day name
+- group assignments by week
+- sort assignments within each week in a stable readable order, preferably by:
+  1. nurse
+  2. calendar day order Mon..Sun
+  3. shift type
+
+FAIL-SAFE REQUIREMENTS
+
+If the solver returns infeasible or no solution:
+- do NOT fabricate roster files
+- print only one short failure message
+- do NOT print extra debugging info to stdout
+
+FINAL CHECKLIST THE GENERATED CODE MUST SATISFY
+
+Before finalizing the answer, ensure the produced code:
+- uses x[n,d,s,k]
+- defines shift_work, work, off
+- enforces H1 explicitly
+- enforces H2 explicitly
+- enforces H3 explicitly across all consecutive days
+- enforces H3 historical boundary explicitly from lastAssignedShiftType to first day
+- enforces H4 explicitly
+- uses exact-skill coverage counting only
+- models S1 through S7 as penalties
+- uses historical data in consecutive-rule evaluation
+- internally audits H3 after solving
+- reads response1.json
+- exports one INRC2 JSON solution per week
+- maps E/L/N to Early/Late/Night
+- writes only worked assignments into assignments[]
+- creates the folder initial_roster
+- writes files named week0.json, week1.json, week2.json, ...
+- prints only one tiny final message
+- is directly runnable with python solver.py
+- returns only Python code and nothing else
+
+The answer will be rejected if H3 is described in comments but not enforced by actual model.Add(...) constraints.
+
+The code MUST include a dedicated clearly labeled section:
+# H3 Shift Successions (Hard Constraint)
+
+and a dedicated clearly labeled section:
+# H3 Internal Post-Solve Audit
+
+and a dedicated clearly labeled section:
+# INRC2 Weekly Solution Export
+
+NOW PROCESS INPUT
+
+<<<DATA>>>
+{data}

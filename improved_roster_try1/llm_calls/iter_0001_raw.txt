@@ -1,0 +1,243 @@
+[
+  {
+    "bundle_id": 1,
+    "reason": "Reduce Sara max-total-assignments and max-working-weekends penalties while keeping coverage by moving one weekend day from Sara to an OFF qualified nurse.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Sat",
+        "from_nurse": "Sara",
+        "to_nurse": "Stefaan",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 2,
+    "reason": "Reduce Sara max-total-assignments and max-working-weekends penalties while keeping coverage by moving one weekend day from Sara to an OFF qualified nurse.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Sun",
+        "from_nurse": "Sara",
+        "to_nurse": "Stefaan",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 3,
+    "reason": "Reduce Patrick max-working-weekends and help his consecutive-days-off minimum by removing one weekend assignment and giving it to an OFF qualified nurse.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Sat",
+        "from_nurse": "Patrick",
+        "to_nurse": "Stefaan",
+        "shift": "L",
+        "skill": "HeadNurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 4,
+    "reason": "Reduce Patrick max-working-weekends and help his consecutive-days-off minimum by removing one weekend assignment and giving it to an OFF qualified nurse.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W3_Sun",
+        "from_nurse": "Patrick",
+        "to_nurse": "Stefaan",
+        "shift": "L",
+        "skill": "HeadNurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 5,
+    "reason": "Reduce Andrea max-working-weekends and create an OFF day to help her consecutive-days-off minimum by moving a weekend HeadNurse duty to an OFF qualified nurse.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W1_Sun",
+        "from_nurse": "Andrea",
+        "to_nurse": "Stefaan",
+        "shift": "L",
+        "skill": "HeadNurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 6,
+    "reason": "Reduce Andrea max-working-weekends and create an OFF day to help her consecutive-days-off minimum by moving a weekend duty to an OFF qualified nurse.",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W1_Sat",
+        "from_nurse": "Andrea",
+        "to_nurse": "Stefaan",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 7,
+    "reason": "Reduce Sara max-total-assignments and max-working-weekends while also improving Nguyen total-assignments balance by shifting one weekend Late from Sara to Nguyen (OFF that day).",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Sat",
+        "from_nurse": "Sara",
+        "to_nurse": "Nguyen",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 8,
+    "reason": "Reduce Sara max-total-assignments and max-working-weekends while also improving Nguyen total-assignments balance by shifting one weekend Late from Sara to Nguyen (OFF that day).",
+    "moves": [
+      {
+        "type": "reassign",
+        "day": "W4_Sun",
+        "from_nurse": "Sara",
+        "to_nurse": "Nguyen",
+        "shift": "L",
+        "skill": "Nurse"
+      }
+    ]
+  },
+  {
+    "bundle_id": 9,
+    "reason": "Cut optimal-coverage penalty by filling the missing W1_Tue Early Nurse with an OFF qualified nurse, while also increasing Nguyen total assignments toward minimum.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W1_Tue",
+        "shift": "E",
+        "skill": "Nurse",
+        "to_nurse": "Nguyen"
+      }
+    ]
+  },
+  {
+    "bundle_id": 10,
+    "reason": "Cut optimal-coverage penalty by filling the missing W1_Thu Late Nurse with an OFF qualified nurse, while also increasing Stefaan total assignments toward minimum.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W1_Thu",
+        "shift": "L",
+        "skill": "Nurse",
+        "to_nurse": "Stefaan"
+      }
+    ]
+  },
+  {
+    "bundle_id": 11,
+    "reason": "Cut optimal-coverage penalty by filling the missing W1_Fri Night Nurse with an OFF qualified nurse, while also increasing Nguyen total assignments toward minimum.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W1_Fri",
+        "shift": "N",
+        "skill": "Nurse",
+        "to_nurse": "Nguyen"
+      }
+    ]
+  },
+  {
+    "bundle_id": 12,
+    "reason": "Cut optimal-coverage penalty by filling the missing W2_Mon Late Nurse with an OFF qualified nurse, while also increasing Andrea total assignments toward minimum.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W2_Mon",
+        "shift": "L",
+        "skill": "Nurse",
+        "to_nurse": "Andrea"
+      }
+    ]
+  },
+  {
+    "bundle_id": 13,
+    "reason": "Cut optimal-coverage penalty by filling the missing W3_Mon Late Nurse with an OFF qualified nurse, while also increasing Sara total assignments is not desired; instead use Nguyen who is OFF and under-min.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W3_Mon",
+        "shift": "L",
+        "skill": "Nurse",
+        "to_nurse": "Nguyen"
+      }
+    ]
+  },
+  {
+    "bundle_id": 14,
+    "reason": "Cut optimal-coverage penalty by filling the missing W3_Wed Early Nurse with an OFF qualified nurse, while also increasing Nguyen total assignments toward minimum.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W3_Wed",
+        "shift": "E",
+        "skill": "Nurse",
+        "to_nurse": "Nguyen"
+      }
+    ]
+  },
+  {
+    "bundle_id": 15,
+    "reason": "Cut optimal-coverage penalty by filling the missing W3_Wed Night Nurse with an OFF qualified nurse, while also increasing Nguyen total assignments toward minimum.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W3_Wed",
+        "shift": "N",
+        "skill": "Nurse",
+        "to_nurse": "Nguyen"
+      }
+    ]
+  },
+  {
+    "bundle_id": 16,
+    "reason": "Cut optimal-coverage penalty by filling the missing W3_Fri Early Nurse with an OFF qualified nurse, while also increasing Stefaan total assignments toward minimum.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W3_Fri",
+        "shift": "E",
+        "skill": "Nurse",
+        "to_nurse": "Stefaan"
+      }
+    ]
+  },
+  {
+    "bundle_id": 17,
+    "reason": "Cut optimal-coverage penalty by filling the missing W4_Mon Early Nurse (opt=2) with an OFF qualified nurse, while also increasing Sara total assignments is undesirable; use Nguyen who is working that day, so use Stefaan who is working; instead use Sara is OFF that day and qualified.",
+    "moves": [
+      {
+        "type": "coverage_fill",
+        "day": "W4_Mon",
+        "shift": "E",
+        "skill": "Nurse",
+        "to_nurse": "Sara"
+      }
+    ]
+  },
+  {
+    "bundle_id": 18,
+    "reason": "Cut optimal-coverage penalty by filling the missing W4_Tue Late HeadNurse with an OFF qualified HeadNurse (Stefaan is already working; Andrea is already working; Patrick is already working). Use a swap to move HeadNurse qualification onto Late while keeping single-assignment-per-day.",
+    "moves": [
+      {
+        "type": "swap",
+        "day": "W4_Tue",
+        "nurse_a": "Patrick",
+        "nurse_b": "Andrea"
+      }
+    ]
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "type": "block_swap",
+  "nurse_a": "Sara",
+  "nurse_b": "Andrea",
+  "days": [
+    "W1_Mon",
+    "W1_Tue",
+    "W1_Thu",
+    "W1_Sun"
+  ]
+}

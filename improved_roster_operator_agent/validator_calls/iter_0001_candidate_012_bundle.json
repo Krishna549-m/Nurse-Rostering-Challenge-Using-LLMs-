@@ -1,0 +1,19 @@
+{
+  "operator": "reduce_overload",
+  "reason": "Move Nguyen's W2_Wed E/Nurse assignment to underloaded qualified nurse Sara.",
+  "moves": [
+    {
+      "type": "reassign",
+      "day": "W2_Wed",
+      "from_nurse": "Nguyen",
+      "to_nurse": "Sara",
+      "shift": "E",
+      "skill": "Nurse"
+    }
+  ],
+  "meta": {
+    "source": "Nguyen",
+    "target": "Sara",
+    "day": "W2_Wed"
+  }
+}

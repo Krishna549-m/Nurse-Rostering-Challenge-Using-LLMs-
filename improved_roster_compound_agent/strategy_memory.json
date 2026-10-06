@@ -1,0 +1,327 @@
+[
+  {
+    "iteration": 1,
+    "operator": "ruin_recreate_overload",
+    "status": "no_candidates",
+    "strategy": {
+      "operator": "ruin_recreate_overload",
+      "target_nurses": [
+        "Stefaan",
+        "Nguyen",
+        "Sara"
+      ],
+      "target_days": [
+        "W1_Mon",
+        "W1_Tue",
+        "W1_Wed",
+        "W2_Tue",
+        "W2_Wed"
+      ],
+      "reason": "Largest penalty atoms are maximum total assignments for Stefaan and Sara, and workload stats show Stefaan (+7) and Nguyen (+8) are heavily over max_total while Sara is at max_total. Ruin/recreate can remove several assignments from these overloaded nurses and reassign them to reduce total_assignments penalties while also potentially improving coverage gaps.",
+      "avoid": [
+        "Avoid increasing max_working_weekend_cost (Patrick/Sara/Nguyen already exceed max weekends).",
+        "Prefer moving weekday assignments before weekend days unless it also reduces weekend overages."
+      ]
+    },
+    "old_cost": 1915,
+    "new_cost": 1915,
+    "delta": 0
+  },
+  {
+    "iteration": 2,
+    "operator": "weekend_transfer_bundle",
+    "status": "no_improvement",
+    "strategy": {
+      "operator": "weekend_transfer_bundle",
+      "target_nurses": [
+        "Patrick",
+        "Sara",
+        "Nguyen",
+        "Andrea"
+      ],
+      "target_days": [
+        "W1_Sat",
+        "W1_Sun",
+        "W2_Sat",
+        "W2_Sun",
+        "W3_Sat",
+        "W3_Sun",
+        "W4_Sat",
+        "W4_Sun"
+      ],
+      "reason": "max_working_weekend_cost is substantial (210) and multiple nurses exceed max_weekends (Patrick +2, Sara +2, Nguyen +2, Andrea +1). A weekend-focused transfer bundle can directly reduce these penalties and may also relieve consecutive/non-working-day issues by reshaping blocks around weekends. Previous ruin_recreate_overload produced no candidates, so switch to a more targeted operator.",
+      "avoid": [
+        "Avoid increasing total_assignments overload for Stefaan/Nguyen (already far over max_total).",
+        "Prefer transferring whole weekends (Sat+Sun) to keep complete_weekends_cost at 0.",
+        "Try not to worsen optimal_coverage gaps on weekdays when compensating with weekday work."
+      ]
+    },
+    "candidate_count": 6,
+    "old_cost": 1915,
+    "new_cost": 1915,
+    "delta": 0
+  },
+  {
+    "iteration": 3,
+    "operator": "window_rebuild",
+    "status": "no_candidates",
+    "strategy": {
+      "operator": "window_rebuild",
+      "target_nurses": [
+        "Sara",
+        "Stefaan",
+        "Patrick",
+        "Andrea",
+        "Nguyen"
+      ],
+      "target_days": [
+        "W2_Mon",
+        "W2_Tue",
+        "W2_Wed",
+        "W2_Thu",
+        "W2_Fri",
+        "W2_Sat",
+        "W2_Sun"
+      ],
+      "reason": "Consecutive_cost (405) and non_working_days_cost (450) are the largest components, with multiple consecutive-working and consecutive-days-off penalty atoms across several nurses. Previous ruin_recreate_overload had no candidates and weekend_transfer_bundle found no improvement, so rebuilding a full 7-day window (W2) is more likely to reshape work/rest patterns while also potentially reducing weekend overages and coverage gaps.",
+      "avoid": [
+        "Try not to increase max_working_weekend_cost further (Patrick/Sara/Nguyen already exceed max weekends).",
+        "Keep complete weekends intact (Sat+Sun together) to preserve complete_weekends_cost at 0.",
+        "Avoid adding assignments to Stefaan/Nguyen if it worsens their max_total violations."
+      ]
+    },
+    "old_cost": 1915,
+    "new_cost": 1915,
+    "delta": 0
+  },
+  {
+    "iteration": 4,
+    "operator": "block_rotation",
+    "status": "no_improvement",
+    "strategy": {
+      "operator": "block_rotation",
+      "target_nurses": [
+        "Sara",
+        "Stefaan",
+        "Nguyen"
+      ],
+      "target_days": [
+        "W2_Tue",
+        "W2_Wed",
+        "W3_Thu",
+        "W4_Mon"
+      ],
+      "reason": "Previous ruin_recreate_overload and window_rebuild produced no candidates, and weekend_transfer_bundle found no improvement. A block_rotation across 3 nurses over a few days is a stronger structured move that can simultaneously relieve consecutive-working / consecutive-days-off penalties and potentially shift workload away from the most problematic patterns without relying on large rebuilds.",
+      "avoid": [
+        "Avoid increasing max_working_weekend_cost (Patrick/Sara/Nguyen already exceed max weekends).",
+        "Prefer rotating weekday assignments (avoid Sat/Sun) to keep complete_weekends_cost at 0 and not worsen weekend overages.",
+        "Do not add further total assignments to Nguyen (already over max_total) if possible."
+      ]
+    },
+    "candidate_count": 17,
+    "old_cost": 1915,
+    "new_cost": 1915,
+    "delta": 0
+  },
+  {
+    "iteration": 5,
+    "operator": "mixed_compound",
+    "status": "no_improvement",
+    "strategy": {
+      "operator": "mixed_compound",
+      "target_nurses": [
+        "Sara",
+        "Stefaan",
+        "Nguyen",
+        "Patrick",
+        "Andrea"
+      ],
+      "target_days": [
+        "W1_Mon",
+        "W1_Tue",
+        "W1_Wed",
+        "W2_Tue",
+        "W2_Wed",
+        "W3_Thu",
+        "W3_Sun",
+        "W4_Mon"
+      ],
+      "reason": "All specialised operators tried so far either produced no candidates or no improvement. Multiple penalty components are simultaneously high (non_working_days_cost, consecutive_cost, optimal_coverage_cost, and max_working_weekend_cost), with major atoms on total_assignments (Sara/Stefaan) and weekend overages (Patrick/Sara/Nguyen/Andrea). mixed_compound can explore combined bundles (e.g., partial overload relief + local window rebuild + weekend adjustments) to escape the current plateau while still respecting hard constraints.",
+      "avoid": [
+        "Avoid increasing max_working_weekend_cost further (Patrick/Sara/Nguyen/Andrea already exceed max weekends).",
+        "Avoid adding assignments to Nguyen and Stefaan where it worsens their max_total violations.",
+        "Prefer weekday-focused changes unless a weekend move directly reduces weekend overage penalties."
+      ]
+    },
+    "candidate_count": 180,
+    "old_cost": 1915,
+    "new_cost": 1915,
+    "delta": 0
+  },
+  {
+    "iteration": 6,
+    "operator": "random_compound",
+    "status": "no_improvement",
+    "strategy": {
+      "operator": "random_compound",
+      "target_nurses": [
+        "Sara",
+        "Stefaan",
+        "Nguyen",
+        "Patrick",
+        "Andrea"
+      ],
+      "target_days": [
+        "W1_Mon",
+        "W1_Tue",
+        "W1_Wed",
+        "W2_Tue",
+        "W2_Wed",
+        "W3_Thu",
+        "W3_Sun",
+        "W4_Mon"
+      ],
+      "reason": "We are on a clear plateau: ruin_recreate_overload and window_rebuild produced no candidates, and weekend_transfer_bundle/block_rotation/mixed_compound produced no improvement despite many candidates. Use random_compound to escape the local optimum by exploring less-structured multi-move bundles that can simultaneously perturb consecutive/non-working-day patterns and weekend/coverage interactions while keeping hard constraints satisfied.",
+      "avoid": [
+        "Avoid increasing max_working_weekend_cost further (Patrick/Sara/Nguyen/Andrea already exceed max weekends).",
+        "Avoid adding assignments to Nguyen and Stefaan where it worsens their max_total violations.",
+        "Prefer weekday-focused perturbations unless a weekend move directly reduces weekend overage penalties."
+      ]
+    },
+    "candidate_count": 180,
+    "old_cost": 1915,
+    "new_cost": 1915,
+    "delta": 0
+  },
+  {
+    "iteration": 7,
+    "operator": "window_rebuild",
+    "status": "no_candidates",
+    "strategy": {
+      "operator": "window_rebuild",
+      "target_nurses": [
+        "Sara",
+        "Stefaan",
+        "Patrick",
+        "Andrea",
+        "Nguyen"
+      ],
+      "target_days": [
+        "W3_Mon",
+        "W3_Tue",
+        "W3_Wed",
+        "W3_Thu",
+        "W3_Fri",
+        "W3_Sat",
+        "W3_Sun"
+      ],
+      "reason": "Largest remaining cost components are non_working_days_cost (450) and consecutive_cost (405), with multiple consecutive-days-off and consecutive-working penalties clustered around W3 (e.g., Sara W3_Sun/W3_Mon, Stefaan W3_Thu, Patrick W3_Wed). After broad mixed/random attempts failed to improve, a focused 7-day rebuild on W3 can reshape work/rest blocks and potentially reduce weekend overages without relying on the previously unproductive overload/weekend-only operators.",
+      "avoid": [
+        "Avoid increasing max_working_weekend_cost further (Patrick/Sara/Nguyen/Andrea already exceed max weekends).",
+        "Keep Sat+Sun together to preserve complete_weekends_cost at 0.",
+        "Do not add assignments to Stefaan or Nguyen in a way that worsens their max_total violations."
+      ]
+    },
+    "old_cost": 1915,
+    "new_cost": 1915,
+    "delta": 0
+  },
+  {
+    "iteration": 8,
+    "operator": "ruin_recreate_overload",
+    "status": "no_improvement",
+    "strategy": {
+      "operator": "ruin_recreate_overload",
+      "target_nurses": [
+        "Stefaan",
+        "Nguyen"
+      ],
+      "target_days": [
+        "W1_Wed",
+        "W1_Thu",
+        "W1_Fri",
+        "W4_Mon",
+        "W4_Tue",
+        "W4_Wed",
+        "W4_Thu"
+      ],
+      "reason": "Stefaan (+7) and Nguyen (+8) are heavily over max_total, and total_assignment_cost is driven by max total assignments penalties. Previous overload attempt returned no candidates when including Sara and earlier-week days; refocus ruin/recreate on the most over-max nurses and on weekday-heavy spans (W1 midweek and W4 Mon-Thu) to create feasible removal/reassignment bundles while also potentially improving optimal coverage gaps.",
+      "avoid": [
+        "Avoid moving/creating weekend (Sat/Sun) assignments unless it directly reduces max_working_weekend_cost.",
+        "Do not add any assignments to Stefaan or Nguyen (already over max_total).",
+        "Try not to worsen optimal_coverage shortages on W1_Tue (E) and W4_Mon (E/N)."
+      ]
+    },
+    "candidate_count": 15,
+    "old_cost": 1915,
+    "new_cost": 1915,
+    "delta": 0
+  },
+  {
+    "iteration": 9,
+    "operator": "weekend_transfer_bundle",
+    "status": "no_improvement",
+    "strategy": {
+      "operator": "weekend_transfer_bundle",
+      "target_nurses": [
+        "Patrick",
+        "Sara",
+        "Nguyen",
+        "Andrea"
+      ],
+      "target_days": [
+        "W1_Sat",
+        "W1_Sun",
+        "W2_Sat",
+        "W2_Sun",
+        "W3_Sat",
+        "W3_Sun",
+        "W4_Sat",
+        "W4_Sun"
+      ],
+      "reason": "max_working_weekend_cost (210) remains a major cost driver and multiple nurses are over max_weekends (Patrick +2, Sara +2, Nguyen +2, Andrea +1). Other operators have repeatedly produced no candidates or no improvement; a renewed weekend-focused bundle is the most direct way to cut this penalty and may also ease consecutive/non-working-day patterns by reshaping weekend blocks.",
+      "avoid": [
+        "Keep weekends complete (move Sat+Sun together) to preserve complete_weekends_cost at 0.",
+        "Avoid adding assignments to Stefaan or Nguyen (both are far over max_total).",
+        "Avoid worsening optimal_coverage shortages on W1_Tue (E) and W4_Mon (E/N)."
+      ]
+    },
+    "candidate_count": 6,
+    "old_cost": 1915,
+    "new_cost": 1915,
+    "delta": 0
+  },
+  {
+    "iteration": 10,
+    "operator": "window_rebuild",
+    "status": "no_improvement",
+    "strategy": {
+      "operator": "window_rebuild",
+      "target_nurses": [
+        "Sara",
+        "Patrick",
+        "Andrea",
+        "Nguyen"
+      ],
+      "target_days": [
+        "W1_Mon",
+        "W1_Tue",
+        "W1_Wed",
+        "W1_Thu",
+        "W1_Fri",
+        "W1_Sat",
+        "W1_Sun"
+      ],
+      "reason": "We remain on a cost plateau after attempts on W2 and W3 windows and multiple weekend/overload-focused bundles. The biggest remaining components are non_working_days_cost (450) and consecutive_cost (405), and W1 contains several high-impact atoms (Sara/Stefaan max total assignments flagged at W1_Mon, Andrea consecutive-working at W1_Wed, plus early optimal-coverage gaps on W1_Tue/W1_Thu/W1_Fri). Rebuilding W1 for the main weekend-over nurses (excluding Stefaan to avoid worsening his max_total violation) is the best chance to reshape work/rest blocks and weekend structure while also addressing early-week coverage shortages.",
+      "avoid": [
+        "Do not add assignments to Stefaan (already far over max_total).",
+        "Try to reduce (not increase) max_working_weekend_cost by keeping Sat+Sun paired and, if possible, moving a full weekend off an over-weekend nurse.",
+        "Avoid worsening optimal_coverage shortages on W1_Tue (E), W1_Thu (L), and W1_Fri (N)."
+      ]
+    },
+    "candidate_count": 1,
+    "old_cost": 1915,
+    "new_cost": 1915,
+    "delta": 0
+  }
+]

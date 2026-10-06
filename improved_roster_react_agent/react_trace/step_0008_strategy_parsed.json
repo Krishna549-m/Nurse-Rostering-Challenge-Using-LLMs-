@@ -1,0 +1,10 @@
+{
+  "thought": "Hard constraints are currently satisfied, but soft penalties are dominated by consecutive_cost and non_working_days_cost, with significant weekend overages and some max_total issues (notably Stefaan/Nguyen over max_total, Patrick/Sara over max_weekends). Recent block_swap and swap attempts frequently introduced illegal_succession, and reassign attempts did not find improvements. We should explore a broader set while biasing away from successions that trigger illegal_succession and away from adding work to already over-max nurses.",
+  "strategy": {
+    "neighborhood": "mixed",
+    "target_penalty": "consecutive_cost",
+    "reason": "Mixed search can combine safer single-day swaps/reassigns with selective block moves to reduce consecutive work/off violations and weekend overages simultaneously; this is appropriate after repeated non-improving attempts with swap/block_swap/reassign alone and frequent illegal_succession in block patterns.",
+    "avoid": "Avoid block_swap patterns that previously caused illegal_succession spikes and avoid coverage_fill that increases assignments for already over-max nurses (especially Stefaan/Nguyen) or increases working weekends for Patrick/Sara/Nguyen.",
+    "max_candidates": 100
+  }
+}

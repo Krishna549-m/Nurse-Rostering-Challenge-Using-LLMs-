@@ -1,0 +1,205 @@
+Solver status: FEASIBLE
+Objective value: 1670.0
+
+W1_Mon:
+  Patrick: N / Nurse
+  Andrea: L / Nurse
+  Stefaan: L / HeadNurse
+  Sara: OFF
+  Nguyen: E / Nurse
+
+W1_Tue:
+  Patrick: N / Nurse
+  Andrea: L / Nurse
+  Stefaan: E / HeadNurse
+  Sara: OFF
+  Nguyen: E / Nurse
+
+W1_Wed:
+  Patrick: N / HeadNurse
+  Andrea: OFF
+  Stefaan: E / Nurse
+  Sara: L / Nurse
+  Nguyen: N / Nurse
+
+W1_Thu:
+  Patrick: OFF
+  Andrea: OFF
+  Stefaan: E / Nurse
+  Sara: L / Nurse
+  Nguyen: N / Nurse
+
+W1_Fri:
+  Patrick: OFF
+  Andrea: E / HeadNurse
+  Stefaan: E / Nurse
+  Sara: L / Nurse
+  Nguyen: OFF
+
+W1_Sat:
+  Patrick: L / Nurse
+  Andrea: N / HeadNurse
+  Stefaan: OFF
+  Sara: E / Nurse
+  Nguyen: N / Nurse
+
+W1_Sun:
+  Patrick: L / HeadNurse
+  Andrea: N / HeadNurse
+  Stefaan: L / Nurse
+  Sara: E / Nurse
+  Nguyen: N / Nurse
+
+W2_Mon:
+  Patrick: E / Nurse
+  Andrea: N / HeadNurse
+  Stefaan: L / Nurse
+  Sara: OFF
+  Nguyen: N / Nurse
+
+W2_Tue:
+  Patrick: L / Nurse
+  Andrea: N / HeadNurse
+  Stefaan: L / HeadNurse
+  Sara: E / Nurse
+  Nguyen: N / Nurse
+
+W2_Wed:
+  Patrick: L / HeadNurse
+  Andrea: OFF
+  Stefaan: E / Nurse
+  Sara: L / Nurse
+  Nguyen: N / Nurse
+
+W2_Thu:
+  Patrick: OFF
+  Andrea: N / Nurse
+  Stefaan: E / Nurse
+  Sara: L / Nurse
+  Nguyen: OFF
+
+W2_Fri:
+  Patrick: E / Nurse
+  Andrea: N / Nurse
+  Stefaan: OFF
+  Sara: L / Nurse
+  Nguyen: OFF
+
+W2_Sat:
+  Patrick: E / Nurse
+  Andrea: N / HeadNurse
+  Stefaan: OFF
+  Sara: OFF
+  Nguyen: N / Nurse
+
+W2_Sun:
+  Patrick: L / Nurse
+  Andrea: N / HeadNurse
+  Stefaan: OFF
+  Sara: E / Nurse
+  Nguyen: N / Nurse
+
+W3_Mon:
+  Patrick: L / HeadNurse
+  Andrea: OFF
+  Stefaan: N / HeadNurse
+  Sara: E / Nurse
+  Nguyen: N / Nurse
+
+W3_Tue:
+  Patrick: L / Nurse
+  Andrea: OFF
+  Stefaan: N / Nurse
+  Sara: E / Nurse
+  Nguyen: N / Nurse
+
+W3_Wed:
+  Patrick: OFF
+  Andrea: E / HeadNurse
+  Stefaan: N / HeadNurse
+  Sara: L / Nurse
+  Nguyen: N / Nurse
+
+W3_Thu:
+  Patrick: OFF
+  Andrea: E / Nurse
+  Stefaan: N / HeadNurse
+  Sara: L / Nurse
+  Nguyen: N / Nurse
+
+W3_Fri:
+  Patrick: E / HeadNurse
+  Andrea: L / Nurse
+  Stefaan: OFF
+  Sara: OFF
+  Nguyen: OFF
+
+W3_Sat:
+  Patrick: E / Nurse
+  Andrea: L / HeadNurse
+  Stefaan: N / Nurse
+  Sara: L / Nurse
+  Nguyen: OFF
+
+W3_Sun:
+  Patrick: L / HeadNurse
+  Andrea: E / Nurse
+  Stefaan: N / Nurse
+  Sara: L / Nurse
+  Nguyen: OFF
+
+W4_Mon:
+  Patrick: L / HeadNurse
+  Andrea: E / HeadNurse
+  Stefaan: N / Nurse
+  Sara: L / Nurse
+  Nguyen: E / Nurse
+
+W4_Tue:
+  Patrick: L / Nurse
+  Andrea: OFF
+  Stefaan: N / HeadNurse
+  Sara: E / Nurse
+  Nguyen: N / Nurse
+
+W4_Wed:
+  Patrick: OFF
+  Andrea: L / HeadNurse
+  Stefaan: OFF
+  Sara: E / Nurse
+  Nguyen: N / Nurse
+
+W4_Thu:
+  Patrick: OFF
+  Andrea: L / Nurse
+  Stefaan: OFF
+  Sara: OFF
+  Nguyen: N / Nurse
+
+W4_Fri:
+  Patrick: N / HeadNurse
+  Andrea: E / Nurse
+  Stefaan: OFF
+  Sara: L / Nurse
+  Nguyen: N / Nurse
+
+W4_Sat:
+  Patrick: N / HeadNurse
+  Andrea: E / HeadNurse
+  Stefaan: E / Nurse
+  Sara: L / Nurse
+  Nguyen: OFF
+
+W4_Sun:
+  Patrick: N / Nurse
+  Andrea: L / Nurse
+  Stefaan: E / Nurse
+  Sara: L / Nurse
+  Nguyen: OFF
+
+Summary:
+  Patrick: total_assignments=21, under_total=0, over_total=0, total_working_weekends=4, excess_weekends=2
+  Andrea: total_assignments=22, under_total=0, over_total=0, total_working_weekends=4, excess_weekends=2
+  Stefaan: total_assignments=20, under_total=0, over_total=9, total_working_weekends=3, excess_weekends=1
+  Sara: total_assignments=22, under_total=0, over_total=0, total_working_weekends=4, excess_weekends=2
+  Nguyen: total_assignments=20, under_total=0, over_total=9, total_working_weekends=2, excess_weekends=0

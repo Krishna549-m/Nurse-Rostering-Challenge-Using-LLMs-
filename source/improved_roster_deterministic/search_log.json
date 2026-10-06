@@ -1,0 +1,41 @@
+{
+  "initial_total_cost": 1835,
+  "best_total_cost": 1805,
+  "iterations": [
+    {
+      "iteration": 1,
+      "status": "improved",
+      "accepted_bundle_id": 641,
+      "accepted_bundle_reason": "deterministic single add-assignment candidate",
+      "old_cost": 1835,
+      "new_cost": 1805,
+      "delta": -30,
+      "changes": [
+        "W1_Sat: Nguyen OFF -> E/Nurse"
+      ],
+      "accepted_bundle": {
+        "bundle_id": 641,
+        "reason": "deterministic single add-assignment candidate",
+        "moves": [
+          {
+            "type": "add_assignment",
+            "day": "W1_Sat",
+            "nurse": "Nguyen",
+            "shift": "E",
+            "skill": "Nurse"
+          }
+        ]
+      }
+    },
+    {
+      "iteration": 2,
+      "status": "no_improving_single_move_found",
+      "accepted_bundle_id": null,
+      "old_cost": 1805,
+      "new_cost": 1805,
+      "delta": 0,
+      "changes": []
+    }
+  ],
+  "total_validator_calls": 1323
+}

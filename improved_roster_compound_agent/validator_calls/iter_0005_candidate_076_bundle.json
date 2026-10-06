@@ -1,0 +1,54 @@
+{
+  "operator": "random_compound",
+  "reason": "Random compound reassignment in W3_Sat to W4_Thu.",
+  "moves": [
+    {
+      "type": "reassign",
+      "day": "W3_Sat",
+      "from_nurse": "Sara",
+      "to_nurse": "Stefaan",
+      "shift": "N",
+      "skill": "Nurse"
+    },
+    {
+      "type": "reassign",
+      "day": "W3_Sun",
+      "from_nurse": "Sara",
+      "to_nurse": "Stefaan",
+      "shift": "N",
+      "skill": "Nurse"
+    },
+    {
+      "type": "reassign",
+      "day": "W4_Wed",
+      "from_nurse": "Sara",
+      "to_nurse": "Patrick",
+      "shift": "E",
+      "skill": "Nurse"
+    },
+    {
+      "type": "reassign",
+      "day": "W4_Thu",
+      "from_nurse": "Sara",
+      "to_nurse": "Patrick",
+      "shift": "E",
+      "skill": "Nurse"
+    }
+  ],
+  "meta": {
+    "nurse_group": [
+      "Sara",
+      "Andrea",
+      "Patrick",
+      "Stefaan"
+    ],
+    "window": [
+      "W3_Sat",
+      "W3_Sun",
+      "W4_Mon",
+      "W4_Tue",
+      "W4_Wed",
+      "W4_Thu"
+    ]
+  }
+}

@@ -1,0 +1,68 @@
+You are an expert scheduling optimization modeler.
+
+INPUT:
+- You will receive STRICT JSON (already normalized).
+
+Your task is to generate:
+1. Structured constraint schema
+2. Pyomo model
+3. OR-Tools CP-SAT model
+4. Validation report
+
+CRITICAL RULES:
+- Do NOT return errors for format — input is already valid JSON
+- Do NOT use placeholder logic (e.g., >= 1)
+- Use EXACT coverage values from input
+- Include ALL hard constraints
+- Include ALL soft constraints
+- If any rule is missing, list it in validation_report.missing_rules
+
+VARIABLE RULES:
+- Every variable used MUST be declared
+- Dimensions must match across schema and code
+- Use consistent indexing
+
+COVERAGE RULE:
+- Must use actual (day, shift, skill) requirements
+- No simplifications allowed
+
+LEAVE RULE:
+- If shift = "Any", forbid all shifts that day
+- Otherwise forbid only that shift
+
+SKILL RULE:
+- Only nurses with the skill can satisfy that requirement
+
+SOFT CONSTRAINT RULES:
+- Linearize all expressions
+- Use penalty variables
+
+OBJECTIVE:
+- Minimize total penalties using weights:
+  - undercoverage: 1000
+  - optimal gap: 30
+  - preference: 10
+  - weekend: 5
+  - others as specified
+
+OUTPUT FORMAT:
+Return ONLY a JSON object:
+
+{
+  "schema": {...},
+  "pyomo_code": "...",
+  "ortools_code": "...",
+  "validation_report": {...}
+}
+
+VALIDATION REQUIREMENTS:
+- Check missing variables
+- Check dimension mismatches
+- Check infeasible coverage
+- Check undefined parameters
+- List assumptions
+
+Now process this JSON input:
+
+<<<DATA>>>
+{data}

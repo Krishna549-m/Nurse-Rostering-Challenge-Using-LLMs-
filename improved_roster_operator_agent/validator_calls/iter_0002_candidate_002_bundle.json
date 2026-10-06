@@ -1,0 +1,19 @@
+{
+  "operator": "repair_optimal_coverage",
+  "reason": "Fill optimal coverage shortage on W1_Tue E/Nurse with Nguyen.",
+  "moves": [
+    {
+      "type": "coverage_fill",
+      "day": "W1_Tue",
+      "shift": "E",
+      "skill": "Nurse",
+      "to_nurse": "Nguyen"
+    }
+  ],
+  "meta": {
+    "target_day": "W1_Tue",
+    "shift": "E",
+    "skill": "Nurse",
+    "nurse": "Nguyen"
+  }
+}

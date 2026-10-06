@@ -1,0 +1,25 @@
+{
+  "operator": "weekend_transfer_bundle",
+  "target_nurses": [
+    "Patrick",
+    "Sara",
+    "Nguyen",
+    "Andrea"
+  ],
+  "target_days": [
+    "W1_Sat",
+    "W1_Sun",
+    "W2_Sat",
+    "W2_Sun",
+    "W3_Sat",
+    "W3_Sun",
+    "W4_Sat",
+    "W4_Sun"
+  ],
+  "reason": "max_working_weekend_cost (210) remains a major cost driver and multiple nurses are over max_weekends (Patrick +2, Sara +2, Nguyen +2, Andrea +1). Other operators have repeatedly produced no candidates or no improvement; a renewed weekend-focused bundle is the most direct way to cut this penalty and may also ease consecutive/non-working-day patterns by reshaping weekend blocks.",
+  "avoid": [
+    "Keep weekends complete (move Sat+Sun together) to preserve complete_weekends_cost at 0.",
+    "Avoid adding assignments to Stefaan or Nguyen (both are far over max_total).",
+    "Avoid worsening optimal_coverage shortages on W1_Tue (E) and W4_Mon (E/N)."
+  ]
+}
